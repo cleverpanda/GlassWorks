@@ -1,0 +1,26 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "builtin/generated",
+    "transform": "forge:default-item"
+  },
+  "variants": {
+    "type": {
+      "glassmolten": {
+        "textures": {
+          "layer0": "glassworks:items/molten_glass"
+        }
+      },
+      "crystalglassmolten": {
+        "textures": {
+          "layer0": "glassworks:items/molten_glass_cool"
+        }
+      },
+	"obsidianglassmolten": {
+        "textures": {
+          "layer0": "glassworks:items/molten_glass"
+        }
+      }
+    }
+  }
+}

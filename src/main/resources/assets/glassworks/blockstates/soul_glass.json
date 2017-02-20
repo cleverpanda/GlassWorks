@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "ison=false": { "model": "glassworks:soul_glass" },
+	"ison=true": { "model": "glassworks:soul_glass_powered" }
+    }
+}

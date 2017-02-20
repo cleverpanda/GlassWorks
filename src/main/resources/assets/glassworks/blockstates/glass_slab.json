@@ -1,0 +1,9 @@
+{
+    "variants": {
+        "half=bottom,variant=default": { "model": "glassworks:half_slab_glass" },
+
+        "half=top,variant=default": { "model": "glassworks:upper_slab_glass" }
+
+
+    }
+}

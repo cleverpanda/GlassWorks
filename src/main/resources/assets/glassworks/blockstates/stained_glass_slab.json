@@ -1,0 +1,31 @@
+{
+    "variants": {
+        "half=bottom,variant=white": { "model": "glassworks:half_slab_glass_white" },
+
+        "half=top,variant=white": { "model": "glassworks:upper_slab_glass_white" },
+	"half=bottom,variant=orange": { "model": "glassworks:half_slab_glass_orange" },
+
+        "half=top,variant=orange": { "model": "glassworks:upper_slab_glass_orange" },
+	"half=bottom,variant=magenta": { "model": "glassworks:half_slab_glass_magenta" },
+
+        "half=top,variant=magenta": { "model": "glassworks:upper_slab_glass_magenta" },
+	"half=bottom,variant=light_blue": { "model": "glassworks:half_slab_glass_light_blue" },
+
+        "half=top,variant=light_blue": { "model": "glassworks:upper_slab_glass_light_blue" },
+	"half=bottom,variant=yellow": { "model": "glassworks:half_slab_glass_yellow" },
+
+        "half=top,variant=yellow": { "model": "glassworks:upper_slab_glass_yellow" },
+	"half=bottom,variant=lime": { "model": "glassworks:half_slab_glass_lime" },
+
+        "half=top,variant=lime": { "model": "glassworks:upper_slab_glass_lime" },
+	"half=bottom,variant=pink": { "model": "glassworks:half_slab_glass_pink" },
+
+        "half=top,variant=pink": { "model": "glassworks:upper_slab_glass_pink" },
+	"half=bottom,variant=gray": { "model": "glassworks:half_slab_glass_gray" },
+
+        "half=top,variant=gray": { "model": "glassworks:upper_slab_glass_gray" },
+	"half=bottom,variant=silver": { "model": "glassworks:half_slab_glass_silver" },
+
+        "half=top,variant=silver": { "model": "glassworks:upper_slab_glass_silver" }
+    }
+}

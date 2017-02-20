@@ -1,0 +1,27 @@
+{
+
+  "forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"lantern": "glassworks:models/oil_lantern",
+			"bars": "minecraft:blocks/planks_oak",
+			"particle": "minecraft:blocks/iron_bars"
+		}
+	},  
+	"variants": {
+
+        "facing=up": {"model": "glassworks:oil_lantern_default" },
+
+	"facing=down": {"model": "glassworks:oil_lantern_hanging" },
+
+        "facing=east": {"model": "glassworks:oil_lantern_wall", "y": 270  },
+
+        "facing=south": { "model": "glassworks:oil_lantern_wall" },
+
+        "facing=west": { "model": "glassworks:oil_lantern_wall", "y": 90 },
+
+        "facing=north": { "model": "glassworks:oil_lantern_wall", "y": 180  }
+
+    }
+
+}

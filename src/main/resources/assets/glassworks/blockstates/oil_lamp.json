@@ -1,0 +1,25 @@
+{
+
+  "forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"lamp": "glassworks:models/oil_lamp",
+			"gold": "minecraft:blocks/gold_block",
+			"particle": "minecraft:blocks/glass"
+		}
+	},  
+	"variants": {
+
+        "facing=up": {"model": "glassworks:oil_lamp_default" },
+
+        "facing=east": {"model": "glassworks:oil_lamp_default", "y": 270  },
+
+        "facing=south": { "model": "glassworks:oil_lamp_default" },
+
+        "facing=west": { "model": "glassworks:oil_lamp_default", "y": 90 },
+
+        "facing=north": { "model": "glassworks:oil_lamp_default", "y": 180  }
+
+    }
+
+}

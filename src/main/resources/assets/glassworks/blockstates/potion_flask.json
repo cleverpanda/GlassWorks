@@ -1,0 +1,43 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "builtin/generated",
+    "transform": "forge:default-item"
+  },
+  "variants": {
+    "dose": {
+      "4": {
+        "textures": {
+          "layer0": "glassworks:items/flask_overlay_0",
+
+          "layer1": "glassworks:items/potion_flask"
+
+        }
+      },
+      "3": {
+        "textures": {
+          "layer0": "glassworks:items/flask_overlay_1",
+
+          "layer1": "glassworks:items/potion_flask"
+
+        }
+      },
+	"2": {
+        "textures": {
+          "layer0": "glassworks:items/flask_overlay_2",
+
+          "layer1": "glassworks:items/potion_flask"
+
+        }
+      },
+	"1": {
+        "textures": {
+          "layer0": "glassworks:items/flask_overlay_3",
+
+          "layer1": "glassworks:items/potion_flask"
+
+        }
+      }
+    }
+  }
+}
