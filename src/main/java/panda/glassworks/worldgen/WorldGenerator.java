@@ -67,7 +67,7 @@ public class WorldGenerator implements IWorldGenerator{
 		if(world.provider.getDimension() == 0){
 
 			// get the biome
-			Biome biome = world.getBiomeGenForCoords(new BlockPos(chunkX*16, 64, chunkZ*16));
+			Biome biome = world.getBiome(new BlockPos(chunkX*16, 64, chunkZ*16));
 
 			
 			if(biome instanceof BiomeSwamp)

@@ -31,7 +31,7 @@ public class ItemBlowpipe extends Item{
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn,World world, EntityPlayer player, EnumHand hand) {
-		if (!world.isRemote) {
+		if (!world.isRemote && hand == EnumHand.MAIN_HAND) {
 			player.openGui(GlassWorks.INSTANCE, BlowpipeGuiHandler.BLOWPIPE_GUI, world, (int)player.posX, (int)player.posY, (int)player.posZ);
 	    }
 		return super.onItemRightClick(itemStackIn, world, player, hand);

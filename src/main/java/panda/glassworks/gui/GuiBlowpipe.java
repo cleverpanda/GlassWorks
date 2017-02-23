@@ -1,31 +1,24 @@
 package panda.glassworks.gui;
 
-import io.netty.buffer.Unpooled;
-
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
-
-import com.google.common.collect.Lists;
-
-import panda.glassworks.init.Recipes;
 import panda.glassworks.util.GlassBlowingRecipes;
+import panda.glassworks.util.GlassResultStack;
+import panda.glassworks.util.Message;
+import panda.glassworks.util.Network;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiMerchant;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.ContainerMerchant;
-import net.minecraft.inventory.ContainerWorkbench;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.play.client.CPacketCustomPayload;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -39,15 +32,19 @@ public class GuiBlowpipe extends GuiContainer
     private GuiBlowpipe.Button nextButton;
     /** Returns to the previous Merchant recipe if one is applicable. */
     private GuiBlowpipe.Button previousButton;
+    private ContainerBlowpipe container;
     
-    private int selectedRecipe;
+    
+    private GlassBlowingRecipes RECIPES = GlassBlowingRecipes.instance();
+    
+    private int selector = 0;
     
     public GuiBlowpipe(InventoryPlayer playerInv, World worldIn)
     {
         this(playerInv, worldIn, BlockPos.ORIGIN);
         
     }
-
+    
     @Override
 	public void initGui() {
 		super.initGui();
@@ -66,34 +63,26 @@ public class GuiBlowpipe extends GuiContainer
         this.ySize = 140;
         this.guiLeft = Math.abs((this.width - this.xSize) / 2);
         this.guiTop = Math.abs((this.height - this.ySize) / 2);
-        this.selectedRecipe = 0;
-            
+        container = ((ContainerBlowpipe)this.inventorySlots);
     }
 
 	@Override
 	public void updateScreen() {
 		super.updateScreen();
 		
-		if(hasInput()){
-			List<ItemStack> recipelist = GlassBlowingRecipes.getGlassBlowingResultList(inputStack());
+		if(((ContainerBlowpipe) inventorySlots).hasInput()){
+			List<GlassResultStack> recipelist = RECIPES.getBlowingResults(inputStack());
 			if (recipelist != null)
 	        {
-				this.nextButton.enabled = this.selectedRecipe < recipelist.size()-1;
-		        this.previousButton.enabled = this.selectedRecipe > 0;
+				this.nextButton.enabled = recipelist.size() != selector + 1;
+		        this.previousButton.enabled = selector > 0;
 	        }
-		}else{
+		}
+		else if(!((ContainerBlowpipe) inventorySlots).hasInput()){
 			this.nextButton.enabled = false;
         	this.previousButton.enabled = false;
-        	this.selectedRecipe = 0;
 			
 		}
-		
-        
-        ((ContainerBlowpipe)this.inventorySlots).onCraftMatrixChanged();
-	}
-	
-	boolean hasInput(){
-		return ((ContainerBlowpipe)this.inventorySlots).getInventory().get(0) != null;
 	}
 	
 	ItemStack inputStack(){
@@ -118,43 +107,53 @@ public class GuiBlowpipe extends GuiContainer
         if (button.id ==1)
         {
  
-            if(hasInput()){
+            if(((ContainerBlowpipe) inventorySlots).hasInput()){
             	
-            	++this.selectedRecipe;
+            	++selector;
     			
-            	List<ItemStack> recipelist = GlassBlowingRecipes.getGlassBlowingResultList(inputStack());
-    			if (recipelist != null )
+            	List<GlassResultStack> recipelist = RECIPES.getBlowingResults(inputStack());
+    			if (recipelist != null)
     	        {
-    				if(!recipelist.isEmpty()){
-    					
-    					if(this.selectedRecipe > GlassBlowingRecipes.getGlassBlowingResultList(inputStack()).size()-1){
-    						this.selectedRecipe = GlassBlowingRecipes.getGlassBlowingResultList(inputStack()).size();
-    					}
-    				}				
+    					if(selector > RECIPES.getBlowingResults(inputStack()).size() - 1){
+    						selector = RECIPES.getBlowingResults(inputStack()).size() - 1;
+    					}			
     	        }
-    		}else{
-    			this.selectedRecipe = 0;
+            else{
+            	selector = 0;
+    			System.out.println("Else has been called, setting index to 0");
     		}
-
+            }
         }
         else if (button.id ==2)
         {
-        	if(hasInput()){
-        		--this.selectedRecipe;
-        		if (this.selectedRecipe < 0)
+        	if(((ContainerBlowpipe) inventorySlots).hasInput()){
+        		--selector;
+        		if (selector < 0)
                 {
-                    this.selectedRecipe = 0;
+        			selector = 0;
                 }
-        	}else{
-        		this.selectedRecipe = 0;
+        	}
+        	else{
+        		selector = 0;
         	}
             //System.out.println("BOTTOM BUTTON PRESSED");
-
         }
-        System.out.println(selectedRecipe);
-
-        ((ContainerBlowpipe)this.inventorySlots).setCurrentRecipeIndex(this.selectedRecipe);
-       
+        Network.INSTANCE.sendToServer(new Message(selector));
+        container.forceUpdateSelector(selector);
+    }
+	
+	public int getSelector(){
+		return selector;
+	}
+	
+    public void onGuiClosed()
+    {
+        if (this.mc.thePlayer != null)
+        {
+            this.inventorySlots.onContainerClosed(this.mc.thePlayer);
+        }
+        selector = 0;
+        Network.INSTANCE.sendToServer(new Message(selector));
     }
 
 	/**

@@ -4,129 +4,95 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.annotation.Nullable;
-
 import panda.glassworks.init.GlassItems;
-
-import com.google.common.collect.Maps;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockStoneBrick;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 
 public class GlassBlowingRecipes {
 	
-	private static Map<ItemStack, ItemStack> glassrecipeList = Maps.<ItemStack, ItemStack>newHashMap();
-	private static final GlassBlowingRecipes BLOWING_BASE = new GlassBlowingRecipes();
+	private Map<Item, List<GlassResultStack>> glassMultiList = new HashMap<Item, List<GlassResultStack>>();
+	private static final GlassBlowingRecipes INSTANCE = new GlassBlowingRecipes();
 
 
     public static GlassBlowingRecipes instance()
     {
-        return BLOWING_BASE;
-    }
-
-    public static void InitGlassBlowingRecipes()
-    {
-
-        addGlassBlowingRecipe( new ItemStack(GlassItems.MOLTEN_GLASS,1,0), new ItemStack(GlassItems.BOTTLE_UNFINISHED,1));
-        addGlassBlowingRecipe( new ItemStack(GlassItems.MOLTEN_GLASS,1,0), new ItemStack(GlassItems.GLASS_LAMP,1));
-        addGlassBlowingRecipe( new ItemStack(GlassItems.MOLTEN_GLASS,2,0), new ItemStack(GlassItems.GLASS_LENS,1));
-        addGlassBlowingRecipe( new ItemStack(GlassItems.MOLTEN_GLASS,2,0), new ItemStack(GlassItems.GLASS_BOWL,1));
-        addGlassBlowingRecipe( new ItemStack(GlassItems.MOLTEN_GLASS,1,0), new ItemStack(GlassItems.GLASS_BULB,1));
-        addGlassBlowingRecipe( new ItemStack(GlassItems.MOLTEN_GLASS,2,1), new ItemStack(GlassItems.CRYSTAL_FLASK_UNFINISHED,1));
-    }
-
-
-    /**
-     * Adds a smelting recipe, where the input item is an instance of Block.
-     */
-    public void addSmeltingRecipeForBlock(Block input, ItemStack stack)
-    {
-        this.addGlassBlowing(Item.getItemFromBlock(input), stack);
-    }
-
-    /**
-     * Adds a smelting recipe using an Item as the input item.
-     */
-    public void addGlassBlowing(Item input, ItemStack stack)
-    {
-        this.addGlassBlowingRecipe(new ItemStack(input, 1, 32767), stack);
-    }
-
-    /**
-     * Adds a smelting recipe using an ItemStack as the input for the recipe.
-     */
-    public static void addGlassBlowingRecipe(ItemStack input, ItemStack stack)
-    {
-        //if (getGlassBlowingResult(input) != null){
-        //		net.minecraftforge.fml.common.FMLLog.info("Ignored glass blowing recipe with conflicting input: " + input + " = " + stack);
-        //	return;
-        //}
-        
-        glassrecipeList.put(input, stack);
-    }
-
-    /**
-     * Returns the smelting result of an item.
-     */
-    @Nullable
-    public ItemStack getGlassBlowingResult(ItemStack stack)
-    {
-        for (Entry<ItemStack, ItemStack> entry : this.glassrecipeList.entrySet())
-        {
-            if (this.compareItemStacks(stack, (ItemStack)entry.getKey()))
-            {
-                return (ItemStack)entry.getValue();
-            }
-        }
-
-        return null;
+        return INSTANCE;
     }
     
-    @Nullable
-    public static ArrayList<ItemStack> getGlassBlowingResultList(ItemStack stack)
+    public void InitGlassBlowingRecipes()
     {
     	
-    	ArrayList<ItemStack> resultList = new ArrayList<ItemStack>();
-    	if(stack != null){
+    	addBlowingRecipe(GlassItems.MOLTEN_GLASS, GlassItems.BOTTLE_UNFINISHED);
+    	addBlowingRecipe(GlassItems.MOLTEN_GLASS, GlassItems.GLASS_LAMP);
+    	addBlowingRecipe(GlassItems.MOLTEN_GLASS, GlassItems.GLASS_BULB);
     	
-    	for (Entry<ItemStack, ItemStack> entry : glassrecipeList.entrySet())
-        {
-    		
-    			
-    		if(stack.stackSize > 0){
-        			if (compareItemStacks(stack, (ItemStack)entry.getKey()))
-        			{
-        				resultList.add((ItemStack)entry.getValue());
-        			}
-        		}
-
-        }
-    	}
-
-        return resultList;
-    }
-
-    /**
-     * Compares two itemstacks to ensure that they are the same. This checks both the item and the metadata of the item.
-     */
-    private static boolean compareItemStacks(ItemStack stack1, ItemStack stack2)
-    {
-    	//System.out.println(stack1.stackSize +", " +stack2.stackSize);
-    	return (stack2.getItem() == stack1.getItem() && (stack2.getMetadata() == 32767 || stack2.getMetadata() == stack1.getMetadata()) && stack1.stackSize >= stack2.stackSize);
+    	addBlowingRecipe(Items.NETHER_STAR, new ItemStack(Blocks.BEACON));
         
+        addBlowingRecipe(new ItemStack(GlassItems.MOLTEN_GLASS,2), GlassItems.GLASS_LENS);
+        addBlowingRecipe(new ItemStack(GlassItems.MOLTEN_GLASS,2), GlassItems.GLASS_BOWL);
+        
+        addBlowingRecipe(new ItemStack(GlassItems.MOLTEN_GLASS,2,1), GlassItems.CRYSTAL_FLASK_UNFINISHED);
     }
 
-    public static Map<ItemStack, ItemStack> getGlassBlowingList()
-    {
-        return glassrecipeList;
+    
+    
+    public void addBlowingRecipe(ItemStack input, ItemStack output){
+    	
+    	Item item = input.getItem();
+    	int meta = input.getMetadata();
+    	int amount = input.stackSize;
+		GlassResultStack stack = new GlassResultStack(output, amount, meta);
+		
+    	if(getAllBlowingResults(item) == null){
+    		List<GlassResultStack> list = new ArrayList<GlassResultStack>();
+    		list.add(stack);
+    		glassMultiList.put(item, list);
+    		return;
+    	}
+    	
+    	List<GlassResultStack> list = getAllBlowingResults(item);
+    	if(list != null && !list.contains(stack)){
+    		list.add(stack);
+    		glassMultiList.replace(item, list);
+    	}
+    	
     }
+    
+    public void addBlowingRecipe(Item input, ItemStack output){
+    	addBlowingRecipe(new ItemStack(input), output);
+    }
+    
+    public void addBlowingRecipe(ItemStack input, Item output){
+    	addBlowingRecipe(input, new ItemStack(output));
+    }
+    
+    public void addBlowingRecipe(Item input, Item output){
+    	addBlowingRecipe(new ItemStack(input), new ItemStack(output));
+    }
+    
+    private List<GlassResultStack> getAllBlowingResults(Item input){
+    	return glassMultiList.get(input);
+    }
+    
+    //getAllBlowingResults is internal for THIS CLASS only! DO NOT USE IT!
+    
+    private List<GlassResultStack> getAllBlowingResults(ItemStack input){
+    	return getAllBlowingResults(input.getItem());
+    }
+    
+	public List<GlassResultStack> getBlowingResults(ItemStack input){
+		List<GlassResultStack> results = getAllBlowingResults(input);
+		List<GlassResultStack> returned = new ArrayList<GlassResultStack>();
+		if(results != null){
+		for(GlassResultStack theResult : results){
+			if(theResult.getMeta() == input.getMetadata() && theResult.getAmount() <= input.stackSize){
+				returned.add(theResult);
+			}
+		}
+		}
+		return returned;
+	}
+
 }
