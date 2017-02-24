@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Nullable;
+
 import panda.glassworks.init.GlassItems;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -82,6 +85,7 @@ public class GlassBlowingRecipes {
     	return getAllBlowingResults(input.getItem());
     }
     
+    @Nullable
 	public List<GlassResultStack> getBlowingResults(ItemStack input){
 		List<GlassResultStack> results = getAllBlowingResults(input);
 		List<GlassResultStack> returned = new ArrayList<GlassResultStack>();
@@ -92,6 +96,7 @@ public class GlassBlowingRecipes {
 			}
 		}
 		}
+		if(returned.size() == 0) return null;
 		return returned;
 	}
 
