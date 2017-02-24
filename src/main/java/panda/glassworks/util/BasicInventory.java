@@ -1,8 +1,11 @@
 package panda.glassworks.util;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
@@ -45,16 +48,18 @@ public class BasicInventory implements IInventory{
 		return stack;
 	}
 
-	@Override
-	public ItemStack decrStackSize(int index, int count) {
-		ItemStack taken = null;
-		if(stack != null){
-		taken = stack.copy(); blowpipe.onCraftMatrixChanged(this);
-		stack.stackSize = stack.stackSize - count;
-		if(stack.stackSize <= 0) stack = null;
-	}
-		return taken;
-	}
+    @Nullable
+    public ItemStack decrStackSize(int index, int count)
+    {
+        ItemStack itemstack = stack.splitStack(count);
+
+        if (itemstack != null)
+        {
+        	blowpipe.onCraftMatrixChanged(this);
+        }
+
+        return itemstack;
+    }
 
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
