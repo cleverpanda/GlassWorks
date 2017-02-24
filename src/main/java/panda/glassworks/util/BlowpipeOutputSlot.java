@@ -14,6 +14,7 @@ public class BlowpipeOutputSlot extends Slot{
     /** The craft matrix inventory linked to this result slot. */
     /** The player that is using the GUI where this slot resides. */
     private final Slot inputSlot;
+    private int selection = 0;
 
     public BlowpipeOutputSlot(Slot inputSlotIn, IInventory inventory, int index, int x, int y){
     	super(inventory, index, x, y);
@@ -34,12 +35,16 @@ public class BlowpipeOutputSlot extends Slot{
             this.onSlotChanged();
         }
         
+        public void setSelection(int k){
+        	selection = k;
+        }
+        
         public void onPickupFromSlot(EntityPlayer player, ItemStack stack)
         {
         	ItemStack input = inputSlot.getStack();
         	if(input != null){
         		int size = input.stackSize;
-        		int amount = GlassBlowingRecipes.instance().getBlowingResults(input).get(player.getHeldItemMainhand().getTagCompound().getInteger("GSS")).getAmount();
+        		int amount = GlassBlowingRecipes.instance().getBlowingResults(input).get(selection).getAmount();
         		size = size - amount;
         		if(size <= 0){
         			size = 0;

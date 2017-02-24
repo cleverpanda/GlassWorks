@@ -92,12 +92,17 @@ public class ContainerBlowpipe extends Container{
 	@Override
 	public void onCraftMatrixChanged(IInventory inventory)
 	{	
-		int theSelection;
-		theSelection = MessageHandler.selected;
+		int theSelection = getSelection();
 		System.out.println("MATRIX UPDATED WITH SELECTION " + theSelection + " AT SIDE " + FMLCommonHandler.instance().getEffectiveSide());
 		output_slot.inventory.clear();
 		if(hasInput() && GlassBlowingRecipes.instance().getBlowingResults(input_slot.getStack()) != null){
-				GlassResultStack stack = GlassBlowingRecipes.instance().getBlowingResults(input_slot.getStack()).get(theSelection);
+			List<GlassResultStack> list = GlassBlowingRecipes.instance().getBlowingResults(input_slot.getStack());
+				int g = list.size();
+				if(theSelection >= g){ 
+					theSelection = g - 1;
+					output_slot.setSelection(theSelection);
+				}
+				GlassResultStack stack = list.get(theSelection);
 				int sizeInput = input_slot.getStack().stackSize;
 				int metaInput = input_slot.getStack().getMetadata();
 				if(sizeInput >= stack.getAmount() && metaInput == stack.getMeta()){
@@ -169,23 +174,13 @@ public class ContainerBlowpipe extends Container{
 				 }
 				 slot.onSlotChange(itemstack1, itemstack);
 			 }
-			 else if (index == 1 && itemstack != null)//Output Slot
+			 else if (index == 1)//Output Slot
 			 {
 				 if (!this.mergeItemStack(itemstack1, 2, 38, true))
 				 {
 					 return null;
 				 }
-				 //slot.onSlotChange(itemstack1, itemstack);
-				 ItemStack stack2 = input_slot.getStack();
-				 if(stack2.stackSize == 0) input_slot.putStack(null);
-				 stack2 = input_slot.getStack();
-				 if(stack2 == null) return null;
-				 else if (stack2 != null){
-					 GlassResultStack currentOutput = GlassBlowingRecipes.instance().getBlowingResults(stack2).get(getSelection());
-					 stack2.stackSize = stack2.stackSize - currentOutput.getAmount();
-					 input_slot.putStack(stack2);
-				 }
-				 
+				 slot.onSlotChange(itemstack1, itemstack);
 			 }
 			 else if (index >= 2 && index < 29)//Player Main Inv
 			 {
