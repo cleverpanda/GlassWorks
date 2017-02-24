@@ -1,7 +1,6 @@
 package panda.glassworks.init;
 
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -10,12 +9,7 @@ import panda.glassworks.GlassWorks;
 import panda.glassworks.brewing.CrystalBrewingRecipe;
 import panda.glassworks.util.GlassBlowingRecipes;
 
-import com.google.common.collect.Maps;
-
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -23,18 +17,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
-import net.minecraft.potion.PotionUtils;
-import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 
 public abstract class Recipes {
@@ -50,7 +36,7 @@ public abstract class Recipes {
 		GlassItems.init();
 
 		initGlassRecipes();
-		GlassBlowingRecipes.InitGlassBlowingRecipes();
+		GlassBlowingRecipes.instance().InitGlassBlowingRecipes();
 		//GlassRecipes = GlassBlowingRecipes.instance();
 		PotionHelper.registerPotionItem(new PotionHelper.ItemPredicateInstance(GlassItems.POTION_FLASK));
 		BrewingRecipeRegistry.addRecipe(new CrystalBrewingRecipe());

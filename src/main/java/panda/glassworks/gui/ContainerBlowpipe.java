@@ -1,71 +1,52 @@
 package panda.glassworks.gui;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Nullable;
 
-import panda.glassworks.init.Recipes;
+import panda.glassworks.GlassWorks;
+import panda.glassworks.util.BasicInventory;
+import panda.glassworks.util.BlowpipeOutputSlot;
 import panda.glassworks.util.GlassBlowingRecipes;
+import panda.glassworks.util.GlassResultStack;
+import panda.glassworks.util.MessageHandler;
+import panda.glassworks.util.Network;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryBasic;
-import net.minecraft.inventory.InventoryCraftResult;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.SlotCrafting;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemHoe;
-import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.stats.AchievementList;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class ContainerBlowpipe extends Container{
-
-	/** The crafting matrix inventory (3x3). */
-	private IInventory outputSlot;
-	/** The 2slots where you put your items in that you want to merge and/or rename. */
-	public InventoryCrafting inputSlot;
+	
 	private World worldObj;
-	/** Position of the workbench */
-	private BlockPos pos;
-
-	private int selection;
+	private Slot input_slot;
+	private BlowpipeOutputSlot output_slot;
+	public int currentSelection;
+	EntityPlayer player;
 
 	public ContainerBlowpipe(InventoryPlayer playerInventory, World worldIn, BlockPos posIn)
 	{
 		System.out.println("Called on " + FMLCommonHandler.instance().getEffectiveSide());
-		this.inputSlot = new InventoryCrafting(this, 1, 1);
-		this.outputSlot = new InventoryCraftResult();
-		this.selection = 0;
+		IInventory inputInv = new BasicInventory(this, "glassworks.blowpipe.input");
+		IInventory outputInv = new BasicInventory(this, "glassworks.blowpipe.output");
+		input_slot = new Slot(inputInv, 0, 110, 22);
+		output_slot = new BlowpipeOutputSlot(input_slot, outputInv, 1, 138, 22);
 
-		this.addSlotToContainer(new Slot(this.inputSlot, 0, 110, 22));
-		//this.addSlotToContainer(new Slot(this.outputSlot, 1, 138, 22));
-		this.addSlotToContainer(new SlotCrafting(playerInventory.player, inputSlot, outputSlot, 1, 138, 22));
+		this.addSlotToContainer(input_slot);
+		this.addSlotToContainer(output_slot);
 
 		this.worldObj = worldIn;
-		this.pos = posIn;
-
 
 		for (int i = 0; i < 3; ++i)
 		{
@@ -79,114 +60,71 @@ public class ContainerBlowpipe extends Container{
 		{
 			this.addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 142-26));
 		}
-
-		this.onCraftMatrixChanged();
+		player = playerInventory.player;
 	}
+	
+	public int getSelection(){
+		return currentSelection;
+	}
+	
+	public int setSelection(int k){   
+		currentSelection = k;
+		return currentSelection;
+	}
+	
+	public int forceUpdateSelector(int k){
+		setSelection(k);
+		forceUpdate();
+		return k;
+	}
+	
+	
+	/*
+    PICKUP, Left/Right normal click
+    QUICK_MOVE, Shift-Click
+    SWAP, Pushing a key to move a stack (1-9)
+    CLONE,
+    THROW, Pushing q
+    QUICK_CRAFT, Touching the input slot? This breaks the entire thing for some reason.  Also fires on random times when not touching the input slot.
+    PICKUP_ALL; Double-Click
+	 */
 
 	@Override
-	public ItemStack slotClick(int slotId, int dragType, ClickType clickTypeIn,EntityPlayer player) {
-		//System.out.println("DOOT");
-		//System.out.println(selection);
-		//this.onCraftMatrixChanged();
-		System.out.println(player.inventory.getItemStack());
-		
-		return super.slotClick(slotId, dragType, clickTypeIn, player);
-	}
-
-	@Override
-	public void putStackInSlot(int slotID, ItemStack stack) {
-		// TODO Auto-generated method stub
-		super.putStackInSlot(slotID, stack);
-	}
-
-	@Override
-	public void setCanCraft(EntityPlayer player, boolean canCraft) {
-		// TODO Auto-generated method stub
-		super.setCanCraft(player, canCraft);
-	}
-
-	public void onCraftMatrixChanged()
+	public void onCraftMatrixChanged(IInventory inventory)
 	{	
-		if(hasInput()){
-			List<ItemStack> recipes = GlassBlowingRecipes.getGlassBlowingResultList(inputStack());
-			if(!recipes.isEmpty()){
-				if(selection < recipes.size()){
-					if(recipes.get(selection)  != null){
-						System.out.println(selection);
-						//System.out.println(recipes.get(selection));
-						this.putStackInSlot(1, recipes.get(selection).copy());
-					}else{
-						this.outputSlot.clear();
-					}
-				}else{
-					this.outputSlot.clear();
-					this.selection = recipes.size()-1;
+		int theSelection = getSelection();
+		System.out.println("MATRIX UPDATED WITH SELECTION " + theSelection + " AT SIDE " + FMLCommonHandler.instance().getEffectiveSide());
+		output_slot.inventory.clear();
+		if(hasInput() && GlassBlowingRecipes.instance().getBlowingResults(input_slot.getStack()) != null){
+			List<GlassResultStack> list = GlassBlowingRecipes.instance().getBlowingResults(input_slot.getStack());
+				int g = list.size();
+				if(theSelection >= g){ 
+					theSelection = g - 1;
+					output_slot.setSelection(theSelection);
 				}
-				
-			}else{
-				this.outputSlot.clear();
+				GlassResultStack stack = list.get(theSelection);
+				int sizeInput = input_slot.getStack().stackSize;
+				int metaInput = input_slot.getStack().getMetadata();
+				if(sizeInput >= stack.getAmount() && metaInput == stack.getMeta()){
+					System.out.println("Selection index is " + getSelection());
+					System.out.println("Setting output to " + stack.getStack().toString());
+					output_slot.putStack(stack.getStack().copy());
 			}
-		}else{
-			this.outputSlot.clear();
+		}
+		else if (!hasInput()){
+			output_slot.putStack(null);;
 		}
 		this.detectAndSendChanges();
+	}
+	
+	public void forceUpdate(){
+		if (output_slot.getHasStack()) this.onCraftMatrixChanged(output_slot.inventory);
 	}
 	
 	boolean hasInput(){
-		return (this.inputSlot.getStackInSlot(0) != null);
+		return input_slot.getHasStack();
 	}
 	
-	ItemStack inputStack(){
-		return (this.inputSlot.getStackInSlot(0));
-	}
-
-	public void setCurrentRecipeIndex(int currentRecipeIndexIn)
-	{
-
-		if (hasInput())
-		{
-				List<ItemStack> recipes = GlassBlowingRecipes.getGlassBlowingResultList(inputStack());
-				if(!recipes.isEmpty()){
-					if(recipes.get(selection)  != null){
-						if(currentRecipeIndexIn > GlassBlowingRecipes.getGlassBlowingResultList(inputStack()).size()-1){
-							this.selection = GlassBlowingRecipes.getGlassBlowingResultList(inputStack()).size();
-						}else{
-							this.selection = currentRecipeIndexIn;
-						}
-						if (this.selection < 0)
-						{
-							this.selection = 0;
-						}else{
-							this.selection = currentRecipeIndexIn;
-						}
-					}else{
-						this.outputSlot.clear();
-						this.selection =0;
-					}
-				}else{
-					this.outputSlot.clear();
-					this.selection =0;
-				}
-		}else{
-			this.outputSlot.clear();
-			this.selection =0;
-		}
-		this.detectAndSendChanges();
-		onCraftMatrixChanged();
-	}
-
-	@Override
-	public void detectAndSendChanges() {
-
-		super.detectAndSendChanges();
-	}
-
-	@Override
-	protected void retrySlotClick(int slotId, int clickedButton, boolean mode,EntityPlayer playerIn) {
-
-
-		super.retrySlotClick(slotId, clickedButton, mode, playerIn);
-	}
 
 	/**
 	 * Called when the container is closed.
@@ -198,7 +136,8 @@ public class ContainerBlowpipe extends Container{
 		if (!this.worldObj.isRemote)
 		{
 
-			ItemStack itemstack = this.inputSlot.removeStackFromSlot(0);
+			ItemStack itemstack = this.input_slot.getStack();
+			input_slot.putStack(null);
 
 			if (itemstack != null)
 			{
@@ -220,30 +159,37 @@ public class ContainerBlowpipe extends Container{
 	 public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
 	 {
 		 ItemStack itemstack = null;
-		 Slot slot = (Slot)this.inventorySlots.get(index);
+		 Slot slot = this.inventorySlots.get(index);
 
 		 if (slot != null && slot.getHasStack())
 		 {
 			 ItemStack itemstack1 = slot.getStack();
 			 itemstack = itemstack1.copy();
 
-			 if (index == 0)
+			 if (index == 0)//Input Slot
 			 {
 				 if (!this.mergeItemStack(itemstack1, 2, 38, true))
 				 {
 					 return null;
 				 }
-
 				 slot.onSlotChange(itemstack1, itemstack);
 			 }
-			 else if (index >= 2 && index < 29)
+			 else if (index == 1)//Output Slot
+			 {
+				 if (!this.mergeItemStack(itemstack1, 2, 38, true))
+				 {
+					 return null;
+				 }
+				 slot.onSlotChange(itemstack1, itemstack);
+			 }
+			 else if (index >= 2 && index < 29)//Player Main Inv
 			 {
 				 if (!this.mergeItemStack(itemstack1, 29, 38, false))
 				 {
 					 return null;
 				 }
 			 }
-			 else if (index >= 29 && index < 38)
+			 else if (index >= 29 && index < 38)//Hotbar
 			 {
 				 if (!this.mergeItemStack(itemstack1, 2, 29, false))
 				 {
@@ -276,121 +222,4 @@ public class ContainerBlowpipe extends Container{
 		 return itemstack;
 	 }
 	 
-	 
-
-	 /**
-	  * Called to determine if the current slot is valid for the stack merging (double-click) code. The stack passed in
-	  * is null for the initial slot that was double-clicked.
-	  */
-	 public boolean canMergeSlot(ItemStack stack, Slot slotIn)
-	 {
-		 return slotIn.inventory != this.outputSlot && super.canMergeSlot(stack, slotIn);
-	 }
-
-	 
-	 static class MySlotCrafting extends Slot
-		 {
-		     /** The craft matrix inventory linked to this result slot. */
-		     private final InventoryCrafting craftMatrix;
-		     /** The player that is using the GUI where this slot resides. */
-		     private final EntityPlayer thePlayer;
-		     /** The number of items that have been crafted so far. Gets passed to ItemStack.onCrafting before being reset. */
-		     private int amountCrafted;
-
-		     public MySlotCrafting(EntityPlayer player, InventoryCrafting craftingInventory, IInventory inventoryIn, int slotIndex, int xPosition, int yPosition)
-		     {
-		         super(inventoryIn, slotIndex, xPosition, yPosition);
-		         this.thePlayer = player;
-		         this.craftMatrix = craftingInventory;
-		     }
-
-		     /**
-		      * Check if the stack is a valid item for this slot. Always true beside for the armor slots.
-		      */
-		     public boolean isItemValid(@Nullable ItemStack stack)
-		     {
-		         return false;
-		     }
-
-		     /**
-		      * Decrease the size of the stack in slot (first int arg) by the amount of the second int arg. Returns the new
-		      * stack.
-		      */
-		     public ItemStack decrStackSize(int amount)
-		     {
-		         if (this.getHasStack())
-		         {
-		             this.amountCrafted += Math.min(amount, this.getStack().stackSize);
-		         }
-
-		         return super.decrStackSize(amount);
-		     }
-
-		     /**
-		      * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood. Typically increases an
-		      * internal count then calls onCrafting(item).
-		      */
-		     protected void onCrafting(ItemStack stack, int amount)
-		     {
-		         this.amountCrafted += amount;
-		         this.onCrafting(stack);
-		     }
-
-		     /**
-		      * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood.
-		      */
-		     protected void onCrafting(ItemStack stack)
-		     {
-		         if (this.amountCrafted > 0)
-		         {
-		             stack.onCrafting(this.thePlayer.worldObj, this.thePlayer, this.amountCrafted);
-		         }
-
-		         this.amountCrafted = 0;
-
-		         
-
-		         /*if (stack.getItem() instanceof ItemSword)
-		         {
-		             this.thePlayer.addStat(AchievementList.BUILD_SWORD);
-		         }*/
-
-		     }
-
-		     public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack)
-		     {
-		         this.onCrafting(stack);
-		         ArrayList<ItemStack> aitemstack = GlassBlowingRecipes.instance().getGlassBlowingResultList(this.craftMatrix.getStackInSlot(0));
-		         System.out.println(aitemstack);
-
-		         for (int i = 0; i < aitemstack.size()-1; ++i)
-		         {
-		             ItemStack itemstack = this.craftMatrix.getStackInSlot(0);
-		             ItemStack itemstack1 = aitemstack.get(i);
-
-		             if (itemstack != null)
-		             {
-		                 this.craftMatrix.decrStackSize(0, 1);
-		                 itemstack = this.craftMatrix.getStackInSlot(0);
-		             }
-
-		             if (itemstack1 != null)
-		             {
-		                 if (itemstack == null)
-		                 {
-		                     this.craftMatrix.setInventorySlotContents(0, itemstack1);
-		                 }
-		                 else if (ItemStack.areItemsEqual(itemstack, itemstack1) && ItemStack.areItemStackTagsEqual(itemstack, itemstack1))
-		                 {
-		                     itemstack1.stackSize += itemstack.stackSize;
-		                     this.craftMatrix.setInventorySlotContents(0, itemstack1);
-		                 }
-		                 else if (!this.thePlayer.inventory.addItemStackToInventory(itemstack1))
-		                 {
-		                     this.thePlayer.dropItem(itemstack1, false);
-		                 }
-		             }
-		         }
-		     }
-	 }
 }
