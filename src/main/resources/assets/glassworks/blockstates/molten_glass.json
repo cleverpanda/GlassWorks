@@ -6,17 +6,17 @@
   },
   "variants": {
     "type": {
-      "glassmolten": {
+      "default": {
         "textures": {
           "layer0": "glassworks:items/molten_glass"
         }
       },
-      "crystalglassmolten": {
+      "crystal": {
         "textures": {
           "layer0": "glassworks:items/molten_glass_cool"
         }
       },
-	"obsidianglassmolten": {
+	"obsidian": {
         "textures": {
           "layer0": "glassworks:items/molten_glass"
         }

@@ -26,7 +26,6 @@ public class ItemGlassSlab extends ItemSlab{
 	public ItemGlassSlab(Block block, BlockSlab slab, BlockSlab doubleslab) {
 		super(block, slab, doubleslab);
 		this.setCreativeTab(GlassWorks.GlassTab);
-
 	}
 
 }

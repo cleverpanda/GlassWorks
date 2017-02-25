@@ -1,11 +1,17 @@
 package panda.glassworks.items;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nullable;
 
 import panda.glassworks.GlassWorks;
 import panda.glassworks.init.GlassItems;
+import panda.glassworks.util.registry.IMeta;
+import panda.glassworks.util.registry.ItemList;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,19 +26,20 @@ import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemPotionFlask extends Item
-{
+public class ItemPotionFlask extends Item implements IMeta{
     public ItemPotionFlask()
     {
         this.setMaxStackSize(1);
         this.setCreativeTab(GlassWorks.GlassTab);
         this.setHasSubtypes(true); // This allows the item to be marked as a metadata item.
         this.setMaxDamage(0);
+        setRegistryName("potion_flask");
     }
 
     /**
@@ -68,12 +75,12 @@ public class ItemPotionFlask extends Item
         {
             if (stack.stackSize <= 0)
             {
-                return new ItemStack(GlassItems.CRYSTAL_FLASK);
+                return new ItemStack(ItemList.CRYSTAL_FLASK);
             }
 
             if (entityplayer != null && stack.stackSize <= 0)
             {
-                entityplayer.inventory.addItemStackToInventory(new ItemStack(GlassItems.CRYSTAL_FLASK));
+                entityplayer.inventory.addItemStackToInventory(new ItemStack(ItemList.CRYSTAL_FLASK));
             }
         }
 
@@ -99,12 +106,12 @@ public class ItemPotionFlask extends Item
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
     {
         playerIn.setActiveHand(hand);
-        return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
     }
 
     public String getItemStackDisplayName(ItemStack stack)
     {
-        return I18n.translateToLocal(PotionUtils.getPotionFromItem(stack).getNamePrefixed("potion.effect."));
+        return I18n.format(PotionUtils.getPotionFromItem(stack).getNamePrefixed("potion.effect."));
     }
 
     /**
@@ -133,4 +140,19 @@ public class ItemPotionFlask extends Item
             subItems.add(PotionUtils.addPotionToItemStack(new ItemStack(itemIn), potiontype));
         }
     }
+
+	@Override
+	public int getMaxMeta() {
+		return 3;
+	}
+
+	@Override
+	public Map<Integer, ModelResourceLocation> getMetaModelLocations() {
+		Map<Integer, ModelResourceLocation> map = new HashMap<Integer, ModelResourceLocation>();
+		map.put(0, new ModelResourceLocation(getRegistryName(), "dose=4"));
+		map.put(1, new ModelResourceLocation(getRegistryName(), "dose=3"));
+		map.put(2, new ModelResourceLocation(getRegistryName(), "dose=2"));
+		map.put(3, new ModelResourceLocation(getRegistryName(), "dose=1"));
+		return map;
+	}
 }

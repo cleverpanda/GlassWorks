@@ -4,6 +4,7 @@ public class BlockDoubleStainedSlabGlass extends BlockStainedGlassSlab
 {
 	public BlockDoubleStainedSlabGlass(String name) {
 		super(name);
+		setRegistryName("stained_double_slab");
 	}
 
 	@Override

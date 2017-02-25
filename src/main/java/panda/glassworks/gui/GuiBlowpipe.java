@@ -2,10 +2,11 @@ package panda.glassworks.gui;
 
 import java.io.IOException;
 import java.util.List;
-import panda.glassworks.util.GlassBlowingRecipes;
-import panda.glassworks.util.GlassResultStack;
-import panda.glassworks.util.Message;
-import panda.glassworks.util.Network;
+
+import panda.glassworks.util.inventory.GlassResultStack;
+import panda.glassworks.util.network.Message;
+import panda.glassworks.util.network.Network;
+import panda.glassworks.util.registry.recipe.GlassBlowingRecipes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.GuiButton;
@@ -33,9 +34,6 @@ public class GuiBlowpipe extends GuiContainer
     /** Returns to the previous Merchant recipe if one is applicable. */
     private GuiBlowpipe.Button previousButton;
     private ContainerBlowpipe container;
-    
-    
-    private GlassBlowingRecipes RECIPES = GlassBlowingRecipes.instance();
     
     private int selector = 0;
     
@@ -71,7 +69,7 @@ public class GuiBlowpipe extends GuiContainer
 		super.updateScreen();
 		
 		if(((ContainerBlowpipe) inventorySlots).hasInput()){
-			List<GlassResultStack> recipelist = RECIPES.getBlowingResults(inputStack());
+			List<GlassResultStack> recipelist = GlassBlowingRecipes.getBlowingResults(inputStack());
 			if (recipelist != null)
 	        {
 				this.nextButton.enabled = recipelist.size() != selector + 1;
@@ -111,11 +109,11 @@ public class GuiBlowpipe extends GuiContainer
             	
             	++selector;
     			
-            	List<GlassResultStack> recipelist = RECIPES.getBlowingResults(inputStack());
+            	List<GlassResultStack> recipelist = GlassBlowingRecipes.getBlowingResults(inputStack());
     			if (recipelist != null)
     	        {
-    					if(selector > RECIPES.getBlowingResults(inputStack()).size() - 1){
-    						selector = RECIPES.getBlowingResults(inputStack()).size() - 1;
+    					if(selector > GlassBlowingRecipes.getBlowingResults(inputStack()).size() - 1){
+    						selector = GlassBlowingRecipes.getBlowingResults(inputStack()).size() - 1;
     					}			
     	        }
             else{

@@ -1,4 +1,4 @@
-package panda.glassworks.util;
+package panda.glassworks.util.inventory;
 
 import javax.annotation.Nullable;
 
@@ -8,6 +8,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import panda.glassworks.proxy.CommonProxy;
+import panda.glassworks.util.registry.recipe.GlassBlowingRecipes;
 
 public class BlowpipeOutputSlot extends Slot{
 	
@@ -44,7 +45,7 @@ public class BlowpipeOutputSlot extends Slot{
         	ItemStack input = inputSlot.getStack();
         	if(input != null){
         		int size = input.stackSize;
-        		int amount = GlassBlowingRecipes.instance().getBlowingResults(input).get(selection).getAmount();
+        		int amount = GlassBlowingRecipes.getBlowingResults(input).get(selection).getAmount();
         		size = size - amount;
         		if(size <= 0){
         			size = 0;

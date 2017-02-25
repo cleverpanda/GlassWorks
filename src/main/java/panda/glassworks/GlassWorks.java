@@ -2,16 +2,13 @@ package panda.glassworks;
 
 import panda.glassworks.worldgen.WorldGenerator;
 import panda.glassworks.gui.BlowpipeGuiHandler;
-import panda.glassworks.init.GlassBlocks;
-import panda.glassworks.init.GlassItems;
-import panda.glassworks.init.Recipes;
 import panda.glassworks.proxy.CommonProxy;
-import panda.glassworks.proxy.ProxyClient;
-import panda.glassworks.util.BlockBreakHandler;
-import panda.glassworks.util.BucketHandler;
-import panda.glassworks.util.ViewRenderHandler;
-//import panda.glassworks.util.ConfigurationHandler;
-import panda.glassworks.versionchecker.VersionChecker;
+import panda.glassworks.proxy.ClientProxy;
+import panda.glassworks.util.events.BlockBreakHandler;
+import panda.glassworks.util.events.BucketHandler;
+import panda.glassworks.util.events.ViewRenderHandler;
+import panda.glassworks.util.registry.ItemList;
+import panda.glassworks.util.registry.recipe.RecipeRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
@@ -31,68 +28,45 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = GlassWorks.MODID, name = GlassWorks.NAME, version = GlassWorks.VERSION)
+@Mod(modid = GlassWorks.MODID, name = GlassWorks.NAME, version = GlassWorks.VERSION, dependencies = "after:biomesoplenty")
 
 
 public class GlassWorks
 {
 	public static final String MODID = "glassworks";
 	public static final String VERSION = "0.1";
-	//fixed issue regarding other mod's tree drops
-	//fixed tree grid generation
-	//cleaned up
 	public static final String NAME = "Glass Works";
-	@SidedProxy(serverSide = "panda.glassworks.proxy.ProxyServer", clientSide = "panda.glassworks.proxy.ProxyClient")
+	
+	@SidedProxy(serverSide = "panda.glassworks.proxy.ServerProxy", clientSide = "panda.glassworks.proxy.ClientProxy")
 	public static CommonProxy proxy;
-
-	public static boolean haveWarnedVersionOutOfDate;
-	public static VersionChecker versionChecker;
-
-	public static ProxyClient PROXY = null;
 	
 	@Mod.Instance(MODID)
 	public static GlassWorks INSTANCE;
 	
-	public static Logger log;
+	public static Logger log = LogManager.getLogger(NAME);
 	
-	public static boolean isBOPInstalled = false;
+	public static boolean isBOPInstalled = Loader.isModLoaded("biomesoplenty");
 	
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event)
 	{
-		INSTANCE = this;
-		log = LogManager.getLogger(this.NAME);
-		
+		proxy.preInit(event);
 		MinecraftForge.EVENT_BUS.register(new BlockBreakHandler());
 		MinecraftForge.EVENT_BUS.register(new BucketHandler());
 		MinecraftForge.EVENT_BUS.register(new ViewRenderHandler());
-		//MinecraftForge.EVENT_BUS.register(new OnJoinWorldHandler());
-		
-		GlassItems.init();
-		GlassBlocks.init();
-		
-		proxy.preInit(event);
-		//ConfigurationHandler.init(event);
 
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{ 
-		Recipes.init();
 		proxy.init(event);
 		GameRegistry.registerWorldGenerator(new WorldGenerator(), 0);
-		
-		
-
-		isBOPInstalled = Loader.isModLoaded("biomesoplenty");
-
-
 	}  
 	
 	public static final CreativeTabs GlassTab = new CreativeTabs("glassworks") {
 	    @Override public Item getTabIconItem() {
-	        return GlassItems.MOLTEN_GLASS;
+	        return ItemList.MOLTEN_GLASS;
 	    }
 	};
 

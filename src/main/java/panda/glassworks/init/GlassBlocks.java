@@ -1,42 +1,8 @@
 package panda.glassworks.init;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import panda.glassworks.GlassWorks;
-import panda.glassworks.blocks.BlockBlastGlass;
-import panda.glassworks.blocks.BlockDoubleSlabGlass;
-import panda.glassworks.blocks.BlockDoubleStainedSlabGlass;
-import panda.glassworks.blocks.BlockFancyStainedGlass;
-import panda.glassworks.blocks.BlockGlassSlab;
-import panda.glassworks.blocks.BlockHalfSlabGlass;
-import panda.glassworks.blocks.BlockLamp;
-import panda.glassworks.blocks.BlockLantern;
-import panda.glassworks.blocks.BlockSeaweed;
-import panda.glassworks.blocks.BlockSoulGlass;
-import panda.glassworks.blocks.BlockStainedHalfSlabGlass;
-import panda.glassworks.blocks.BlockTarFluid;
-import panda.glassworks.blocks.TarFluid;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockDoor;
-import net.minecraft.block.BlockOre;
-import net.minecraft.block.BlockSlab;
-import net.minecraft.block.BlockStainedGlass;
-import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.BlockFluidClassic;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.IFluidBlock;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
-
-
-public abstract class GlassBlocks {
-
+@Deprecated
+public class GlassBlocks {
+/*
 	private static boolean initDone = false;
 
 	private static Map<Block, String> allBlocks = new HashMap<Block, String>();
@@ -66,7 +32,7 @@ public abstract class GlassBlocks {
 	 * 
 	 * @param name The name of the block in question
 	 * @return The block matching that name, or null if there isn't one
-	 */
+	 /
 	public static Block getBlockByName(String name) {
 		return blockRegistry.get(name);
 	}
@@ -78,14 +44,14 @@ public abstract class GlassBlocks {
 	 * @param b The item in question
 	 * @return The name of the item, or null if the item is not a Variety Trees
 	 * block.
-	 */
+	 /
 	public static String getNameOfItem(Block b) {
 		return allBlocks.get(b);
 	}
 
 	/**
 	 *
-	 */
+	 /
 	public static void init() {
 		if (initDone)
 			return;
@@ -163,7 +129,7 @@ public abstract class GlassBlocks {
         return block;
     }
 
-	/*
+	/
 	private static Block createStairs(WoodMaterial wood) {
 		return addBlock(new BlockVarietyStairs(wood, Blocks.getBlockByName(wood.getName() + "_planks")), "stairs", wood);
 	}
@@ -171,9 +137,10 @@ public abstract class GlassBlocks {
 
 	private static BlockDoor createDoor(WoodMaterial wood) {
 		return (BlockDoor) addBlock(new BlockVarietyDoor(wood), "door", wood);
-	}*/
+	}
 
 	public static Map<String, Block> getBlockRegistry() {
 		return blockRegistry;
 	}
+	*/
 }

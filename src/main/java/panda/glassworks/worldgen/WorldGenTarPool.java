@@ -8,7 +8,7 @@ import java.util.Random;
 import org.lwjgl.util.vector.Vector;
 
 import panda.glassworks.GlassWorks;
-import panda.glassworks.init.GlassBlocks;
+import panda.glassworks.util.registry.BlockList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
@@ -25,7 +25,7 @@ import net.minecraftforge.fluids.IFluidBlock;
 
 public class WorldGenTarPool extends WorldGenerator {
 
-	private static final List<Block> placeables = new ArrayList();
+	private static final List<Block> placeables = new ArrayList<Block>();
 	
 
 	public WorldGenTarPool(){
@@ -55,9 +55,9 @@ public class WorldGenTarPool extends WorldGenerator {
 	}
 
 	private boolean generateRandomShapeAt(World world, Random r, BlockPos pos, int max) {
-		Block id = GlassBlocks.TAR;
+		Block id = BlockList.TAR;
 
-		ArrayList<BlockPos> blocks = new ArrayList();
+		ArrayList<BlockPos> blocks = new ArrayList<BlockPos>();
 		
 		boolean gen = false;
 		boolean circular = false;
@@ -174,7 +174,7 @@ public class WorldGenTarPool extends WorldGenerator {
 	}
 
 	private boolean isValidBlock(World world, BlockPos pos) {
-		Block id = GlassBlocks.TAR;
+		Block id = BlockList.TAR;
 		Block idx = world.getBlockState(pos).getBlock();
 		if (softBlocks(world, pos)){
 			GlassWorks.log.info("Block "+idx.getUnlocalizedName() +" is not soft");

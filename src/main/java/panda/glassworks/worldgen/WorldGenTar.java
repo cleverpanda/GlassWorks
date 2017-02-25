@@ -2,7 +2,7 @@ package panda.glassworks.worldgen;
 
 import java.util.Random;
 
-import panda.glassworks.init.GlassBlocks;
+import panda.glassworks.util.registry.BlockList;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -17,7 +17,7 @@ public class WorldGenTar extends WorldGenerator
 
     public WorldGenTar()
     {
-        this.block = GlassBlocks.TAR;
+        this.block = BlockList.TAR;
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position)

@@ -42,6 +42,7 @@ public class BlockSoulGlass extends BlockGlass{
 		this.setCreativeTab(GlassWorks.GlassTab);
 		this.setLightOpacity(255);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(isOn, false));
+		setRegistryName("soul_glass");
 	}
 	
 	@Override
@@ -96,12 +97,12 @@ public class BlockSoulGlass extends BlockGlass{
         {
             if (worldIn.isBlockPowered(pos))
             {
-                worldIn.setBlockState(pos, GlassBlocks.SOUL_GLASS.getDefaultState().withProperty(isOn, true), 2);
+                worldIn.setBlockState(pos, getDefaultState().withProperty(isOn, true), 2);
                 this.setLightOpacity(3);
             }
             else 
             {
-                worldIn.setBlockState(pos, GlassBlocks.SOUL_GLASS.getDefaultState(), 2);
+                worldIn.setBlockState(pos, getDefaultState(), 2);
             }
         }
     }
@@ -125,7 +126,7 @@ public class BlockSoulGlass extends BlockGlass{
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos,IBlockState state, EntityPlayer playerIn, EnumHand hand,ItemStack heldItem, EnumFacing side, float hitX, float hitY,float hitZ) {
 		if(worldIn.isBlockPowered(pos)){
-			worldIn.setBlockState(pos, GlassBlocks.SOUL_GLASS.getDefaultState().withProperty(isOn, true), 2);
+			worldIn.setBlockState(pos, getDefaultState().withProperty(isOn, true), 2);
 			notifySameNeighborsOfStateChange(worldIn, pos);
 			return true;
 		}
@@ -169,7 +170,7 @@ public class BlockSoulGlass extends BlockGlass{
             for (EnumFacing enumfacing : EnumFacing.values())
             {
                 if(worldIn.getBlockState(pos.offset(enumfacing)).getValue(isOn) == true ){
-                	((World) worldIn).setBlockState(pos, GlassBlocks.SOUL_GLASS.getDefaultState().withProperty(isOn, true), 2);
+                	((World) worldIn).setBlockState(pos, getDefaultState().withProperty(isOn, true), 2);
                 }
             }
         }
@@ -190,7 +191,7 @@ public class BlockSoulGlass extends BlockGlass{
 		IBlockState iblockstate = worldIn.getBlockState(pos.offset(side));
 		Block block = iblockstate.getBlock();
 
-		if (block == this || iblockstate.getBlock() == GlassBlocks.SOUL_GLASS)
+		if (block == this || iblockstate.getBlock() == this)
 		{
 			return false;
 		}

@@ -40,6 +40,7 @@ public class BlockTarFluid extends BlockFluidClassic
         this.temperature = 500;
         this.setCreativeTab(GlassWorks.GlassTab);
         this.setSoundType(SoundType.SLIME);
+        setRegistryName("tar");
     }
     
 	@Override

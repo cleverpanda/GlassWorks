@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 import panda.glassworks.GlassWorks;
 import panda.glassworks.init.GlassItems;
+import panda.glassworks.util.registry.ItemList;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityAreaEffectCloud;
@@ -33,6 +34,7 @@ public class ItemCrystalFlask extends Item
 	    {
 	    	super();
 	    	this.setCreativeTab(GlassWorks.GlassTab);
+	    	setRegistryName("crystal_flask");
 	    }
 	    
 	    
@@ -51,7 +53,7 @@ public class ItemCrystalFlask extends Item
 
             if (raytraceresult == null)
             {
-                return new ActionResult(EnumActionResult.PASS, itemStackIn);
+                return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
             }
             else
             {
@@ -61,17 +63,17 @@ public class ItemCrystalFlask extends Item
 
                     if (!worldIn.isBlockModifiable(playerIn, blockpos) || !playerIn.canPlayerEdit(blockpos.offset(raytraceresult.sideHit), raytraceresult.sideHit, itemStackIn))
                     {
-                        return new ActionResult(EnumActionResult.PASS, itemStackIn);
+                        return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
                     }
 
                     if (worldIn.getBlockState(blockpos).getMaterial() == Material.WATER)
                     {
                         worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-                        return new ActionResult(EnumActionResult.SUCCESS, this.turnBottleIntoItem(itemStackIn, playerIn, new ItemStack(GlassItems.POTION_FLASK)));
+                        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, this.turnBottleIntoItem(itemStackIn, playerIn, new ItemStack(ItemList.POTION_FLASK)));
                     }
                 }
 
-                return new ActionResult(EnumActionResult.PASS, itemStackIn);
+                return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
             }
         
     }

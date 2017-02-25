@@ -1,4 +1,4 @@
-package panda.glassworks.util;
+package panda.glassworks.util.network;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;

@@ -2,9 +2,10 @@ package panda.glassworks.proxy;
 
 import panda.glassworks.GlassWorks;
 import panda.glassworks.gui.BlowpipeGuiHandler;
-import panda.glassworks.util.Message;
-import panda.glassworks.util.MessageHandler;
-import panda.glassworks.util.Network;
+import panda.glassworks.util.network.Message;
+import panda.glassworks.util.network.MessageHandler;
+import panda.glassworks.util.network.Network;
+import panda.glassworks.util.registry.MasterRegistrar;
 import net.minecraft.block.Block;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -17,7 +18,7 @@ public class CommonProxy {
 
 	
     public void preInit(FMLPreInitializationEvent e) {
-    	
+    	MasterRegistrar.callRegistry(e);
     }
 
     public void init(FMLInitializationEvent e) {
@@ -28,7 +29,4 @@ public class CommonProxy {
     public void postInit(FMLPostInitializationEvent e) {
     	
     }
-
-	public void replaceBOPBucketTexture() {}
-	public void registerFluidBlockRendering(Block block, String name) {}
 }

@@ -50,6 +50,7 @@ public class BlockLantern extends Block{
 		this.setCreativeTab(GlassWorks.GlassTab);
 		this.setHardness(0.0F);
 		this.setLightLevel(0.9375F);
+		setRegistryName("oil_lantern");
 	}
 
 	@Override

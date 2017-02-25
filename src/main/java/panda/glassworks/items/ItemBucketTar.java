@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 
 import panda.glassworks.GlassWorks;
 import panda.glassworks.init.GlassBlocks;
+import panda.glassworks.util.registry.BlockList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
@@ -28,9 +29,10 @@ import net.minecraft.world.World;
 
 public class ItemBucketTar extends ItemBucket{
 
-	public ItemBucketTar(Block containedBlock) {
-		super(containedBlock);
+	public ItemBucketTar() {
+		super(BlockList.TAR);
 		this.setCreativeTab(GlassWorks.GlassTab);
+		setRegistryName("tar_bucket");
 		
 		// TODO Auto-generated constructor stub
 	}
@@ -43,11 +45,11 @@ public class ItemBucketTar extends ItemBucket{
         
         if (raytraceresult == null)
         {
-            return new ActionResult(EnumActionResult.PASS, itemStackIn);
+            return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
         }
         else if (raytraceresult.typeOfHit != RayTraceResult.Type.BLOCK)
         {
-            return new ActionResult(EnumActionResult.PASS, itemStackIn);
+            return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
         }
         else
         {
@@ -55,7 +57,7 @@ public class ItemBucketTar extends ItemBucket{
 
             if (!worldIn.isBlockModifiable(playerIn, blockpos))
             {
-                return new ActionResult(EnumActionResult.FAIL, itemStackIn);
+                return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
             }
             
             else
@@ -65,16 +67,16 @@ public class ItemBucketTar extends ItemBucket{
 
                 if (!playerIn.canPlayerEdit(blockpos1, raytraceresult.sideHit, itemStackIn))
                 {
-                    return new ActionResult(EnumActionResult.FAIL, itemStackIn);
+                    return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
                 }
                 else if (this.tryPlaceContainedLiquid(playerIn, worldIn, blockpos1))
                 {
                     playerIn.addStat(StatList.getObjectUseStats(this));
-                    return !playerIn.capabilities.isCreativeMode ? new ActionResult(EnumActionResult.SUCCESS, new ItemStack(Items.BUCKET)) : new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+                    return !playerIn.capabilities.isCreativeMode ? new ActionResult<ItemStack>(EnumActionResult.SUCCESS, new ItemStack(Items.BUCKET)) : new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
                 }
                 else
                 {
-                    return new ActionResult(EnumActionResult.FAIL, itemStackIn);
+                    return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
                 }
             }
         }
@@ -105,7 +107,7 @@ public class ItemBucketTar extends ItemBucket{
 
 	                    SoundEvent soundevent = SoundEvents.ITEM_BUCKET_EMPTY_LAVA; //SoundEvents.ITEM_BUCKET_EMPTY;
 	                    pos.playSound(worldIn, posIn, soundevent, SoundCategory.BLOCKS, 1.0F, 1.0F);
-	                    pos.setBlockState(posIn, GlassBlocks.TAR.getDefaultState(), 11);
+	                    pos.setBlockState(posIn, BlockList.TAR.getDefaultState(), 11);
 	                
 
 	                return true;

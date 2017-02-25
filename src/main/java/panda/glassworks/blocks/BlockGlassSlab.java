@@ -46,6 +46,7 @@ public class BlockGlassSlab extends BlockSlab{
 		this.setLightOpacity(0);
 		this.setCreativeTab(GlassWorks.GlassTab);
 		this.useNeighborBrightness = true;
+		setRegistryName("glass_slab");
 
 		IBlockState iblockstate = this.blockState.getBaseState();
 
@@ -187,4 +188,7 @@ public class BlockGlassSlab extends BlockSlab{
 			return "default";
 		}
 	}
+	
+	//TODO 
+	//Rewrite this
 }

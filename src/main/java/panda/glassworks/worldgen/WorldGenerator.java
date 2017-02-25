@@ -6,6 +6,7 @@ import java.util.Set;
 import panda.glassworks.GlassWorks;
 import panda.glassworks.blocks.BlockSeaweed;
 import panda.glassworks.init.GlassBlocks;
+import panda.glassworks.util.registry.BlockList;
 
 import com.google.common.collect.Sets;
 
@@ -52,9 +53,9 @@ public class WorldGenerator implements IWorldGenerator{
 		{
 			randX = chunkX*16 + random.nextInt(16);
 			randZ = chunkZ*16 + random.nextInt(16);
-			new WorldGenLakes(GlassBlocks.TAR).generate(world,random,world.getHeight(new BlockPos(randX,0,randZ)));
+			new WorldGenLakes(BlockList.TAR).generate(world,random,world.getHeight(new BlockPos(randX,0,randZ)));
 
-			if(world.getBlockState(world.getHeight(new BlockPos(randX,0,randZ))).getBlock()==GlassBlocks.TAR){
+			if(world.getBlockState(world.getHeight(new BlockPos(randX,0,randZ))).getBlock()==BlockList.TAR){
 				GlassWorks.log.info("generated tar at "+world.getHeight(new BlockPos(randX,0,randZ)));
 			}
 			
@@ -94,7 +95,7 @@ public class WorldGenerator implements IWorldGenerator{
 			for (int i = 0; i < 16; ++i)
 	        {
 				BlockPos pos = new BlockPos(chunkX*16, 0, chunkZ*16).add(random.nextInt(16), random.nextInt(108), random.nextInt(16));
-				new WorldGenLakes(GlassBlocks.TAR).generate(world, random,pos );
+				new WorldGenLakes(BlockList.TAR).generate(world, random,pos );
 	        }
 		}
 		
@@ -141,7 +142,7 @@ public class WorldGenerator implements IWorldGenerator{
 		for(int i = 1; i < height; i++)
 		{
 			//if(((BlockSeaweed)GlassBlocks.SEAWEED).canPlaceBlockAt(world,position)){
-				world.setBlockState(seaBedPos.up(i), GlassBlocks.SEAWEED.getDefaultState());
+				world.setBlockState(seaBedPos.up(i), BlockList.SEAWEED.getDefaultState());
 			//}
 		}
 	}

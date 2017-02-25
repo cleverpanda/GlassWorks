@@ -4,21 +4,18 @@ import java.util.List;
 import java.util.Random;
 
 import panda.glassworks.GlassWorks;
+import panda.glassworks.items.ItemBlockFancyGlass;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBeacon;
-import net.minecraft.block.BlockBreakable;
 import net.minecraft.block.BlockGlass;
-import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -27,11 +24,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockFancyStainedGlass extends BlockGlass
-{
+public class BlockFancyStainedGlass extends BlockGlass{
     public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.<EnumDyeColor>create("color", EnumDyeColor.class);
     private static boolean ignoreSimilarity = false;
 
@@ -41,6 +38,8 @@ public class BlockFancyStainedGlass extends BlockGlass
 		this.setCreativeTab(GlassWorks.GlassTab);
 		this.setHardness(0.3F);
 		this.setSoundType(SoundType.GLASS);
+		setRegistryName("fancy_stained_glass");
+		GameRegistry.register(new ItemBlockFancyGlass(this));
 	}
 	
 	@Override

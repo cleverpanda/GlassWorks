@@ -13,6 +13,7 @@ public class BlockBlastGlass extends BlockGlass{
 		this.setSoundType(SoundType.GLASS);
 		this.setResistance(10F);
 		this.setCreativeTab(GlassWorks.GlassTab);
+		setRegistryName("blast_glass");
 	}
 	
 	

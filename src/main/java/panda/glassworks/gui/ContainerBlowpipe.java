@@ -4,12 +4,12 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import panda.glassworks.GlassWorks;
-import panda.glassworks.util.BasicInventory;
-import panda.glassworks.util.BlowpipeOutputSlot;
-import panda.glassworks.util.GlassBlowingRecipes;
-import panda.glassworks.util.GlassResultStack;
-import panda.glassworks.util.MessageHandler;
-import panda.glassworks.util.Network;
+import panda.glassworks.util.inventory.BasicInventory;
+import panda.glassworks.util.inventory.BlowpipeOutputSlot;
+import panda.glassworks.util.inventory.GlassResultStack;
+import panda.glassworks.util.network.MessageHandler;
+import panda.glassworks.util.network.Network;
+import panda.glassworks.util.registry.recipe.GlassBlowingRecipes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -95,8 +95,8 @@ public class ContainerBlowpipe extends Container{
 		int theSelection = getSelection();
 		System.out.println("MATRIX UPDATED WITH SELECTION " + theSelection + " AT SIDE " + FMLCommonHandler.instance().getEffectiveSide());
 		output_slot.inventory.clear();
-		if(hasInput() && GlassBlowingRecipes.instance().getBlowingResults(input_slot.getStack()) != null){
-			List<GlassResultStack> list = GlassBlowingRecipes.instance().getBlowingResults(input_slot.getStack());
+		if(hasInput() && GlassBlowingRecipes.getBlowingResults(input_slot.getStack()) != null){
+			List<GlassResultStack> list = GlassBlowingRecipes.getBlowingResults(input_slot.getStack());
 				int g = list.size();
 				if(theSelection >= g){ 
 					theSelection = g - 1;

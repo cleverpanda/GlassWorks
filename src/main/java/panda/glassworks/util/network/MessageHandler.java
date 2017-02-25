@@ -1,9 +1,10 @@
-package panda.glassworks.util;
+package panda.glassworks.util.network;
 
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import panda.glassworks.gui.ContainerBlowpipe;
+import panda.glassworks.util.inventory.BlowpipeOutputSlot;
 
 //The params of the IMessageHandler are <REQ, REPLY>
 //This means that the first param is the packet you are receiving, and the second is the packet you are returning.

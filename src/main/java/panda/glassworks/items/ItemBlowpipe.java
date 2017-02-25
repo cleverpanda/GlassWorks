@@ -27,6 +27,7 @@ public class ItemBlowpipe extends Item{
 	public ItemBlowpipe(){
 		super();
 		this.setCreativeTab(GlassWorks.GlassTab);
+		setRegistryName("blowpipe");
 	}
 
 	@Override

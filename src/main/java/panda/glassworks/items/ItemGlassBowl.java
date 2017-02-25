@@ -33,6 +33,7 @@ public class ItemGlassBowl extends ItemArmor{
 	public ItemGlassBowl() {
 		super(GLASS, 1, EntityEquipmentSlot.HEAD);
 		this.setCreativeTab(GlassWorks.GlassTab);
+		setRegistryName("glass_bowl");
 	}
 	
 	@Override

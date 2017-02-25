@@ -1,17 +1,12 @@
-package panda.glassworks.util;
+package panda.glassworks.util.events;
 
-import panda.glassworks.init.GlassBlocks;
-import panda.glassworks.init.GlassItems;
+
+
+import panda.glassworks.util.registry.ItemList;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
-import net.minecraftforge.client.event.RenderBlockOverlayEvent;
-import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
 public class ViewRenderHandler {
 	@SubscribeEvent
 	public void fogRenderEvent(EntityViewRenderEvent.FogDensity event)
@@ -20,7 +15,7 @@ public class ViewRenderHandler {
 
 		if(event.getEntity() instanceof EntityPlayer){
 			if(((EntityPlayer)event.getEntity()).inventory.armorInventory[3] != null){
-				if((  ((EntityPlayer)event.getEntity()).inventory.armorInventory[3].getItem() == GlassItems.GLASS_BOWL)){
+				if((  ((EntityPlayer)event.getEntity()).inventory.armorInventory[3].getItem() == ItemList.GLASS_BOWL)){
 					if(event.getEntity().isInsideOfMaterial(Material.WATER)){
 						//System.out.println("Water Density Event");
 						//event.setDensity(.001F);

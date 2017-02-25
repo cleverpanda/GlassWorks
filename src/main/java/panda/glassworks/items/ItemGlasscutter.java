@@ -44,6 +44,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        this.setMaxDamage(1562);
 	        this.setCreativeTab(GlassWorks.GlassTab);
 	        this.setContainerItem(this);
+	        setRegistryName("glasscutter");
 		}
 		
 		@Override

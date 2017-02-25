@@ -1,4 +1,4 @@
-package panda.glassworks.util;
+package panda.glassworks.util.inventory;
 
 import net.minecraft.item.ItemStack;
 

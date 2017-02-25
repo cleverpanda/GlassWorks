@@ -1,9 +1,13 @@
 package panda.glassworks.items;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import panda.glassworks.GlassWorks;
 import panda.glassworks.init.GlassItems;
+import panda.glassworks.util.registry.IMeta;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -11,18 +15,21 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemMoltenGlass extends Item{
-	private int ticks =0;
+public class ItemMoltenGlass extends Item implements IMeta{
+	private int ticks = 0;
 	private int timeToCool = 600;
 	
 	public ItemMoltenGlass()
     {
 		this.setHasSubtypes(true);
 		this.setCreativeTab(GlassWorks.GlassTab);
+		setRegistryName("molten_glass");
         
     }
 	
@@ -37,15 +44,7 @@ public class ItemMoltenGlass extends Item{
 
 	public String getUnlocalizedName(ItemStack stack)
     {
-		switch(stack.getMetadata()){
-		case 0:
-			return "panda.glassworks.item.molten_glass";
-		case 1:
-			return "panda.glassworks.item.molten_crystal_glass";
-		case 2:
-			return "panda.glassworks.item.molten_obsidian_glass";
-    }	
-		return "panda.glassworks.item.molten_glass";
+		return "item.glassworks." + getRegistryName().getResourcePath() + "." + stack.getMetadata();
     }
 	
 	
@@ -88,5 +87,20 @@ public class ItemMoltenGlass extends Item{
     @Override
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target,EntityLivingBase attacker) {
 		return super.hitEntity(stack, target, attacker);
+	}
+
+	@Override
+	public int getMaxMeta() {
+		return 2;
+	}
+
+	@Override
+	public Map<Integer, ModelResourceLocation> getMetaModelLocations() {
+		Map<Integer, ModelResourceLocation> map = new HashMap<Integer, ModelResourceLocation>();
+		ResourceLocation regname = getRegistryName();
+		map.put(0, new ModelResourceLocation(regname, "type=default"));
+		map.put(1, new ModelResourceLocation(regname, "type=crystal"));
+		map.put(2, new ModelResourceLocation(regname, "type=obsidian"));
+		return map;
 	}
 }

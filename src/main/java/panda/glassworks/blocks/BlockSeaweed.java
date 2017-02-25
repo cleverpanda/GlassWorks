@@ -1,10 +1,9 @@
 package panda.glassworks.blocks;
 
-import java.util.List;
 import java.util.Random;
 
-import panda.glassworks.init.GlassBlocks;
-import panda.glassworks.init.GlassItems;
+import panda.glassworks.GlassWorks;
+import panda.glassworks.items.ItemSeaweed;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -12,22 +11,19 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving.SpawnPlacementType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.EnumPlantType;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -41,9 +37,12 @@ public class BlockSeaweed extends Block{
 		this.setHardness(0.05F);
         this.setSoundType(SoundType.PLANT);
         this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, Integer.valueOf(0)));
-        float f = 0.375f;
+        //float f = 0.375f;
 		//this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 1.0F, 0.5F + f);
 		setTickRandomly(true);
+		setCreativeTab(GlassWorks.GlassTab);
+		setRegistryName("seaweed");
+		GameRegistry.register(new ItemSeaweed(this));
 	}
 	
 	
@@ -100,7 +99,7 @@ public class BlockSeaweed extends Block{
 	boolean hasOkAbove(World world, BlockPos pos){
 		Block block = world.getBlockState(pos.up()).getBlock();
 		
-		if(block == Blocks.WATER || block == Blocks.FLOWING_WATER || block == GlassBlocks.SEAWEED || block == Blocks.PRISMARINE || block == Blocks.SEA_LANTERN){
+		if(block == Blocks.WATER || block == Blocks.FLOWING_WATER || block == this || block == Blocks.PRISMARINE || block == Blocks.SEA_LANTERN){
 			return true;
 		}
 		return false;
@@ -109,7 +108,7 @@ public class BlockSeaweed extends Block{
 	boolean hasOkBelow(World world, BlockPos pos){
 		Block block = world.getBlockState(pos.down()).getBlock();
 		
-		if(block == Blocks.SAND || block == Blocks.GRAVEL || block == GlassBlocks.SEAWEED){
+		if(block == Blocks.SAND || block == Blocks.GRAVEL || block == this){
 			return true;
 		}
 		return false;
@@ -182,7 +181,7 @@ public class BlockSeaweed extends Block{
 	@Override
 	public ItemStack getPickBlock(IBlockState state, RayTraceResult target,
 			World world, BlockPos pos, EntityPlayer player) {
-		return new ItemStack(GlassItems.SEAWEED);
+		return new ItemStack(this);
 	}
 
 
@@ -212,7 +211,7 @@ public class BlockSeaweed extends Block{
 	
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        if (worldIn.getBlockState(pos.down()).getBlock() == GlassBlocks.SEAWEED || this.checkForDrop(worldIn, pos, state))
+        if (worldIn.getBlockState(pos.down()).getBlock() == this || this.checkForDrop(worldIn, pos, state))
         {
             if (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER)
             {
@@ -253,13 +252,13 @@ public class BlockSeaweed extends Block{
 	@SideOnly(Side.CLIENT)
 	@Override
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-		return new ItemStack(GlassItems.SEAWEED);
+		return new ItemStack(this);
 	}
 
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int par3){
-		return GlassItems.SEAWEED;
+		return Item.getItemFromBlock(this);
 	}
 	
 	public IBlockState getStateFromMeta(int meta)

@@ -25,6 +25,7 @@ public class ItemMilkBottle extends Item{
     {
 		this.setMaxStackSize(4);
 		this.setCreativeTab(GlassWorks.GlassTab);
+		setRegistryName("milk_bottle");
         
     }
 	

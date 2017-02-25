@@ -1,11 +1,12 @@
-package panda.glassworks.util;
+package panda.glassworks.util.events;
 
 import panda.glassworks.blocks.BlockTarFluid;
 import panda.glassworks.blocks.TarFluid;
-import panda.glassworks.init.GlassBlocks;
-import panda.glassworks.init.GlassItems;
+import panda.glassworks.util.registry.BlockList;
+import panda.glassworks.util.registry.ItemList;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -33,9 +34,9 @@ public class BucketHandler
 
         IBlockState iblockstate = event.getWorld().getBlockState(blockpos);
         Fluid filled_fluid = null;
-        if (iblockstate.getBlock() == GlassBlocks.TAR && ((Integer)iblockstate.getValue(BlockTarFluid.LEVEL)).intValue() == 0)
+        if (iblockstate.getBlock() == BlockList.TAR && ((Integer)iblockstate.getValue(BlockTarFluid.LEVEL)).intValue() == 0)
         {
-            filled_fluid = TarFluid.instance;
+            filled_fluid = BlockList.TAR_FLUID;
         }
         else
         {
@@ -44,8 +45,8 @@ public class BucketHandler
         
         // remove the fluid and return the appropriate filled bucket
         event.setResult(Result.ALLOW);
-        //UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, filled_fluid)
-        event.setFilledBucket(new ItemStack(GlassItems.TAR_BUCKET));
+        ItemStack bucket = new ItemStack(ItemList.TAR_BUCKET);
+        event.setFilledBucket(bucket);
         event.getWorld().setBlockToAir(blockpos);
         //TODO: event.entityPlayer.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(event.getEmptyBucket().getItem())]);
     }

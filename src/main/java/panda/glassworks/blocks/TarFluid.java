@@ -2,15 +2,18 @@ package panda.glassworks.blocks;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import panda.glassworks.util.registry.BlockList;
 
 public class TarFluid extends Fluid {
-    
-    public static final String name = "tar";
-    public static final TarFluid instance = new TarFluid();
 
     public TarFluid()
     {
-        super(name, new ResourceLocation("glassworks:blocks/Tar_Still"), new ResourceLocation("glassworks:blocks/Tar_Flowing"));
+        super("tar", new ResourceLocation("glassworks:blocks/tar_still"), new ResourceLocation("glassworks:blocks/tar_flowing"));
+        setViscosity(6000);
+        setDensity(50000);
+        setBlock(BlockList.TAR);
+        FluidRegistry.addBucketForFluid(this);
     }
 
 }

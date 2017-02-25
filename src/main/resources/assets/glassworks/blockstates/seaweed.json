@@ -1,6 +1,6 @@
 {
     "variants": {
-        "level=0": { "model": "glassworks:seaweed" },
+    "level=0": { "model": "glassworks:seaweed" },
 	"level=1": { "model": "glassworks:seaweed" },
 	"level=2": { "model": "glassworks:seaweed" },
 	"level=3": { "model": "glassworks:seaweed" },

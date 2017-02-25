@@ -52,6 +52,7 @@ public class BlockStainedGlassSlab extends BlockSlab{
 			
 
 		this.setDefaultState(iblockstate.withProperty(VARIANT, BlockStainedGlassSlab.EnumType.WHITE));
+		setRegistryName("stained_glass_slab");
 	}
 	
 	

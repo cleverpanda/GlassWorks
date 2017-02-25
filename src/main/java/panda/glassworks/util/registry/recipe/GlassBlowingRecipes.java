@@ -1,4 +1,4 @@
-package panda.glassworks.util;
+package panda.glassworks.util.registry.recipe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,7 +7,8 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-import panda.glassworks.init.GlassItems;
+import panda.glassworks.util.inventory.GlassResultStack;
+import panda.glassworks.util.registry.ItemList;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -15,33 +16,28 @@ import net.minecraft.item.ItemStack;
 
 public class GlassBlowingRecipes {
 	
-	private Map<Item, List<GlassResultStack>> glassMultiList = new HashMap<Item, List<GlassResultStack>>();
-	private static final GlassBlowingRecipes INSTANCE = new GlassBlowingRecipes();
+	private static Map<Item, List<GlassResultStack>> glassMultiList = new HashMap<Item, List<GlassResultStack>>();
 
 
-    public static GlassBlowingRecipes instance()
-    {
-        return INSTANCE;
-    }
     
-    public void InitGlassBlowingRecipes()
+    public static void initGlassBlowingRecipes()
     {
     	
-    	addBlowingRecipe(GlassItems.MOLTEN_GLASS, GlassItems.BOTTLE_UNFINISHED);
-    	addBlowingRecipe(GlassItems.MOLTEN_GLASS, GlassItems.GLASS_LAMP);
-    	addBlowingRecipe(GlassItems.MOLTEN_GLASS, GlassItems.GLASS_BULB);
+    	addBlowingRecipe(ItemList.MOLTEN_GLASS, ItemList.BOTTLE_UNFINISHED);
+    	addBlowingRecipe(ItemList.MOLTEN_GLASS, ItemList.GLASS_LAMP);
+    	addBlowingRecipe(ItemList.MOLTEN_GLASS, ItemList.GLASS_BULB);
     	
     	addBlowingRecipe(Items.NETHER_STAR, new ItemStack(Blocks.BEACON));
         
-        addBlowingRecipe(new ItemStack(GlassItems.MOLTEN_GLASS,2), GlassItems.GLASS_LENS);
-        addBlowingRecipe(new ItemStack(GlassItems.MOLTEN_GLASS,2), GlassItems.GLASS_BOWL);
+        addBlowingRecipe(new ItemStack(ItemList.MOLTEN_GLASS,2), ItemList.GLASS_LENS);
+        addBlowingRecipe(new ItemStack(ItemList.MOLTEN_GLASS,2), ItemList.GLASS_BOWL);
         
-        addBlowingRecipe(new ItemStack(GlassItems.MOLTEN_GLASS,2,1), GlassItems.CRYSTAL_FLASK_UNFINISHED);
+        addBlowingRecipe(new ItemStack(ItemList.MOLTEN_GLASS,2,1), ItemList.CRYSTAL_FLASK_UNFINISHED);
     }
 
     
     
-    public void addBlowingRecipe(ItemStack input, ItemStack output){
+    public static void addBlowingRecipe(ItemStack input, ItemStack output){
     	
     	Item item = input.getItem();
     	int meta = input.getMetadata();
@@ -63,30 +59,30 @@ public class GlassBlowingRecipes {
     	
     }
     
-    public void addBlowingRecipe(Item input, ItemStack output){
+    public static void addBlowingRecipe(Item input, ItemStack output){
     	addBlowingRecipe(new ItemStack(input), output);
     }
     
-    public void addBlowingRecipe(ItemStack input, Item output){
+    public static void addBlowingRecipe(ItemStack input, Item output){
     	addBlowingRecipe(input, new ItemStack(output));
     }
     
-    public void addBlowingRecipe(Item input, Item output){
+    public static void addBlowingRecipe(Item input, Item output){
     	addBlowingRecipe(new ItemStack(input), new ItemStack(output));
     }
     
-    private List<GlassResultStack> getAllBlowingResults(Item input){
+    private static List<GlassResultStack> getAllBlowingResults(Item input){
     	return glassMultiList.get(input);
     }
     
     //getAllBlowingResults is internal for THIS CLASS only! DO NOT USE IT!
     
-    private List<GlassResultStack> getAllBlowingResults(ItemStack input){
+    private static List<GlassResultStack> getAllBlowingResults(ItemStack input){
     	return getAllBlowingResults(input.getItem());
     }
     
     @Nullable
-	public List<GlassResultStack> getBlowingResults(ItemStack input){
+	public static List<GlassResultStack> getBlowingResults(ItemStack input){
 		List<GlassResultStack> results = getAllBlowingResults(input);
 		List<GlassResultStack> returned = new ArrayList<GlassResultStack>();
 		if(results != null){

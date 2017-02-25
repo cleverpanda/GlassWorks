@@ -1,11 +1,10 @@
-package panda.glassworks.brewing;
+package panda.glassworks.util.registry.recipe;
 
-import panda.glassworks.init.GlassItems;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionHelper;
 import net.minecraftforge.common.brewing.IBrewingRecipe;
+import panda.glassworks.util.registry.ItemList;
 
 public class CrystalBrewingRecipe implements IBrewingRecipe {
 
@@ -17,7 +16,7 @@ public class CrystalBrewingRecipe implements IBrewingRecipe {
 	    public boolean isInput(ItemStack stack)
 	    {
 	        Item item = stack.getItem();
-	        return item == GlassItems.POTION_FLASK || item == GlassItems.CRYSTAL_FLASK;
+	        return item == ItemList.POTION_FLASK || item == ItemList.CRYSTAL_FLASK;
 	    }
 
 	    /**
