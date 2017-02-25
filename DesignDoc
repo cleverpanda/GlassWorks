@@ -1,0 +1,159 @@
+
+-----TO-DO-----
+Soul Glass
+	dark and collision when unpowered, clear and can walk through when powered
+	colored soul glass allows for multiplayer scoreboard team interaction
+glass slabs
+	fancy and vanilla
+lanterns
+	oil lantern, can refill with oil, can extinguish and relight
+	Candle Lantern, can refill with new candle
+	take redstone signals to relight when in block form
+Oil Lamp
+	extinguishes faster than Lantern
+	cannot place on cielings 
+	//what about walls?
+lantern carts and boats
+	renders lantern in minecart
+ 	moving light source
+	must start with a full lantern, but wont use fuel
+tar pools
+	need BOP support
+	dont generate correctly
+	could have better shapes generated
+Redstone Bulb
+	like a torch but controlled by redstone
+	//too unoriginal?
+	//would be good for more modern builds though
+	//wouldnt extinguish...
+	//maybe needs power with IE installed
+Glass Doors
+
+Extinguishing mechanic
+	Falling into water with lantern,lamp,torch extinguishes it
+		torch extinguish -> return sticks //need to be aware that some mods add this too
+	Falling into water with molten glass returns glass blocks
+	
+molten glass burns you without protection?
+	//too much hastle?
+	//wouldnt need apron then
+	//maybe wait for IW then tie in
+dropping glass items from too high will shatter them
+	//too much hastle?
+Potion Flask made by enchanting unfinished #2 potion flask
+	//Lore: the magic makes the glass retain the potions potency better
+	30 levels
+	no books+anvil allowed
+	
+fish bowl block? :)
+
+blowpipe vuvuzela XD
+
+using blowpipe makes player hold it up to mouth
+
+model for blowpipe
+
+seaweed loot chance from fishing 
+
+lang file
+
+//how should colors be handled?, currently externally by vanilla
+
+glass cutter in hand needs to be rotated
+
+spyglass 
+	X2,X3 magnification
+	with 2 lenses and gold nuggets
+	use gold plate if availible
+
+config system
+	also importing blowpipe recipe entries from config
+	
+soul glass should have config to allow arrows,snowballs,tnt entity to pass through to prevent super forcefield
+
+need a more involved mid-end game recipe for soul glass
+
+blast glass texture too unoriginal or does it stay faithful?
+
+lamps,lanterns need to actually process fuel
+
+mixing flask
+	(mix two potions to get 2 (or 3?) doses of the combined effects in one bottle
+	texture //call Alvoria again?
+	rendering // how to do 2 potion overlays in one file?
+	needs end game crafting recipe to justify
+	
+use glass lens to start fires?
+	//def would be a config option if implemented
+	//too easy for fire?
+	//only during day
+seaweed generation is meh.
+
+more creative way to create lamp oil than smelting tar?
+
+might be a good idea to make lamp oil an actual fluid
+
+go back and make sure all reasonable things support ore dict
+
+allow shift clicking into blowpipe slot
+
+tar needs it's own particle. 
+	a slow bubbling that pops on the surface
+	
+crystal glass should require lead powder when availible 
+
+soul glass opacity and redstone functions
+
+blow pipe should be crafted with iron nuggets or iron plates if availible
+
+
+
+
+-----BUGS-----
+being incased in tar renders water overlay
+
+being inside soul glass doesnt render the glass at all
+
+fancy stained glass meta 0 item does not render
+
+oil lamp model has no texture
+
+placing oil lamp adjacent to another oil lamp borks
+	placing ANYTHING next to it borks
+	
+placing lantern on top of lantern pops off when it should really just deny the placement
+
+lantern block should rotate based on player position when placed on ground
+
+sould glass item does not render 
+
+seaweed adjacent to a solid block pops off on update
+	how to determine if its actually underwater or if someone is just making a pillar of water above ground and trying to put seaweed in it?
+
+
+
+-----Tie Ins-----
+Flour+Swamp Tar == Swamp Paste //counts as glue for MTS
+
+Glenn's Gasses //Trent may add explicit support. ask again when closer
+	lamps explode gas
+	lanterns are gas safe
+Beehives
+	candles can be placed in lanterns
+Quark glass shards
+	melt them into molten glass.
+	just disregard color
+lamp oil needs to be distilled with IE installed
+
+lanterns,lamps with dynamic lights
+
+lamp posts with IW and SW
+
+Decay
+	molten glass + Time -> Glass Block
+	molten glass burns chests
+		//what about with Iron chests installed?
+Tinker's?
+	//egh maybe post beta release
+	
+potash from pine 2x and maple, oak
