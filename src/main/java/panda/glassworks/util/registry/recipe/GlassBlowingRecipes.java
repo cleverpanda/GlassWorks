@@ -32,7 +32,7 @@ public class GlassBlowingRecipes {
         addBlowingRecipe(new ItemStack(ItemList.MOLTEN_GLASS,2), ItemList.GLASS_LENS);
         addBlowingRecipe(new ItemStack(ItemList.MOLTEN_GLASS,2), ItemList.GLASS_BOWL);
         
-        addBlowingRecipe(new ItemStack(ItemList.MOLTEN_GLASS,2,1), ItemList.CRYSTAL_FLASK_UNFINISHED);
+        addBlowingRecipe(new ItemStack(ItemList.MOLTEN_GLASS,2,1), new ItemStack(ItemList.CRYSTAL_FLASK_UNFINISHED,1,0));
     }
 
     

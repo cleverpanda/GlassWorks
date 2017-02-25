@@ -13,7 +13,7 @@ public class GlassBlocks {
 	public static Block FANCY_STAINED_GLASS;
 	public static Block LANTERN;
 	public static Block LAMP;
-	public static BlockSlab GLASS_SLAB;
+	public static BlockSlab GLASS_SLAB;w
 	public static BlockSlab DOUBLE_GLASS_SLAB;
 	public static BlockSlab STAINED_GLASS_SLAB;
 	public static BlockSlab DOUBLE_STAINED_GLASS_SLAB;

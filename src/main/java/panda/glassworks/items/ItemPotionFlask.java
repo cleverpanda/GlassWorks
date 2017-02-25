@@ -112,7 +112,8 @@ public class ItemPotionFlask extends Item implements IMeta{
 
     public String getItemStackDisplayName(ItemStack stack)
     {
-        return I18n.format(PotionUtils.getPotionFromItem(stack).getNamePrefixed("potion.effect."));
+    	
+    	return I18n.format(this.getUnlocalizedName())+I18n.format(PotionUtils.getPotionFromItem(stack).getNamePrefixed("potion.effect."));
     }
 
     /**
@@ -122,6 +123,7 @@ public class ItemPotionFlask extends Item implements IMeta{
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
     {
         PotionUtils.addPotionTooltip(stack, tooltip, 1.0F);
+        tooltip.add("Uses Left: "+(4-stack.getMetadata()));
     }
 
     @SideOnly(Side.CLIENT)
