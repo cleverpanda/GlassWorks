@@ -4,8 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import panda.glassworks.GlassWorks;
-import panda.glassworks.items.ItemBlockFancyGlass;
-import net.minecraft.block.Block;
+import panda.glassworks.items.itemblocks.ItemBlockFancyGlass;
 import net.minecraft.block.BlockBeacon;
 import net.minecraft.block.BlockGlass;
 import net.minecraft.block.SoundType;
@@ -30,7 +29,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockFancyStainedGlass extends BlockGlass{
     public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.<EnumDyeColor>create("color", EnumDyeColor.class);
-    private static boolean ignoreSimilarity = false;
 
 	public BlockFancyStainedGlass() {
 		super(Material.GLASS,false);
@@ -56,38 +54,15 @@ public class BlockFancyStainedGlass extends BlockGlass{
 
     @SideOnly(Side.CLIENT)
     @Override
-    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
-    {
-        IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
-        Block block = iblockstate.getBlock();
-
-            if (blockState != iblockstate)
-            {
-                return true;
-            }
-
-            if (block == this)
-            {
-                return false;
-            }
-
-        return !this.ignoreSimilarity && block == this ? false : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side){
+        return !(world.getBlockState(pos.offset(side)).getBlock() == this);
     }
-
-	/**
-     * Gets the metadata of the item this Block can drop. This method is called when the block gets destroyed. It
-     * returns the metadata of the dropped item based on the old metadata of the block.
-     */
-
     
     @Override
 	public int damageDropped(IBlockState state) {
 		return getMetaFromState(state);
 	}
 
-    /**
-     * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
-     */
     @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
     {
@@ -97,10 +72,7 @@ public class BlockFancyStainedGlass extends BlockGlass{
         }
 
     }
-
-	/**
-     * Get the MapColor for this Block and the given BlockState
-     */
+    
     @Override
     public MapColor getMapColor(IBlockState state)
     {
@@ -113,9 +85,6 @@ public class BlockFancyStainedGlass extends BlockGlass{
         return BlockRenderLayer.TRANSLUCENT;
     }
 
-    /**
-     * Returns the quantity of items to drop on block destruction.
-     */
     @Override
     public int quantityDropped(Random random)
     {
@@ -134,9 +103,6 @@ public class BlockFancyStainedGlass extends BlockGlass{
         return false;
     }
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
     @Override
     public IBlockState getStateFromMeta(int meta)
     {
@@ -160,42 +126,21 @@ public class BlockFancyStainedGlass extends BlockGlass{
             BlockBeacon.updateColorAsync(worldIn, pos);
         }
     }
-
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
     
-
     @Override
     protected BlockStateContainer createBlockState()
     {
         return new BlockStateContainer(this, COLOR);
     }
-    
-    
- 
-
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		return state.getValue(COLOR).getMetadata();
 	}
 	
-	/**
-	 * Get the unlocalised name suffix for the specified {@link ItemStack}.
-	 *
-	 * @param stack The ItemStack
-	 * @return The unlocalised name suffix
-	 */
 	public String getName(ItemStack stack) {
 
 		String color = EnumDyeColor.byMetadata(stack.getMetadata()).getName().toLowerCase();
-		 return super.getUnlocalizedName() + "_" + color;
+		 return super.getUnlocalizedName() + "." + color;
 	}
-
-	
-
-
-
-	
 }

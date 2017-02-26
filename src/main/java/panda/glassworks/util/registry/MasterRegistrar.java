@@ -63,7 +63,7 @@ public final class MasterRegistrar {
 			}
 			if(item instanceof IMeta){
 				for(int i = 0; i <= ((IMeta) item).getMaxMeta(); i++){
-					Map<Integer, ModelResourceLocation> map = ((IMeta) item).getMetaModelLocations();
+					List<ModelResourceLocation> map = ((IMeta) item).getMetaModelLocations();
 					ModelLoader.setCustomModelResourceLocation(item, i, map.get(i));
 				}
 			}

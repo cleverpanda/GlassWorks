@@ -3,7 +3,7 @@ package panda.glassworks.blocks;
 import java.util.Random;
 
 import panda.glassworks.GlassWorks;
-import panda.glassworks.items.ItemSeaweed;
+import panda.glassworks.items.itemblocks.ItemSeaweed;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;

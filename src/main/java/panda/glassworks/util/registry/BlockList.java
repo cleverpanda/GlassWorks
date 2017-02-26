@@ -11,6 +11,7 @@ import panda.glassworks.blocks.BlockLamp;
 import panda.glassworks.blocks.BlockLantern;
 import panda.glassworks.blocks.BlockSeaweed;
 import panda.glassworks.blocks.BlockSoulGlass;
+import panda.glassworks.blocks.BlockStainedGlassSlab;
 import panda.glassworks.blocks.BlockTarFluid;
 import panda.glassworks.blocks.TarFluid;
 
@@ -31,7 +32,7 @@ public final class BlockList{
 	public static final BlockSlab STAINED_GLASS_SLAB = new
 	public static final BlockSlab DOUBLE_STAINED_GLASS_SLAB = new*/
 	public static final Block SOUL_GLASS = new BlockSoulGlass();
-	
+	public static final Block FANCY_WHITE_SLAB = new BlockStainedGlassSlab("fancy_white_slab");
 	
 	
 	
@@ -43,6 +44,7 @@ public final class BlockList{
 		list.add(FANCY_STAINED_GLASS);
 		list.add(LANTERN);
 		list.add(LAMP);
+		list.add(FANCY_WHITE_SLAB);
 		return list;
 	}
 

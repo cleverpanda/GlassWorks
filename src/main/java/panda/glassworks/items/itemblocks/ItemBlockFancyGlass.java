@@ -1,8 +1,7 @@
-package panda.glassworks.items;
+package panda.glassworks.items.itemblocks;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.EnumDyeColor;
@@ -37,12 +36,12 @@ public class ItemBlockFancyGlass extends ItemBlock implements IMeta{
 	}
 
 	@Override
-	public Map<Integer, ModelResourceLocation> getMetaModelLocations() {
-		Map<Integer, ModelResourceLocation> map = new HashMap<Integer, ModelResourceLocation>();
+	public List<ModelResourceLocation> getMetaModelLocations() {
+		List<ModelResourceLocation> list = new ArrayList<ModelResourceLocation>();
 		Block block = this.getBlock();
 		for(int i = 0; i <= 15; i++){
-			map.put(i, new ModelResourceLocation(block.getRegistryName(), "color=" + EnumDyeColor.byMetadata(i).getName()));
+			list.add(new ModelResourceLocation(block.getRegistryName(), "color=" + EnumDyeColor.byMetadata(i).getName()));
 		}
-		return map;
+		return list;
 	}
 }

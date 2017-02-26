@@ -188,7 +188,4 @@ public class BlockGlassSlab extends BlockSlab{
 			return "default";
 		}
 	}
-	
-	//TODO 
-	//Rewrite this
 }

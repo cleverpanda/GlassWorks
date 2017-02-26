@@ -1,4 +1,4 @@
-package panda.glassworks.items;
+package panda.glassworks.items.itemblocks;
 
 import panda.glassworks.GlassWorks;
 import panda.glassworks.util.registry.BlockList;

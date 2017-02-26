@@ -1,5 +1,6 @@
 package panda.glassworks.items;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -147,12 +148,12 @@ public class ItemPotionFlask extends Item implements IMeta{
 	}
 
 	@Override
-	public Map<Integer, ModelResourceLocation> getMetaModelLocations() {
-		Map<Integer, ModelResourceLocation> map = new HashMap<Integer, ModelResourceLocation>();
-		map.put(0, new ModelResourceLocation(getRegistryName(), "dose=4"));
-		map.put(1, new ModelResourceLocation(getRegistryName(), "dose=3"));
-		map.put(2, new ModelResourceLocation(getRegistryName(), "dose=2"));
-		map.put(3, new ModelResourceLocation(getRegistryName(), "dose=1"));
+	public List<ModelResourceLocation> getMetaModelLocations() {
+		List<ModelResourceLocation> map = new ArrayList<ModelResourceLocation>();
+		map.add(new ModelResourceLocation(getRegistryName(), "dose=4"));
+		map.add(new ModelResourceLocation(getRegistryName(), "dose=3"));
+		map.add(new ModelResourceLocation(getRegistryName(), "dose=2"));
+		map.add(new ModelResourceLocation(getRegistryName(), "dose=1"));
 		return map;
 	}
 }

@@ -1,0 +1,13 @@
+{
+    "parent": "block/half_slab",
+
+    "textures": {
+
+        "bottom": "#all",
+
+        "top": "#all",
+
+        "side": "#all"
+
+    }
+}

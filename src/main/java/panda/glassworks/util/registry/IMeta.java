@@ -1,5 +1,6 @@
 package panda.glassworks.util.registry;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -10,6 +11,6 @@ public interface IMeta {
 	
 	
 	@Nonnull public int getMaxMeta();
-	@Nonnull public Map<Integer, ModelResourceLocation> getMetaModelLocations();
+	@Nonnull public List<ModelResourceLocation> getMetaModelLocations();
 	
 }

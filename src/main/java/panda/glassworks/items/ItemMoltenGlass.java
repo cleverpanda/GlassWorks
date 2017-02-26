@@ -1,5 +1,6 @@
 package panda.glassworks.items;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,12 +96,12 @@ public class ItemMoltenGlass extends Item implements IMeta{
 	}
 
 	@Override
-	public Map<Integer, ModelResourceLocation> getMetaModelLocations() {
-		Map<Integer, ModelResourceLocation> map = new HashMap<Integer, ModelResourceLocation>();
+	public List<ModelResourceLocation> getMetaModelLocations() {
+		List<ModelResourceLocation> list = new ArrayList<ModelResourceLocation>();
 		ResourceLocation regname = getRegistryName();
-		map.put(0, new ModelResourceLocation(regname, "type=default"));
-		map.put(1, new ModelResourceLocation(regname, "type=crystal"));
-		map.put(2, new ModelResourceLocation(regname, "type=obsidian"));
-		return map;
+		list.add(new ModelResourceLocation(regname, "type=default"));
+		list.add(new ModelResourceLocation(regname, "type=crystal"));
+		list.add(new ModelResourceLocation(regname, "type=obsidian"));
+		return list;
 	}
 }
