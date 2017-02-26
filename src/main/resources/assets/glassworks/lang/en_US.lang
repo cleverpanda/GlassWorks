@@ -1,4 +1,5 @@
 @@ -0,0 +1,7 @@
-item.glassworks.potion_flask.name:Large
+text.glassworks.potion_flask.name=Large
+text.glassworks.potion_flask_remaining.name=Uses Left:
 
 \ No newline at end of file
