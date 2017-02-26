@@ -18,6 +18,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
@@ -148,6 +149,12 @@ public class ItemPotionFlask extends Item implements IMeta{
 	public int getMaxMeta() {
 		return 3;
 	}
+	
+	@Override
+	public EnumRarity getRarity(ItemStack stack)
+    {
+        return EnumRarity.RARE ;
+    }
 
 	@Override
 	public List<ModelResourceLocation> getMetaModelLocations() {

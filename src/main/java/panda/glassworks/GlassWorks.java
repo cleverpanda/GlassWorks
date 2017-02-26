@@ -68,6 +68,7 @@ public class GlassWorks
 	    @Override public Item getTabIconItem() {
 	        return ItemList.MOLTEN_GLASS;
 	    }
+	    
 	};
 
 
