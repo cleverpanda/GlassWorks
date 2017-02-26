@@ -60,15 +60,6 @@ public abstract class BlockGlassSlabBase extends Block{
     {
         return 1;
     }
-	
-	@Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack)
-    {
-		if(facing == EnumFacing.DOWN) return getDefaultState().withProperty(VARIANT, SlabVariant.UPPER);
-		else if (facing == EnumFacing.UP) return getDefaultState().withProperty(VARIANT, SlabVariant.LOWER);
-		else if(hitY >= 0.5) return getDefaultState().withProperty(VARIANT, SlabVariant.UPPER);
-		return getDefaultState();
-    }
 
 	@Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos){
@@ -78,7 +69,7 @@ public abstract class BlockGlassSlabBase extends Block{
 	@Override
     @Nullable
     public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos){
-		return getBoundingBox(state, (IBlockAccess) world, pos);
+		return state.getBoundingBox(world, pos);
 	}
 	
 	@Override
@@ -107,9 +98,13 @@ public abstract class BlockGlassSlabBase extends Block{
 	
     @SideOnly(Side.CLIENT)
     @Override
-    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
-    {
-        return !(blockAccess.getBlockState(pos.offset(side)).getBlock() == this);
+    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess blockAccess, BlockPos pos, EnumFacing facing)
+    {	IBlockState state2 = blockAccess.getBlockState(pos.offset(facing));
+    	if(!facing.getAxis().isVertical()) return !(state2.getBlock() == this && (state2 == state || getDouble() == state2));
+    	else if (facing == EnumFacing.DOWN && state2 == getDouble()) return !(state == getLower() || state == state2);
+    	else if (facing == EnumFacing.UP && state2 == getDouble()) return !(state.getBlock() == this);
+    	else if (facing == EnumFacing.UP && state == getDouble()) return !(state2 == getLower());
+    	return !(state2.getBlock() == this && state2 == getOpposite(state));
     }
 	
 	@Override
@@ -141,6 +136,23 @@ public abstract class BlockGlassSlabBase extends Block{
     {
         return false;
     }
+	
+	public IBlockState getUpper(){
+		return this.getDefaultState().withProperty(VARIANT, SlabVariant.UPPER);
+	}
+	
+	public IBlockState getLower(){
+		return this.getDefaultState();
+	}
+	
+	public IBlockState getDouble(){
+		return this.getDefaultState().withProperty(VARIANT, SlabVariant.DOUBLE);
+	}
+	
+	public IBlockState getOpposite(IBlockState state){
+		if(state == getUpper()) return getLower();
+		return getUpper();
+	}
 	
 	public static enum SlabVariant implements IStringSerializable{
 		LOWER("lower", new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D), 0),

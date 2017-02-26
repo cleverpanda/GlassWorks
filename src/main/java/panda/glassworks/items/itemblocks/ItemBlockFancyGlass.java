@@ -27,7 +27,7 @@ public class ItemBlockFancyGlass extends ItemBlock implements IMeta{
 	public String getUnlocalizedName(ItemStack stack)
     {
 		 String color = EnumDyeColor.byMetadata(stack.getMetadata()).getName().toLowerCase();
-		 return super.getUnlocalizedName() + "_" + color;
+		 return super.getUnlocalizedName() + "." + color;
     }
 
 	@Override

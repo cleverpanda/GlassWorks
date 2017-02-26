@@ -78,6 +78,7 @@ public final class MasterRegistrar {
 	public static void callRegistry(FMLPreInitializationEvent e){
 		register(e, BlockList.getList());
 		register(e, ItemList.getList());
+		register(e, RandomData.list);
 		RecipeRegistry.register();
 	}
 	

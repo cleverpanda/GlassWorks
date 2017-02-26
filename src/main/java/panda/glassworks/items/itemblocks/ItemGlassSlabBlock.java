@@ -2,8 +2,8 @@ package panda.glassworks.items.itemblocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -13,72 +13,97 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import panda.glassworks.blocks.BlockGlassSlabBase;
 import panda.glassworks.blocks.BlockGlassSlabBase.SlabVariant;
 
 public class ItemGlassSlabBlock extends ItemBlock{
 
-	public ItemGlassSlabBlock(Block block) {
+	private BlockGlassSlabBase realBlock = (BlockGlassSlabBase) this.block;
+	private PropertyEnum<SlabVariant> VARIANT = BlockGlassSlabBase.VARIANT;
+	
+	public ItemGlassSlabBlock(BlockGlassSlabBase block) {
 		super(block);
 		this.setMaxDamage(0);
 		setRegistryName(block.getRegistryName());
 	}
 	
 	@Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-        IBlockState state = worldIn.getBlockState(pos);
+		if(!world.isRemote) System.out.println("Calling onItemUse with facing " + facing.getName() + " and hitY " + hitY);
+		IBlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
-
-        if (!block.isReplaceable(worldIn, pos) && !(block == this.block))
-        {
-            pos = pos.offset(facing);
+        if(!block.isReplaceable(world, pos) && !(block == this.block && checkOppositeByFacing(state, facing))) pos = pos.offset(facing);
+        state = world.getBlockState(pos);
+        IBlockState placeState = getByHitY(hitY);
+        if(player.canPlayerEdit(pos, facing, stack) && facing.getAxis().isVertical() && state.getBlock() == this.block) {
+        	placeState = this.realBlock.getDouble();
+        	if(doubleSlab(world, pos)) return shrinkAndSucceed(world, pos, player, stack);
         }
-        
-        block = worldIn.getBlockState(pos).getBlock();
-        int i = stack.getMetadata();
-        if(stack.stackSize != 0 && playerIn.canPlayerEdit(pos, facing, stack) && block == this.block && isStateValidForDoubling(state, facing)){
-            IBlockState state2 = this.block.getDefaultState().withProperty(BlockGlassSlabBase.VARIANT, BlockGlassSlabBase.SlabVariant.DOUBLE);
-        	
-            if (worldIn.setBlockState(pos, state2))
-            {
-                SoundType soundtype = worldIn.getBlockState(pos).getBlock().getSoundType(worldIn.getBlockState(pos), worldIn, pos, playerIn);
-                worldIn.playSound(playerIn, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
-                --stack.stackSize;
-            }
-
-            return EnumActionResult.SUCCESS;
+        else if(validEditable(state, world, pos, facing, stack, player) && facing.getAxis().isHorizontal()) {
+        	if(world.setBlockState(pos, placeState)) return shrinkAndSucceed(world, pos, player, stack);
         }
-        
-        if (!block.isReplaceable(worldIn, pos))
-        {
-            pos = pos.offset(facing);
+        else if(validEditable(state, world, pos, facing, stack, player) && facing.getAxis().isVertical()){
+        	placeState = realBlock.getOpposite(placeState);
+        	if(world.setBlockState(pos, placeState)) return shrinkAndSucceed(world, pos, player, stack);
         }
-        
-        if (stack.stackSize != 0 && playerIn.canPlayerEdit(pos, facing, stack) && worldIn.canBlockBePlaced(this.block, pos, false, facing, (Entity)null, stack))
-        {
-            IBlockState state2 = this.block.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, i, playerIn, stack);
-
-            if (placeBlockAt(stack, playerIn, worldIn, pos, facing, hitX, hitY, hitZ, state2))
-            {
-                SoundType soundtype = worldIn.getBlockState(pos).getBlock().getSoundType(worldIn.getBlockState(pos), worldIn, pos, playerIn);
-                worldIn.playSound(playerIn, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
-                --stack.stackSize;
-            }
-
-            return EnumActionResult.SUCCESS;
+        else if(player.canPlayerEdit(pos, facing, stack) && facing.getAxis().isHorizontal() && state.getBlock() == this.block && canBeMerged(state, placeState)){
+        	if(doubleSlab(world, pos)) return shrinkAndSucceed(world, pos, player, stack);
         }
-        else
-        {
-            return EnumActionResult.FAIL;
-        }
+        return EnumActionResult.FAIL;
     }
 	
-	private boolean isStateValidForDoubling(IBlockState state, EnumFacing facing){
-		SlabVariant value = state.getValue(BlockGlassSlabBase.VARIANT);
-		return((value == SlabVariant.LOWER && facing == EnumFacing.UP) || (value == SlabVariant.UPPER && facing == EnumFacing.DOWN));
+	private boolean validEditable(IBlockState state, World world, BlockPos pos, EnumFacing facing, ItemStack stack, EntityPlayer player){
+		return state.getBlock().isReplaceable(world, pos) && player.canPlayerEdit(pos, facing, stack);
 	}
 	
+	private boolean canBeMerged(IBlockState state, IBlockState state2){
+		if(state != realBlock.getDouble() && state2 != realBlock.getDouble()) return !(state == state2);
+		else return false;
+	}
+	
+	private boolean checkOppositeByFacing(IBlockState state, EnumFacing facing){
+		
+		if(facing == EnumFacing.DOWN) return state.getValue(VARIANT) == SlabVariant.UPPER;
+		else if(facing == EnumFacing.UP) return state.getValue(VARIANT) == SlabVariant.LOWER;
+		else return false;
+	}
+	
+	@Override
+    @SideOnly(Side.CLIENT)
+    public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack){
+		return world.checkNoEntityCollision(Block.FULL_BLOCK_AABB.offset(pos.offset(side)), null);
+        }
+	
+	private EnumActionResult shrinkAndSucceed(World world, BlockPos pos, EntityPlayer player, ItemStack stack){
+        SoundType soundtype = world.getBlockState(pos).getBlock().getSoundType(world.getBlockState(pos), world, pos, player);
+        world.playSound(player, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
+        --stack.stackSize;
+        return EnumActionResult.SUCCESS;
+	}
+	
+	private IBlockState getByHitY(float hitY){
+		if(hitY >= 0.5) return this.block.getDefaultState().withProperty(VARIANT, SlabVariant.UPPER);
+		return this.block.getDefaultState();
+	}
+	
+	private boolean doubleSlab(World world, BlockPos pos){
+		return world.setBlockState(pos, realBlock.getDouble());
+	}
+	
+	@Override
+    public String getUnlocalizedName(ItemStack stack)
+    {
+        return this.block.getUnlocalizedName() + "." + stack.getMetadata();
+    }
+	
+	@Override
+    public int getMetadata(int damage)
+    {
+        return damage;
+    }
 	
 
 }

@@ -138,9 +138,4 @@ public class BlockFancyStainedGlass extends BlockGlass{
 		return state.getValue(COLOR).getMetadata();
 	}
 	
-	public String getName(ItemStack stack) {
-
-		String color = EnumDyeColor.byMetadata(stack.getMetadata()).getName().toLowerCase();
-		 return super.getUnlocalizedName() + "." + color;
-	}
 }
