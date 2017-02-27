@@ -27,7 +27,7 @@ public class ItemBlowpipe extends Item{
 	public ItemBlowpipe(){
 		super();
 		this.setCreativeTab(GlassWorks.GlassTab);
-		this.setMaxStackSize(1);
+		setMaxStackSize(1);
 		setRegistryName("blowpipe");
 	}
 
