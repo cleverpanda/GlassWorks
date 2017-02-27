@@ -11,7 +11,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import panda.glassworks.items.ItemApron;
 import panda.glassworks.items.ItemBase;
-import panda.glassworks.items.ItemBase2;
+import panda.glassworks.items.EnchItemBase;
 import panda.glassworks.items.ItemBlowpipe;
 import panda.glassworks.items.ItemBucketTar;
 import panda.glassworks.items.ItemCrystalFlask;
@@ -34,7 +34,7 @@ public final class ItemList {
 	public static final Item GLASSCUTTER = new ItemGlasscutter();
 	public static final Item MOLTEN_GLASS = new ItemMoltenGlass();
 	public static final Item APRON = new ItemApron();
-	public static final Item MILK_BOTTLE = new ItemMilkBottle().setMaxStackSize(3);
+	public static final Item MILK_BOTTLE = new ItemMilkBottle()
 	public static final Item BLOWPIPE = new ItemBlowpipe();
 	public static final Item TAR_BUCKET = new ItemBucketTar();
 	public static final Item LAMP_OIL_BUCKET = new ItemBase("lamp_oil_bucket").setContainerItem(Items.BUCKET).setMaxStackSize(1);
@@ -47,7 +47,7 @@ public final class ItemList {
 	public static final Item CRYSTAL_FLASK = new ItemCrystalFlask();
 	public static final Item EMPTY_LANTERN = new ItemBase("empty_lantern").setMaxStackSize(16);
 	public static final Item CRYSTAL_FLASK_UNFINISHED = new ItemBase("crystal_flask_unf");
-	public static final Item CRYSTAL_FLASK_UNFINISHED2 = new ItemBase2("crystal_flask_unf_2");
+	public static final Item CRYSTAL_FLASK_UNFINISHED2 = new EnchItemBase("crystal_flask_unf_2");
 	public static final Item BOTTLE_UNFINISHED = new ItemBase("bottle_unf");
 	public static final Item OBSIDIAN_GLASS_MIX = new ItemBase("obsidian_glass_mix");
 	public static final Item EMPTY_LAMP = new ItemBase("empty_lamp").setMaxStackSize(16);

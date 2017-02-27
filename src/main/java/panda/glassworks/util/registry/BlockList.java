@@ -30,7 +30,7 @@ public final class BlockList{
 	public static final Block FANCY_STAINED_GLASS = new BlockFancyStainedGlass();
 	public static final Block LANTERN = new BlockLantern(false);
 	public static final Block LAMP = new BlockLamp(false);
-	public static final Block BLAST_GLASS = new BlockBlastGlass().setResistance(10);
+	public static final Block BLAST_GLASS = new BlockBlastGlass()
 	public static final Block BLAST_GLASS_SLAB = new BlockGlassSlabBase("blast_glass_slab",BLAST_GLASS).setLightOpacity(40);
 	public static final Block GLASS_SLAB = new BlockGlassSlabBase("glass_slab",Blocks.GLASS);
 	public static final Block SOUL_GLASS = new BlockSoulGlass();

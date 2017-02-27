@@ -3,16 +3,12 @@ package panda.glassworks.items;
 import javax.annotation.Nullable;
 
 import panda.glassworks.GlassWorks;
-import panda.glassworks.init.GlassItems;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBucketMilk;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -23,8 +19,8 @@ public class ItemMilkBottle extends Item{
 	
 	public ItemMilkBottle()
     {
-		this.setMaxStackSize(4);
-		this.setCreativeTab(GlassWorks.GlassTab);
+		setMaxStackSize(1);
+		setCreativeTab(GlassWorks.GlassTab);
 		setRegistryName("milk_bottle");
         
     }
@@ -48,7 +44,7 @@ public class ItemMilkBottle extends Item{
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
     {
         playerIn.setActiveHand(hand);
-        return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
     }
     @Nullable
     @Override
