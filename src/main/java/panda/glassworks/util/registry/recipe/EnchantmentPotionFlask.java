@@ -1,11 +1,11 @@
 package panda.glassworks.util.registry.recipe;
 
-import panda.glassworks.util.registry.ItemList;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import panda.glassworks.util.registry.ItemList;
 
 public class EnchantmentPotionFlask extends Enchantment{
 

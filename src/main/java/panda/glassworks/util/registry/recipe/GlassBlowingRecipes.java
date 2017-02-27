@@ -7,12 +7,12 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-import panda.glassworks.util.inventory.GlassResultStack;
-import panda.glassworks.util.registry.ItemList;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import panda.glassworks.util.inventory.GlassResultStack;
+import panda.glassworks.util.registry.ItemList;
 
 public class GlassBlowingRecipes {
 	

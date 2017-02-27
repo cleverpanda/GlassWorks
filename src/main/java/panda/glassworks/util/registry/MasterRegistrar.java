@@ -2,7 +2,6 @@ package panda.glassworks.util.registry;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -14,7 +13,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionUtils;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -23,7 +21,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import panda.glassworks.GlassWorks;
-import panda.glassworks.util.registry.recipe.EnchantmentPotionFlask;
 import panda.glassworks.util.registry.recipe.RecipeRegistry;
 
 public final class MasterRegistrar {

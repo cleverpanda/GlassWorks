@@ -2,11 +2,11 @@ package panda.glassworks.util.events;
 
 
 
-import panda.glassworks.util.registry.ItemList;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraft.entity.player.EntityPlayer;
+import panda.glassworks.util.registry.ItemList;
 public class ViewRenderHandler {
 	@SubscribeEvent
 	public void fogRenderEvent(EntityViewRenderEvent.FogDensity event)

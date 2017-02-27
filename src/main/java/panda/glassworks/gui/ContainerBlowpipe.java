@@ -1,31 +1,22 @@
 package panda.glassworks.gui;
 
 import java.util.List;
+
 import javax.annotation.Nullable;
 
-import panda.glassworks.GlassWorks;
-import panda.glassworks.util.inventory.BasicInventory;
-import panda.glassworks.util.inventory.BlowpipeOutputSlot;
-import panda.glassworks.util.inventory.GlassResultStack;
-import panda.glassworks.util.network.MessageHandler;
-import panda.glassworks.util.network.Network;
-import panda.glassworks.util.registry.recipe.GlassBlowingRecipes;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.relauncher.Side;
+import panda.glassworks.util.inventory.BasicInventory;
+import panda.glassworks.util.inventory.BlowpipeOutputSlot;
+import panda.glassworks.util.inventory.GlassResultStack;
+import panda.glassworks.util.registry.recipe.GlassBlowingRecipes;
 
 public class ContainerBlowpipe extends Container{
 	

@@ -3,26 +3,23 @@ package panda.glassworks.gui;
 import java.io.IOException;
 import java.util.List;
 
-import panda.glassworks.util.inventory.GlassResultStack;
-import panda.glassworks.util.network.Message;
-import panda.glassworks.util.network.Network;
-import panda.glassworks.util.registry.recipe.GlassBlowingRecipes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import panda.glassworks.util.inventory.GlassResultStack;
+import panda.glassworks.util.network.Message;
+import panda.glassworks.util.network.Network;
+import panda.glassworks.util.registry.recipe.GlassBlowingRecipes;
 
 @SideOnly(Side.CLIENT)
 public class GuiBlowpipe extends GuiContainer

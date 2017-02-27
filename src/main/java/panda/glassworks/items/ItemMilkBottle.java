@@ -2,7 +2,6 @@ package panda.glassworks.items;
 
 import javax.annotation.Nullable;
 
-import panda.glassworks.GlassWorks;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -14,6 +13,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
+import panda.glassworks.GlassWorks;
 
 public class ItemMilkBottle extends Item{
 	

@@ -1,23 +1,15 @@
 package panda.glassworks.items;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Nullable;
 
-import panda.glassworks.GlassWorks;
-import panda.glassworks.init.GlassItems;
-import panda.glassworks.util.registry.IMeta;
-import panda.glassworks.util.registry.ItemList;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
@@ -29,11 +21,12 @@ import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import panda.glassworks.GlassWorks;
+import panda.glassworks.util.registry.IMeta;
+import panda.glassworks.util.registry.ItemList;
 
 public class ItemPotionFlask extends Item implements IMeta{
     public ItemPotionFlask()

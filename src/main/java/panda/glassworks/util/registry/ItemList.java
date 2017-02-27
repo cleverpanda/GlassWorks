@@ -5,13 +5,9 @@ import java.util.List;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionUtils;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import panda.glassworks.items.EnchItemBase;
 import panda.glassworks.items.ItemApron;
 import panda.glassworks.items.ItemBase;
-import panda.glassworks.items.EnchItemBase;
 import panda.glassworks.items.ItemBlowpipe;
 import panda.glassworks.items.ItemBucketTar;
 import panda.glassworks.items.ItemCrystalFlask;
@@ -34,7 +30,7 @@ public final class ItemList {
 	public static final Item GLASSCUTTER = new ItemGlasscutter();
 	public static final Item MOLTEN_GLASS = new ItemMoltenGlass();
 	public static final Item APRON = new ItemApron();
-	public static final Item MILK_BOTTLE = new ItemMilkBottle()
+	public static final Item MILK_BOTTLE = new ItemMilkBottle();
 	public static final Item BLOWPIPE = new ItemBlowpipe();
 	public static final Item TAR_BUCKET = new ItemBucketTar();
 	public static final Item LAMP_OIL_BUCKET = new ItemBase("lamp_oil_bucket").setContainerItem(Items.BUCKET).setMaxStackSize(1);

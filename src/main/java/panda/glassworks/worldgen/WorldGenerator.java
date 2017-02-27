@@ -1,40 +1,19 @@
 package panda.glassworks.worldgen;
 
 import java.util.Random;
-import java.util.Set;
 
-import panda.glassworks.GlassWorks;
-import panda.glassworks.blocks.BlockSeaweed;
-import panda.glassworks.init.GlassBlocks;
-import panda.glassworks.util.registry.BlockList;
-
-import com.google.common.collect.Sets;
-
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeDesert;
-import net.minecraft.world.biome.BiomeForest;
-import net.minecraft.world.biome.BiomeForestMutated;
-import net.minecraft.world.biome.BiomeHills;
-import net.minecraft.world.biome.BiomeMesa;
 import net.minecraft.world.biome.BiomeOcean;
-import net.minecraft.world.biome.BiomePlains;
-import net.minecraft.world.biome.BiomeRiver;
-import net.minecraft.world.biome.BiomeSavanna;
 import net.minecraft.world.biome.BiomeSwamp;
-import net.minecraft.world.biome.BiomeTaiga;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenLakes;
-import net.minecraft.world.gen.feature.WorldGenLiquids;
 import net.minecraftforge.fml.common.IWorldGenerator;
+import panda.glassworks.GlassWorks;
+import panda.glassworks.util.registry.BlockList;
 
 public class WorldGenerator implements IWorldGenerator{
 	private int MIN=-1,MAX=-1,numTrees=-1,randX=-1,randZ=-1;

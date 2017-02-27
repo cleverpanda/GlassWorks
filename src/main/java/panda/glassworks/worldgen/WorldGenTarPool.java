@@ -5,22 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.lwjgl.util.vector.Vector;
-
-import panda.glassworks.GlassWorks;
-import panda.glassworks.util.registry.BlockList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.IFluidBlock;
+import panda.glassworks.GlassWorks;
+import panda.glassworks.util.registry.BlockList;
 
 
 public class WorldGenTarPool extends WorldGenerator {

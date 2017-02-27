@@ -3,8 +3,6 @@ package panda.glassworks.blocks;
 import java.util.List;
 import java.util.Random;
 
-import panda.glassworks.GlassWorks;
-import panda.glassworks.items.itemblocks.ItemBlockFancyGlass;
 import net.minecraft.block.BlockBeacon;
 import net.minecraft.block.BlockGlass;
 import net.minecraft.block.SoundType;
@@ -26,6 +24,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import panda.glassworks.GlassWorks;
+import panda.glassworks.items.itemblocks.ItemBlockFancyGlass;
 
 public class BlockFancyStainedGlass extends BlockGlass{
     public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.<EnumDyeColor>create("color", EnumDyeColor.class);

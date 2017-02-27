@@ -1,13 +1,10 @@
 package panda.glassworks.items;
 
-import panda.glassworks.GlassWorks;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
+import panda.glassworks.GlassWorks;
 
 public class ItemApron extends ItemArmor{
 	

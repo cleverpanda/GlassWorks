@@ -2,15 +2,9 @@ package panda.glassworks.items;
 
 import javax.annotation.Nullable;
 
-import panda.glassworks.GlassWorks;
-import panda.glassworks.init.GlassBlocks;
-import panda.glassworks.util.registry.BlockList;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemBucket;
@@ -20,12 +14,13 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import panda.glassworks.GlassWorks;
+import panda.glassworks.util.registry.BlockList;
 
 public class ItemBucketTar extends ItemBucket{
 

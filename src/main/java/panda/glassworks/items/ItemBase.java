@@ -1,9 +1,7 @@
 package panda.glassworks.items;
 
-import panda.glassworks.GlassWorks;
-import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import panda.glassworks.GlassWorks;
 
 public class ItemBase extends Item{
 

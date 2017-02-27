@@ -2,8 +2,6 @@ package panda.glassworks.blocks;
 
 import java.util.Random;
 
-import panda.glassworks.GlassWorks;
-import panda.glassworks.items.itemblocks.ItemSeaweed;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -26,6 +24,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import panda.glassworks.GlassWorks;
+import panda.glassworks.items.itemblocks.ItemSeaweed;
 
 public class BlockSeaweed extends Block{
 	

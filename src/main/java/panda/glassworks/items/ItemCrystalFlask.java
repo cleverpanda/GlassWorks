@@ -4,15 +4,12 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import panda.glassworks.GlassWorks;
-import panda.glassworks.init.GlassItems;
-import panda.glassworks.util.registry.ItemList;
+import com.google.common.base.Predicate;
+
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -26,8 +23,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import com.google.common.base.Predicate;
+import panda.glassworks.GlassWorks;
+import panda.glassworks.util.registry.ItemList;
 
 public class ItemCrystalFlask extends Item
 {

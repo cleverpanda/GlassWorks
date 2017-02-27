@@ -1,12 +1,8 @@
 package panda.glassworks.items.itemblocks;
 
-import panda.glassworks.GlassWorks;
-import panda.glassworks.util.registry.BlockList;
 import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
@@ -14,6 +10,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import panda.glassworks.GlassWorks;
 
 public class ItemSeaweed extends ItemBlock{
 	private Block theblock;

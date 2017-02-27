@@ -1,26 +1,14 @@
 package panda.glassworks.items;
 
-import panda.glassworks.GlassWorks;
-import panda.glassworks.gui.BlowpipeGuiHandler;
-
-import com.google.common.collect.ImmutableMap;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.animation.ITimeValue;
-import net.minecraftforge.fml.common.Mod;
+import panda.glassworks.GlassWorks;
+import panda.glassworks.gui.BlowpipeGuiHandler;
 
 public class ItemBlowpipe extends Item{
 

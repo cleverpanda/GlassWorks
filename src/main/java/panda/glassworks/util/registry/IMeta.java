@@ -1,7 +1,6 @@
 package panda.glassworks.util.registry;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Nonnull;
 

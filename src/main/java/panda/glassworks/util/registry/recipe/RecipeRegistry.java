@@ -5,9 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import panda.glassworks.GlassWorks;
-import panda.glassworks.util.registry.BlockList;
-import panda.glassworks.util.registry.ItemList;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -18,9 +15,11 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.potion.PotionHelper;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
-import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import panda.glassworks.GlassWorks;
+import panda.glassworks.util.registry.BlockList;
+import panda.glassworks.util.registry.ItemList;
 
 
 public class RecipeRegistry {

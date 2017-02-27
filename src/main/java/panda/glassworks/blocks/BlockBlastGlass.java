@@ -1,9 +1,9 @@
 package panda.glassworks.blocks;
 
-import panda.glassworks.GlassWorks;
 import net.minecraft.block.BlockGlass;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import panda.glassworks.GlassWorks;
 
 public class BlockBlastGlass extends BlockGlass{
 

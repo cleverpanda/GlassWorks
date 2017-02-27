@@ -1,23 +1,19 @@
 package panda.glassworks.items;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
-import panda.glassworks.GlassWorks;
 import net.minecraftforge.common.util.EnumHelper;
+import panda.glassworks.GlassWorks;
 
 public class ItemGlassBowl extends ItemArmor{
 	static ArmorMaterial GLASS = EnumHelper.addArmorMaterial("glass", "glassworks:textures/models/armor/glass_bowl_layer_1.png", 10, new int[]{0,0,0,0}, 0, SoundEvents.BLOCK_GLASS_PLACE, 0);

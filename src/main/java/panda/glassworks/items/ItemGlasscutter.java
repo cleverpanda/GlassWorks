@@ -2,37 +2,24 @@ package panda.glassworks.items;
 
 	import java.util.Set;
 
-import panda.glassworks.GlassWorks;
-
-import panda.glassworks.worldgen.WorldGenTarPool;
-
-	import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 
-	import net.minecraft.block.Block;
-import net.minecraft.block.BlockGlass;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenLakes;
-import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import panda.glassworks.GlassWorks;
 
 	public class ItemGlasscutter extends Item{
 		private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(new Block[] {Blocks.GLASS,Blocks.GLASS_PANE,Blocks.GLOWSTONE,Blocks.STAINED_GLASS_PANE,Blocks.STAINED_GLASS});
