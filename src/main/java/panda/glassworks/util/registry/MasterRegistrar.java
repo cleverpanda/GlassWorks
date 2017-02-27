@@ -23,6 +23,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import panda.glassworks.GlassWorks;
+import panda.glassworks.util.registry.recipe.EnchantmentPotionFlask;
 import panda.glassworks.util.registry.recipe.RecipeRegistry;
 
 public final class MasterRegistrar {
@@ -76,9 +77,11 @@ public final class MasterRegistrar {
 	}
 	
 	public static void callRegistry(FMLPreInitializationEvent e){
+		GameRegistry.register(new EnchantmentPotionFlask());
 		register(e, BlockList.getList());
 		register(e, ItemList.getList());
 		register(e, RandomData.list);
+		
 		RecipeRegistry.register();
 	}
 	

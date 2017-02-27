@@ -38,7 +38,6 @@ public class BlockTarFluid extends BlockFluidClassic
         this.renderLayer = BlockRenderLayer.SOLID;
         this.blockParticleGravity =0.5F;
         this.temperature = 500;
-        this.setCreativeTab(GlassWorks.GlassTab);
         this.setSoundType(SoundType.SLIME);
         setRegistryName("tar");
     }

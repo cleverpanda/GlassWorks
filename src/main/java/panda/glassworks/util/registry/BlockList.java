@@ -5,8 +5,11 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
+import net.minecraft.init.Blocks;
 import net.minecraftforge.fluids.Fluid;
+import panda.glassworks.blocks.BlockBlastGlass;
 import panda.glassworks.blocks.BlockFancyStainedGlass;
+import panda.glassworks.blocks.BlockGlassSlabBase;
 import panda.glassworks.blocks.BlockLamp;
 import panda.glassworks.blocks.BlockLantern;
 import panda.glassworks.blocks.BlockSeaweed;
@@ -27,10 +30,9 @@ public final class BlockList{
 	public static final Block FANCY_STAINED_GLASS = new BlockFancyStainedGlass();
 	public static final Block LANTERN = new BlockLantern(false);
 	public static final Block LAMP = new BlockLamp(false);
-	/*public static final BlockSlab GLASS_SLAB = new
-	public static final BlockSlab DOUBLE_GLASS_SLAB = new
-	public static final BlockSlab STAINED_GLASS_SLAB = new
-	public static final BlockSlab DOUBLE_STAINED_GLASS_SLAB = new*/
+	public static final Block BLAST_GLASS = new BlockBlastGlass().setResistance(10);
+	public static final Block BLAST_GLASS_SLAB = new BlockGlassSlabBase("blast_glass_slab",BLAST_GLASS).setLightOpacity(40);
+	public static final Block GLASS_SLAB = new BlockGlassSlabBase("glass_slab",Blocks.GLASS);
 	public static final Block SOUL_GLASS = new BlockSoulGlass();
 	public static final Block FANCY_WHITE_SLAB = new BlockStainedGlassSlab("fancy_white_slab");
 	
@@ -45,6 +47,10 @@ public final class BlockList{
 		list.add(LANTERN);
 		list.add(LAMP);
 		list.add(FANCY_WHITE_SLAB);
+		list.add(GLASS_SLAB);
+		list.add(BLAST_GLASS);
+		list.add(BLAST_GLASS_SLAB);
+		
 		return list;
 	}
 

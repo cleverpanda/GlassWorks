@@ -5,8 +5,13 @@ import java.util.List;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionUtils;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import panda.glassworks.items.ItemApron;
 import panda.glassworks.items.ItemBase;
+import panda.glassworks.items.ItemBase2;
 import panda.glassworks.items.ItemBlowpipe;
 import panda.glassworks.items.ItemBucketTar;
 import panda.glassworks.items.ItemCrystalFlask;
@@ -29,22 +34,23 @@ public final class ItemList {
 	public static final Item GLASSCUTTER = new ItemGlasscutter();
 	public static final Item MOLTEN_GLASS = new ItemMoltenGlass();
 	public static final Item APRON = new ItemApron();
-	public static final Item MILK_BOTTLE = new ItemMilkBottle();
+	public static final Item MILK_BOTTLE = new ItemMilkBottle().setMaxStackSize(3);
 	public static final Item BLOWPIPE = new ItemBlowpipe();
 	public static final Item TAR_BUCKET = new ItemBucketTar();
-	public static final Item LAMP_OIL_BUCKET = new ItemBase("lamp_oil_bucket").setContainerItem(Items.BUCKET);
-	public static final Item LAMP_OIL_BOTTLE = new ItemBase("lamp_oil_bottle").setContainerItem(Items.GLASS_BOTTLE);
+	public static final Item LAMP_OIL_BUCKET = new ItemBase("lamp_oil_bucket").setContainerItem(Items.BUCKET).setMaxStackSize(1);
+	public static final Item LAMP_OIL_BOTTLE = new ItemBase("lamp_oil_bottle").setContainerItem(Items.GLASS_BOTTLE).setMaxStackSize(3);
 	public static final Item GLASS_BOWL = new ItemGlassBowl();
 	public static final Item GLASS_LENS = new ItemBase("glass_lens");
 	public static final Item GLASS_LAMP = new ItemBase("glass_lamp");
 	public static final Item POTION_FLASK = new ItemPotionFlask();
 	public static final Item GLASS_BULB = new ItemBase("glass_bulb");
 	public static final Item CRYSTAL_FLASK = new ItemCrystalFlask();
-	public static final Item EMPTY_LANTERN = new ItemBase("empty_lantern");
+	public static final Item EMPTY_LANTERN = new ItemBase("empty_lantern").setMaxStackSize(16);
 	public static final Item CRYSTAL_FLASK_UNFINISHED = new ItemBase("crystal_flask_unf");
+	public static final Item CRYSTAL_FLASK_UNFINISHED2 = new ItemBase2("crystal_flask_unf_2");
 	public static final Item BOTTLE_UNFINISHED = new ItemBase("bottle_unf");
 	public static final Item OBSIDIAN_GLASS_MIX = new ItemBase("obsidian_glass_mix");
-	public static final Item EMPTY_LAMP = new ItemBase("empty_lamp");
+	public static final Item EMPTY_LAMP = new ItemBase("empty_lamp").setMaxStackSize(16);
 	
 	
 	
@@ -72,6 +78,7 @@ public final class ItemList {
 		list.add(CRYSTAL_FLASK);
 		list.add(EMPTY_LANTERN);
 		list.add(CRYSTAL_FLASK_UNFINISHED);
+		list.add(CRYSTAL_FLASK_UNFINISHED2);
 		list.add(BOTTLE_UNFINISHED);
 		list.add(OBSIDIAN_GLASS_MIX);
 		list.add(EMPTY_LAMP);

@@ -14,6 +14,7 @@ import panda.glassworks.util.registry.ItemList;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -42,6 +43,7 @@ public class ItemPotionFlask extends Item implements IMeta{
         this.setHasSubtypes(true); // This allows the item to be marked as a metadata item.
         this.setMaxDamage(0);
         setRegistryName("potion_flask");
+ 
     }
 
     /**
@@ -130,7 +132,7 @@ public class ItemPotionFlask extends Item implements IMeta{
     @SideOnly(Side.CLIENT)
     public boolean hasEffect(ItemStack stack)
     {
-        return !PotionUtils.getEffectsFromStack(stack).isEmpty();
+    	return !PotionUtils.getEffectsFromStack(stack).isEmpty();
     }
 
     /**

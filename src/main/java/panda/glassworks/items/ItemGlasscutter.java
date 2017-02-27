@@ -3,9 +3,7 @@ package panda.glassworks.items;
 	import java.util.Set;
 
 import panda.glassworks.GlassWorks;
-import panda.glassworks.blocks.BlockGlassSlab;
-import panda.glassworks.init.GlassBlocks;
-import panda.glassworks.init.GlassItems;
+
 import panda.glassworks.worldgen.WorldGenTarPool;
 
 	import com.google.common.collect.Multimap;

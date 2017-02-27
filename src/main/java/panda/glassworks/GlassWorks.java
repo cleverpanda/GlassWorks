@@ -34,7 +34,7 @@ import org.apache.logging.log4j.Logger;
 public class GlassWorks
 {
 	public static final String MODID = "glassworks";
-	public static final String VERSION = "0.1";
+	public static final String VERSION = "0.20";
 	public static final String NAME = "Glass Works";
 	
 	@SidedProxy(serverSide = "panda.glassworks.proxy.ServerProxy", clientSide = "panda.glassworks.proxy.ClientProxy")
@@ -64,7 +64,7 @@ public class GlassWorks
 		GameRegistry.registerWorldGenerator(new WorldGenerator(), 0);
 	}  
 	
-	public static final CreativeTabs GlassTab = new CreativeTabs("glassworks") {
+	public static final CreativeTabs GlassTab = new CreativeTabs(GlassWorks.MODID) {
 	    @Override public Item getTabIconItem() {
 	        return ItemList.MOLTEN_GLASS;
 	    }

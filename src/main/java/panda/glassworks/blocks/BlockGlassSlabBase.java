@@ -28,7 +28,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public abstract class BlockGlassSlabBase extends Block{
+public class BlockGlassSlabBase extends Block{
 
 	public static final PropertyEnum<SlabVariant> VARIANT = PropertyEnum.<SlabVariant>create("slab_variant", SlabVariant.class);
 

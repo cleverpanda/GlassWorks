@@ -24,6 +24,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.google.common.base.Predicate;
 
@@ -37,6 +39,12 @@ public class ItemCrystalFlask extends Item
 	    	setRegistryName("crystal_flask");
 	    }
 	    
+	    
+	    @SideOnly(Side.CLIENT)
+	    public boolean hasEffect(ItemStack stack)
+	    {
+	        return true;
+	    }
 	    
 	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
     {

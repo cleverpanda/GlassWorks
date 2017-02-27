@@ -40,10 +40,6 @@ molten glass burns you without protection?
 	//maybe wait for IW then tie in
 dropping glass items from too high will shatter them
 	//too much hastle?
-Potion Flask made by enchanting unfinished #2 potion flask
-	//Lore: the magic makes the glass retain the potions potency better
-	30 levels
-	no books+anvil allowed
 	
 fish bowl block? :)
 
@@ -109,6 +105,8 @@ blow pipe should be crafted with iron nuggets or iron plates if availible
 
 
 
+
+
 -----BUGS-----
 being incased in tar renders water overlay
 
@@ -123,11 +121,12 @@ placing lantern on top of lantern pops off when it should really just deny the p
 
 lantern block should rotate based on player position when placed on ground
 
-sould glass item does not render 
+soul glass item does not render 
 
 seaweed adjacent to a solid block pops off on update
 	how to determine if its actually underwater or if someone is just making a pillar of water above ground and trying to put seaweed in it?
 
+blast glass causing weird lighting shit, related to opacity
 
 
 -----Tie Ins-----

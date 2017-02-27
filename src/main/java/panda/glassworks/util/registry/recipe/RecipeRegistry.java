@@ -18,6 +18,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.potion.PotionHelper;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -77,12 +78,12 @@ public class RecipeRegistry {
 				GameRegistry.addRecipe(new ItemStack(ItemList.BLOWPIPE), new Object[] {"#  ", " # ", "  #",'#', new ItemStack(Items.IRON_INGOT)});
 				
 				GameRegistry.addSmelting(ItemList.BROKEN_GLASS, new ItemStack(ItemList.MOLTEN_GLASS,1, 0), 0.2f);
-				//GameRegistry.addShapelessRecipe(new ItemStack(Items.DYE,1, 2),new ItemStack( ItemList.SEAWEED));
+				GameRegistry.addShapelessRecipe(new ItemStack(Items.DYE,1, 2),new ItemStack( BlockList.SEAWEED));
 				GameRegistry.addShapelessRecipe(new ItemStack(ItemList.LAMP_OIL_BOTTLE),new ItemStack( ItemList.LAMP_OIL_BUCKET),new ItemStack(Items.GLASS_BOTTLE));
 				GameRegistry.addShapelessRecipe(new ItemStack(ItemList.LAMP_OIL_BOTTLE,3),new ItemStack( ItemList.LAMP_OIL_BUCKET),new ItemStack(Items.GLASS_BOTTLE),new ItemStack(Items.GLASS_BOTTLE),new ItemStack(Items.GLASS_BOTTLE));
 				
 				GameRegistry.addShapelessRecipe(new ItemStack(ItemList.MILK_BOTTLE),new ItemStack(Items.MILK_BUCKET),new ItemStack(Items.GLASS_BOTTLE));
-				//GameRegistry.addShapelessRecipe(new ItemStack(BlockList.BLAST_GLASS),new ItemStack(ItemList.MOLTEN_GLASS,1,2));
+				GameRegistry.addShapelessRecipe(new ItemStack(BlockList.BLAST_GLASS),new ItemStack(ItemList.MOLTEN_GLASS,1,2));
 				
 				GameRegistry.addRecipe(new ItemStack(ItemList.GLASSCUTTER), new Object[] {"# ", " D",'#', new ItemStack(Items.STICK),'D', new ItemStack(Items.DIAMOND)});
 				GameRegistry.addRecipe(new ItemStack(ItemList.APRON), new Object[] {" S ","SLS", " L ",'L', new ItemStack(Items.LEATHER),'S', new ItemStack(Items.STRING)});
@@ -90,8 +91,7 @@ public class RecipeRegistry {
 				//GameRegistry.addRecipe(new ItemStack(door,3), new Object[] {"##", "##", "##", '#', new ItemStack(planks)});
 				
 				removeFurnaceRecipe(new ItemStack(Blocks.GLASS));
-				GameRegistry.addRecipe(new ItemStack(ItemList.CRYSTAL_FLASK_UNFINISHED,1,1), new Object[] {"n","F",'n', new ItemStack(Items.GOLD_NUGGET),'F', new ItemStack(ItemList.CRYSTAL_FLASK_UNFINISHED,1,0)});
-				
+				GameRegistry.addRecipe(new ItemStack(ItemList.CRYSTAL_FLASK_UNFINISHED2), new Object[] {"n","F",'n', new ItemStack(Items.GOLD_NUGGET),'F', new ItemStack(ItemList.CRYSTAL_FLASK_UNFINISHED)});
 				//GLASS CUTTER RECIPES
 				for(int meta =0;meta<16;meta++){
 					GameRegistry.addRecipe(new ItemStack(BlockList.FANCY_STAINED_GLASS,1,meta), new Object[] {"C", "G",'C', new ItemStack(ItemList.GLASSCUTTER,1,OreDictionary.WILDCARD_VALUE),'G', new ItemStack(Blocks.STAINED_GLASS,1,meta)});
@@ -100,6 +100,9 @@ public class RecipeRegistry {
 					//GameRegistry.addRecipe(new ItemStack(BlockList.STAINED_GLASS_SLAB,2,meta), new Object[] {"GC", 'G', new ItemStack(Blocks.STAINED_GLASS,1,meta),'C', new ItemStack(ItemList.GLASSCUTTER,1,OreDictionary.WILDCARD_VALUE)});
 				}
 				GameRegistry.addRecipe(new ItemStack(Blocks.GLASS_PANE,3), new Object[] {" C", "G ",'C', new ItemStack(ItemList.GLASSCUTTER,1,OreDictionary.WILDCARD_VALUE),'G', new ItemStack(Blocks.GLASS)});
+				GameRegistry.addRecipe(new ItemStack(BlockList.GLASS_SLAB,2), new Object[] {"  ", "CG",'C', new ItemStack(ItemList.GLASSCUTTER,1,OreDictionary.WILDCARD_VALUE),'G', new ItemStack(Blocks.GLASS)});
+				GameRegistry.addRecipe(new ItemStack(BlockList.BLAST_GLASS_SLAB,2), new Object[] {"  ", "CG",'C', new ItemStack(ItemList.GLASSCUTTER,1,OreDictionary.WILDCARD_VALUE),'G', new ItemStack(BlockList.BLAST_GLASS)});
+				//GameRegistry.addRecipe(new ItemStack(Blocks.GLASS_PANE,3), new Object[] {" C", "G ",'C', new ItemStack(ItemList.GLASSCUTTER,1,OreDictionary.WILDCARD_VALUE),'G', new ItemStack(Blocks.GLASS)});
 				//GameRegistry.addRecipe(new ItemStack(BlockList.GLASS_SLAB,2), new Object[] {"CG ", 'G', new ItemStack(Blocks.GLASS),'C', new ItemStack(ItemList.GLASSCUTTER,1,OreDictionary.WILDCARD_VALUE)});
 				//GameRegistry.addRecipe(new ItemStack(BlockList.GLASS_SLAB,2), new Object[] {"GC", 'G', new ItemStack(Blocks.GLASS),'C', new ItemStack(ItemList.GLASSCUTTER,1,OreDictionary.WILDCARD_VALUE)});
 
