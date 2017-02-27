@@ -32,7 +32,6 @@ public class ItemGlassSlabBlock extends ItemBlock{
 	@Override
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-		if(!world.isRemote) System.out.println("Calling onItemUse with facing " + facing.getName() + " and hitY " + hitY);
 		IBlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
         if(!block.isReplaceable(world, pos) && !(block == this.block && checkOppositeByFacing(state, facing))) pos = pos.offset(facing);
