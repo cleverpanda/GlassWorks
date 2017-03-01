@@ -1,8 +1,5 @@
 package panda.glassworks;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
@@ -13,9 +10,14 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import panda.glassworks.proxy.CommonProxy;
 import panda.glassworks.util.events.BlockBreakHandler;
 import panda.glassworks.util.events.BucketHandler;
+import panda.glassworks.util.events.ItemModelHandler;
 import panda.glassworks.util.events.ViewRenderHandler;
 import panda.glassworks.util.registry.ItemList;
 import panda.glassworks.worldgen.WorldGenerator;
@@ -46,6 +48,7 @@ public class GlassWorks
 		MinecraftForge.EVENT_BUS.register(new BlockBreakHandler());
 		MinecraftForge.EVENT_BUS.register(new BucketHandler());
 		MinecraftForge.EVENT_BUS.register(new ViewRenderHandler());
+		MinecraftForge.EVENT_BUS.register(new ItemModelHandler());
 
 	}
 

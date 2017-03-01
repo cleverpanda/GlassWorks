@@ -49,6 +49,7 @@ public final class BlockList{
 		list.add(GLASS_SLAB);
 		list.add(BLAST_GLASS);
 		list.add(BLAST_GLASS_SLAB);
+		list.add(SOUL_GLASS);
 		
 		return list;
 	}

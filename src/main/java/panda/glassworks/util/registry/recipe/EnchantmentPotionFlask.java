@@ -15,6 +15,12 @@ public class EnchantmentPotionFlask extends Enchantment{
 		GameRegistry.register(this);
 		
 	}
+	
+	@Override
+	public String getName(){
+		return "dummy_crafting_enchant";
+		
+	}
 
 	@Override
 	public int getMinEnchantability(int enchantmentLevel) {

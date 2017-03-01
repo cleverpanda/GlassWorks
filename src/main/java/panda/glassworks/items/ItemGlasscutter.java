@@ -2,8 +2,6 @@ package panda.glassworks.items;
 
 	import java.util.Set;
 
-import com.google.common.collect.Sets;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -21,6 +19,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import panda.glassworks.GlassWorks;
 
+import com.google.common.collect.Sets;
+
 	public class ItemGlasscutter extends Item{
 		private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(new Block[] {Blocks.GLASS,Blocks.GLASS_PANE,Blocks.GLOWSTONE,Blocks.STAINED_GLASS_PANE,Blocks.STAINED_GLASS});
 		
@@ -31,6 +31,12 @@ import panda.glassworks.GlassWorks;
 	        this.setContainerItem(this);
 	        setRegistryName("glasscutter");
 		}
+		
+		@SideOnly(Side.CLIENT)
+	    public boolean isFull3D()
+	    {
+	        return true;
+	    }
 		
 		@Override
 		public ItemStack getContainerItem(ItemStack itemStack) {

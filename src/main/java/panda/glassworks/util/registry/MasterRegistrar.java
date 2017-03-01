@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.renderer.color.IItemColor;
@@ -27,6 +28,9 @@ public final class MasterRegistrar {
 
 	
 	
+	public static ModelResourceLocation model2d;
+	public static ModelResourceLocation model3d;
+
 	public static void register(FMLPreInitializationEvent e, List<?> list){
 		Iterator<?> iterator = list.iterator();
 		
@@ -65,7 +69,15 @@ public final class MasterRegistrar {
 					ModelLoader.setCustomModelResourceLocation(item, i, map.get(i));
 				}
 			}
-			else if(item != null) ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+			else if(item != null && item != ItemList.BLOWPIPE ){
+				ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+			}else if( item == ItemList.BLOWPIPE){
+				model2d = new ModelResourceLocation("glassworks:blowpipe2d", "inventory");
+				model3d = new ModelResourceLocation("glassworks:blowpipe3d", "inventory");
+				
+				ModelLoader.setCustomModelResourceLocation(item, 0,model2d );
+				ModelBakery.registerItemVariants(item,model3d );
+			}
 			if(k instanceof BlockFluidBase){
 				handleFluidState((Block) k, ((Block) k).getRegistryName().getResourcePath());
 			}

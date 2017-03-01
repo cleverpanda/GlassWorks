@@ -11,19 +11,26 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import panda.glassworks.GlassWorks;
+import panda.glassworks.items.itemblocks.ItemBlockFancyGlass;
+import panda.glassworks.items.itemblocks.ItemBlockSoulGlass;
 
 public class BlockSoulGlass extends BlockGlass{
 
@@ -39,6 +46,7 @@ public class BlockSoulGlass extends BlockGlass{
 		this.setLightOpacity(255);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(isOn, false));
 		setRegistryName("soul_glass");
+		GameRegistry.register(new ItemBlockSoulGlass(this));
 	}
 	
 	@Override
@@ -199,6 +207,51 @@ public class BlockSoulGlass extends BlockGlass{
 
 		return false;
 	}
+	
+	@Override
+	public void randomDisplayTick(IBlockState stateIn, World worldIn,
+			BlockPos pos, Random rand) {
+		// TODO Auto-generated method stub
+		super.randomDisplayTick(stateIn, worldIn, pos, rand);
+	}
+
+	@Override
+	public Vec3d modifyAcceleration(World worldIn, BlockPos pos,Entity entityIn, Vec3d motion) {
+
+		///this method used only for water, need to do something else
+		Double vx = motion.xCoord;
+		Double vy = motion.yCoord;
+		Double vz = motion.zCoord;
+		Double c = 1D;
+		return motion.subtract(c*vx*vx*Math.signum(vx), c*vy*vy*Math.signum(vy), c*vz*vz*Math.signum(vz));
+	}
+
+
+	@Override
+	public SoundType getSoundType() {
+		// TODO Auto-generated method stub
+		return super.getSoundType();
+	}
+
+	@Override
+    public boolean isFullCube(IBlockState state)
+    {
+        return false;
+    }
+	
+	@Override
+	public int damageDropped(IBlockState state) {
+		return 0;
+	}
+	
+	@Override
+    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
+    {
+            list.add(new ItemStack(itemIn, 1, 0));
+            list.add(new ItemStack(itemIn, 1, 1));
+        
+
+    }
 
 
 }

@@ -27,6 +27,9 @@ public class ItemBlowpipe extends Item{
 		return super.onItemRightClick(itemStackIn, world, player, hand);
 	}
 
+
+
+
 	@Override
 	public EnumAction getItemUseAction(ItemStack stack) {
 		return EnumAction.DRINK;

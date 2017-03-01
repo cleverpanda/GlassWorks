@@ -1,6 +1,21 @@
-{
-    "variants": {
-        "ison=false": { "model": "glassworks:soul_glass" },
-	"ison=true": { "model": "glassworks:soul_glass_powered" }
-    }
+{  
+   "forge_marker":1,
+   "defaults":{  
+      "model":"cube_all",
+      "transform":"forge:default-block"
+   },
+   "variants":{  
+      "ison":{  
+         "true":{  
+            "textures":{  
+               "all":"glassworks:blocks/soul_glass_on"
+            }
+         },
+         "false":{  
+            "textures":{  
+               "all":"glassworks:blocks/soul_glass"
+            }
+         }
+      }
+   }
 }

@@ -11,14 +11,10 @@ public class ViewRenderHandler {
 	@SubscribeEvent
 	public void fogRenderEvent(EntityViewRenderEvent.FogDensity event)
 	{
-		
-
 		if(event.getEntity() instanceof EntityPlayer){
 			if(((EntityPlayer)event.getEntity()).inventory.armorInventory[3] != null){
 				if((  ((EntityPlayer)event.getEntity()).inventory.armorInventory[3].getItem() == ItemList.GLASS_BOWL)){
 					if(event.getEntity().isInsideOfMaterial(Material.WATER)){
-						//System.out.println("Water Density Event");
-						//event.setDensity(.001F);
 						event.setDensity(0.005F);
 						event.setCanceled(true);
 					}

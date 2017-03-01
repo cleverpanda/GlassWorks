@@ -47,11 +47,14 @@ blowpipe vuvuzela XD
 
 using blowpipe makes player hold it up to mouth
 
-model for blowpipe
-
 seaweed loot chance from fishing 
 
 lang file
+
+retrieveing soul glass requires enchanted glasscutter
+sounds for soul glass
+
+soul glass connected textures
 
 //how should colors be handled?, currently externally by vanilla
 
@@ -121,13 +124,10 @@ placing lantern on top of lantern pops off when it should really just deny the p
 
 lantern block should rotate based on player position when placed on ground
 
-soul glass item does not render 
-
 seaweed adjacent to a solid block pops off on update
 	how to determine if its actually underwater or if someone is just making a pillar of water above ground and trying to put seaweed in it?
 
-blast glass causing weird lighting shit, related to opacity
-
+soul glass placement does not keep the meta (always defaults to off)
 
 -----Tie Ins-----
 Flour+Swamp Tar == Swamp Paste //counts as glue for MTS
@@ -153,4 +153,4 @@ Decay
 Tinker's?
 	//egh maybe post beta release
 	
-potash from pine 2x and maple, oak with VT
+potash from pine (2),maple,oak with VT

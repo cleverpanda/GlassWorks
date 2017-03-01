@@ -1,5 +1,5 @@
 {
-    "variants": {
-        "normal": { "model": "glassworks:blast_glass" }
+    "variants":{
+        "normal":{"model": "glassworks:blast_glass"}	
     }
 }
