@@ -16,6 +16,7 @@ import panda.glassworks.items.ItemGlasscutter;
 import panda.glassworks.items.ItemMilkBottle;
 import panda.glassworks.items.ItemMoltenGlass;
 import panda.glassworks.items.ItemPotionFlask;
+import panda.glassworks.items.ItemSpyglass;
 
 public final class ItemList {
 	
@@ -47,6 +48,7 @@ public final class ItemList {
 	public static final Item BOTTLE_UNFINISHED = new ItemBase("bottle_unf");
 	public static final Item OBSIDIAN_GLASS_MIX = new ItemBase("obsidian_glass_mix");
 	public static final Item EMPTY_LAMP = new ItemBase("empty_lamp").setMaxStackSize(16);
+	//public static final Item SPYGLASS = new ItemSpyglass();
 	
 	
 	
@@ -78,6 +80,7 @@ public final class ItemList {
 		list.add(BOTTLE_UNFINISHED);
 		list.add(OBSIDIAN_GLASS_MIX);
 		list.add(EMPTY_LAMP);
+		//list.add(SPYGLASS);
 		return list;
 	}
 }

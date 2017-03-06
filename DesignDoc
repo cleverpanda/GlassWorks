@@ -24,10 +24,14 @@ tar pools
 Redstone Bulb
 	like a torch but controlled by redstone
 	//too unoriginal?
+	//feature creep?
 	//would be good for more modern builds though
 	//wouldnt extinguish...
 	//maybe needs power with IE installed
-Glass Doors
+Glass Door
+
+glasscutter world interaction needs to be redone
+	
 
 Extinguishing mechanic
 	Falling into water with lantern,lamp,torch extinguishes it
@@ -36,27 +40,29 @@ Extinguishing mechanic
 	
 molten glass burns you without protection?
 	//too much hastle?
-	//wouldnt need apron then
+	//wouldn't need apron if no
 	//maybe wait for IW then tie in
 dropping glass items from too high will shatter them
 	//too much hastle?
 	
 fish bowl block? :)
 
-blowpipe vuvuzela XD
+blowpipe easter egg
 
 using blowpipe makes player hold it up to mouth
 
-seaweed loot chance from fishing 
+seaweed junk loot chance from fishing 
 
 lang file
 
-retrieveing soul glass requires enchanted glasscutter
+retrieveing soul glass should require enchanted glasscutter?
+
 sounds for soul glass
 
 soul glass connected textures
 
-//how should colors be handled?, currently externally by vanilla
+how should coloring glass be handled?
+	currently externally by vanilla
 
 glass cutter in hand needs to be rotated
 
@@ -66,27 +72,29 @@ spyglass
 	use gold plate if availible
 
 config system
-	also importing blowpipe recipe entries from config
+	also importing blowpipe recipe entries from config for modpack makers
 	
-soul glass should have config to allow arrows,snowballs,tnt entity to pass through to prevent super forcefield
+soul glass should have config to allow arrows,snowballs,tnt entity, etc. to pass through to prevent super forcefield
 
-need a more involved mid-end game recipe for soul glass
+need a more involved mid-end game recipe for soul glass?
 
-blast glass texture too unoriginal or does it stay faithful?
+is blast glass texture too unoriginal or does it stay faithful?
 
 lamps,lanterns need to actually process fuel
+	make it an optional config
 
 mixing flask
 	(mix two potions to get 2 (or 3?) doses of the combined effects in one bottle
 	texture //call Alvoria again?
 	rendering // how to do 2 potion overlays in one file?
 	needs end game crafting recipe to justify
+			dragon?
 	
 use glass lens to start fires?
 	//def would be a config option if implemented
 	//too easy for fire?
 	//only during day
-seaweed generation is meh.
+seaweed generation is lame.
 
 more creative way to create lamp oil than smelting tar?
 
@@ -105,7 +113,12 @@ soul glass opacity and redstone functions
 
 blow pipe should be crafted with iron nuggets or iron plates if availible
 
+bucket of tar acts as fuel
 
+fix recipe for glasscutter, looks weird with stick angle
+
+add blast glass pane
+	little less blast resistance
 
 
 
@@ -128,6 +141,8 @@ seaweed adjacent to a solid block pops off on update
 	how to determine if its actually underwater or if someone is just making a pillar of water above ground and trying to put seaweed in it?
 
 soul glass placement does not keep the meta (always defaults to off)
+
+
 
 -----Tie Ins-----
 Flour+Swamp Tar == Swamp Paste //counts as glue for MTS

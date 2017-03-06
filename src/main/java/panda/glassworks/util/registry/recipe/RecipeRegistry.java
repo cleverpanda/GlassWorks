@@ -71,8 +71,8 @@ public class RecipeRegistry {
 				GameRegistry.addSmelting(ItemList.OBSIDIAN_GLASS_MIX, new ItemStack(ItemList.MOLTEN_GLASS,1, 2), 0.2f);
 				
 				GameRegistry.addRecipe(new ItemStack(Blocks.GLASS,4), new Object[] {"##", "##", '#', new ItemStack(ItemList.MOLTEN_GLASS,1,0)});
-				//GameRegistry.addRecipe(new ItemStack(BlockList.BLAST_GLASS,4), new Object[] {"##", "##", '#', new ItemStack(ItemList.MOLTEN_GLASS,1,2)});
-				//GameRegistry.addRecipe(new ItemStack(Blocks.GLASS,4), new Object[] {"##", "##", '#', new ItemStack(ItemList.MOLTEN_GLASS,1,1)});
+				GameRegistry.addRecipe(new ItemStack(BlockList.BLAST_GLASS,4), new Object[] {"##", "##", '#', new ItemStack(ItemList.MOLTEN_GLASS,1,2)});
+				GameRegistry.addRecipe(new ItemStack(Blocks.GLASS,4), new Object[] {"##", "##", '#', new ItemStack(ItemList.MOLTEN_GLASS,1,1)});
 				GameRegistry.addRecipe(new ItemStack(Items.GLASS_BOTTLE), new Object[] {"B", "O", 'B', new ItemStack(Blocks.WOODEN_BUTTON), 'O', new ItemStack(ItemList.BOTTLE_UNFINISHED)});
 				GameRegistry.addRecipe(new ItemStack(ItemList.BLOWPIPE), new Object[] {"#  ", " # ", "  #",'#', new ItemStack(Items.IRON_INGOT)});
 				
@@ -106,9 +106,9 @@ public class RecipeRegistry {
 				//GameRegistry.addRecipe(new ItemStack(BlockList.GLASS_SLAB,2), new Object[] {"GC", 'G', new ItemStack(Blocks.GLASS),'C', new ItemStack(ItemList.GLASSCUTTER,1,OreDictionary.WILDCARD_VALUE)});
 
 				
-				//GameRegistry.addShapelessRecipe(new ItemStack(ItemList.LANTERN_ITEM),new ItemStack( ItemList.LAMP_OIL_BOTTLE),new ItemStack(ItemList.EMPTY_LANTERN));
-				//GameRegistry.addShapelessRecipe(new ItemStack(ItemList.LAMP_ITEM),new ItemStack( ItemList.LAMP_OIL_BOTTLE),new ItemStack(ItemList.EMPTY_LAMP));
-				//GameRegistry.addRecipe(new ItemStack(ItemList.EMPTY_LAMP,2), new Object[] {"L","I",'L', new ItemStack(ItemList.GLASS_LAMP),'I', new ItemStack(Items.GOLD_INGOT)});
+				GameRegistry.addShapelessRecipe(new ItemStack(BlockList.LANTERN),new ItemStack( ItemList.LAMP_OIL_BOTTLE),new ItemStack(ItemList.EMPTY_LANTERN));
+				GameRegistry.addShapelessRecipe(new ItemStack(BlockList.LAMP),new ItemStack( ItemList.LAMP_OIL_BOTTLE),new ItemStack(ItemList.EMPTY_LAMP));
+				GameRegistry.addRecipe(new ItemStack(ItemList.EMPTY_LAMP,2), new Object[] {"L ","In",'L', new ItemStack(ItemList.GLASS_LAMP),'n', new ItemStack(Items.GOLD_NUGGET),'I', new ItemStack(Items.GOLD_INGOT)});
 				GameRegistry.addRecipe(new ItemStack(ItemList.EMPTY_LANTERN,2), new Object[] {"III"," L "," I ",'L', new ItemStack(ItemList.GLASS_LAMP),'I', new ItemStack(Items.IRON_INGOT)});
 				//GameRegistry.addRecipe(new ItemStack(ItemList.LARGE_LANTERN), new Object[] {" I ","ILI"," I ",'L', new ItemStack(ItemList.GLASS_LAMP),'I', new ItemStack(Items.IRON_INGOT)});
 	}

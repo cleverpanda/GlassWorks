@@ -9,6 +9,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityLiving.SpawnPlacementType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -224,10 +225,36 @@ public class BlockSeaweed extends Block{
 
                 if (i < 5 && worldIn.getBlockState(pos.up(2)).getBlock() == Blocks.WATER)
                 {
-                	worldIn.setBlockState(pos.up(), this.getDefaultState());
+                	worldIn.setBlockState(pos.up(), this.getDefaultState().withProperty(LEVEL, Integer.valueOf(2)));
                 }
             }
+            worldIn.setBlockState(pos, this.getDefaultState().withProperty(LEVEL, Integer.valueOf(1)));
         }
+    }
+	
+	/**
+     * Called by ItemBlocks after a block is set in the world, to allow post-place logic
+     */
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+    {
+    	if(worldIn.getBlockState(pos.down()) != this && worldIn.getBlockState(pos) == this ){
+    		if(worldIn.getBlockState(pos.up()) == this){
+    			worldIn.setBlockState(pos, this.getDefaultState().withProperty(LEVEL, 1));
+    		}else{
+    			worldIn.setBlockState(pos, this.getDefaultState().withProperty(LEVEL, 0));
+    		}
+    			
+    	}
+    	if(worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER){
+    		worldIn.setBlockState(pos, this.getDefaultState().withProperty(LEVEL, 2));
+    	}
+    	
+    	if(worldIn.getBlockState(pos.up()).getBlock() == this && worldIn.getBlockState(pos.down()).getBlock()== this){
+    		worldIn.setBlockState(pos, this.getDefaultState().withProperty(LEVEL, 3));
+    	}
+    	
+    	
+    	
     }
 	
 	

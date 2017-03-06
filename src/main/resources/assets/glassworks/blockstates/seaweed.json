@@ -1,9 +1,9 @@
 {
     "variants": {
-    "level=0": { "model": "glassworks:seaweed" },
-	"level=1": { "model": "glassworks:seaweed" },
-	"level=2": { "model": "glassworks:seaweed" },
-	"level=3": { "model": "glassworks:seaweed" },
+    "level=0": { "model": "glassworks:seaweed0" },
+	"level=1": { "model": "glassworks:seaweed1" },
+	"level=2": { "model": "glassworks:seaweed2" },
+	"level=3": { "model": "glassworks:seaweed3" },
 	"level=4": { "model": "glassworks:seaweed" },
 	"level=5": { "model": "glassworks:seaweed" },
 	"level=6": { "model": "glassworks:seaweed" },

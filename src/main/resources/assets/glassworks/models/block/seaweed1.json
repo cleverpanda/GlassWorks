@@ -1,6 +1,6 @@
 {
     "parent": "block/cross",
     "textures": {
-        "cross": "glassworks:blocks/kelp_3"
+        "cross": "glassworks:blocks/kelp_1"
     }
 }

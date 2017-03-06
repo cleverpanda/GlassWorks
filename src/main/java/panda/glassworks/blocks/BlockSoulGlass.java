@@ -106,7 +106,7 @@ public class BlockSoulGlass extends BlockGlass{
             }
             else 
             {
-                worldIn.setBlockState(pos, getDefaultState(), 2);
+                worldIn.setBlockState(pos, getDefaultState().withProperty(isOn, false), 2);
             }
         }
     }
@@ -129,20 +129,12 @@ public class BlockSoulGlass extends BlockGlass{
 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos,IBlockState state, EntityPlayer playerIn, EnumHand hand,ItemStack heldItem, EnumFacing side, float hitX, float hitY,float hitZ) {
-		if(worldIn.isBlockPowered(pos)){
+		//if(worldIn.isBlockPowered(pos)){
 			worldIn.setBlockState(pos, getDefaultState().withProperty(isOn, true), 2);
 			notifySameNeighborsOfStateChange(worldIn, pos);
 			return true;
-		}
-		return false;
-	}
-
-
-	@Override
-	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos,
-			IBlockState state, Entity entityIn) {
-		// TODO Auto-generated method stub
-		super.onEntityCollidedWithBlock(worldIn, pos, state, entityIn);
+		//}
+		//return false;
 	}
 	
 	private void notifySameNeighborsOfStateChange(World worldIn, BlockPos pos)
@@ -214,16 +206,18 @@ public class BlockSoulGlass extends BlockGlass{
 		// TODO Auto-generated method stub
 		super.randomDisplayTick(stateIn, worldIn, pos, rand);
 	}
-
+	
 	@Override
-	public Vec3d modifyAcceleration(World worldIn, BlockPos pos,Entity entityIn, Vec3d motion) {
-
-		///this method used only for water, need to do something else
-		Double vx = motion.xCoord;
-		Double vy = motion.yCoord;
-		Double vz = motion.zCoord;
-		Double c = 1D;
-		return motion.subtract(c*vx*vx*Math.signum(vx), c*vy*vy*Math.signum(vy), c*vz*vz*Math.signum(vz));
+	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+	{
+		//Double c = 40D;
+		
+		Double vx = entityIn.motionX;
+		Double vy = entityIn.motionY;
+		Double vz = entityIn.motionZ;
+		
+		//entityIn.addVelocity(-c*vx*vx*Math.signum(vx), -c*vy*vy*Math.signum(vy), -c*vz*vz*Math.signum(vz));
+		entityIn.addVelocity(-vx*.3,-vy*.3,-vz*.3 );
 	}
 
 
@@ -241,7 +235,7 @@ public class BlockSoulGlass extends BlockGlass{
 	
 	@Override
 	public int damageDropped(IBlockState state) {
-		return 0;
+		return this.getMetaFromState(state);
 	}
 	
 	@Override
