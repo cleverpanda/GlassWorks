@@ -10,9 +10,9 @@ import net.minecraft.world.World;
 import panda.glassworks.GlassWorks;
 import panda.glassworks.gui.BlowpipeGuiHandler;
 
-public class ItemBlowpipe extends Item{
+public class ItemBlowpipe extends Item {
 
-	public ItemBlowpipe(){
+	public ItemBlowpipe() {
 		super();
 		this.setCreativeTab(GlassWorks.GlassTab);
 		setMaxStackSize(1);
@@ -20,15 +20,14 @@ public class ItemBlowpipe extends Item{
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn,World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World world, EntityPlayer player,
+			EnumHand hand) {
 		if (!world.isRemote && hand == EnumHand.MAIN_HAND) {
-			player.openGui(GlassWorks.INSTANCE, BlowpipeGuiHandler.BLOWPIPE_GUI, world, (int)player.posX, (int)player.posY, (int)player.posZ);
-	    }
+			player.openGui(GlassWorks.INSTANCE, BlowpipeGuiHandler.BLOWPIPE_GUI, world, (int) player.posX,
+					(int) player.posY, (int) player.posZ);
+		}
 		return super.onItemRightClick(itemStackIn, world, player, hand);
 	}
-
-
-
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack stack) {

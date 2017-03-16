@@ -13,37 +13,42 @@ import panda.glassworks.blocks.BlockTarFluid;
 import panda.glassworks.util.registry.BlockList;
 import panda.glassworks.util.registry.ItemList;
 
-public class BucketHandler
-{
-    
-    @SubscribeEvent
-    public void onRightClickHoldingBucket(FillBucketEvent event)
-    {
+public class BucketHandler {
 
-        if (event.getEmptyBucket().getItem() != Items.BUCKET) {return;}
-        if (event.getTarget() == null || event.getTarget().typeOfHit != RayTraceResult.Type.BLOCK) {return;}
-        BlockPos blockpos = event.getTarget().getBlockPos();
-        if (!event.getWorld().isBlockModifiable(event.getEntityPlayer(), blockpos)) {return;}
-        if (!event.getEntityPlayer().canPlayerEdit(blockpos.offset(event.getTarget().sideHit), event.getTarget().sideHit, event.getEmptyBucket())) {return;}
-        
+	@SubscribeEvent
+	public void onRightClickHoldingBucket(FillBucketEvent event) {
 
-        IBlockState iblockstate = event.getWorld().getBlockState(blockpos);
-        Fluid filled_fluid = null;
-        if (iblockstate.getBlock() == BlockList.TAR && ((Integer)iblockstate.getValue(BlockTarFluid.LEVEL)).intValue() == 0)
-        {
-            filled_fluid = BlockList.TAR_FLUID;
-        }
-        else
-        {
-            return;
-        }
-        
-        // remove the fluid and return the appropriate filled bucket
-        event.setResult(Result.ALLOW);
-        ItemStack bucket = new ItemStack(ItemList.TAR_BUCKET);
-        event.setFilledBucket(bucket);
-        event.getWorld().setBlockToAir(blockpos);
-        //TODO: event.entityPlayer.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(event.getEmptyBucket().getItem())]);
-    }
-        
+		if (event.getEmptyBucket().getItem() != Items.BUCKET) {
+			return;
+		}
+		if (event.getTarget() == null || event.getTarget().typeOfHit != RayTraceResult.Type.BLOCK) {
+			return;
+		}
+		BlockPos blockpos = event.getTarget().getBlockPos();
+		if (!event.getWorld().isBlockModifiable(event.getEntityPlayer(), blockpos)) {
+			return;
+		}
+		if (!event.getEntityPlayer().canPlayerEdit(blockpos.offset(event.getTarget().sideHit),
+				event.getTarget().sideHit, event.getEmptyBucket())) {
+			return;
+		}
+
+		IBlockState iblockstate = event.getWorld().getBlockState(blockpos);
+		Fluid filled_fluid = null;
+		if (iblockstate.getBlock() == BlockList.TAR
+				&& ((Integer) iblockstate.getValue(BlockTarFluid.LEVEL)).intValue() == 0) {
+			filled_fluid = BlockList.TAR_FLUID;
+		} else {
+			return;
+		}
+
+		// remove the fluid and return the appropriate filled bucket
+		event.setResult(Result.ALLOW);
+		ItemStack bucket = new ItemStack(ItemList.TAR_BUCKET);
+		event.setFilledBucket(bucket);
+		event.getWorld().setBlockToAir(blockpos);
+		// TODO:
+		// event.entityPlayer.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(event.getEmptyBucket().getItem())]);
+	}
+
 }

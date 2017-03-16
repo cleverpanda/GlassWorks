@@ -15,56 +15,51 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import panda.glassworks.GlassWorks;
 
-public class ItemMilkBottle extends Item{
-	
-	public ItemMilkBottle()
-    {
+public class ItemMilkBottle extends Item {
+
+	public ItemMilkBottle() {
 		setMaxStackSize(1);
 		setCreativeTab(GlassWorks.GlassTab);
 		setRegistryName("milk_bottle");
-        
-    }
-	
+
+	}
+
 	@Override
-	public int getMaxItemUseDuration(ItemStack stack)
-    {
-        return 24;
-    }
+	public int getMaxItemUseDuration(ItemStack stack) {
+		return 24;
+	}
 
-    /**
-     * returns the action that specifies what animation to play when the items is being used
-     */
+	/**
+	 * returns the action that specifies what animation to play when the items
+	 * is being used
+	 */
 	@Override
-    public EnumAction getItemUseAction(ItemStack stack)
-    {
-        return EnumAction.DRINK;
-    }
-    
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
-    {
-        playerIn.setActiveHand(hand);
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
-    }
-    @Nullable
-    @Override
-    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving)
-    {
-        if (entityLiving instanceof EntityPlayer && !((EntityPlayer)entityLiving).capabilities.isCreativeMode)
-        {
-            --stack.stackSize;
-        }
+	public EnumAction getItemUseAction(ItemStack stack) {
+		return EnumAction.DRINK;
+	}
 
-        if (!worldIn.isRemote)
-        {
-            entityLiving.curePotionEffects(new ItemStack(Items.MILK_BUCKET));
-        }
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn,
+			EnumHand hand) {
+		playerIn.setActiveHand(hand);
+		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+	}
 
-        if (entityLiving instanceof EntityPlayer)
-        {
-            ((EntityPlayer)entityLiving).addStat(StatList.getObjectUseStats(this));
-        }
+	@Nullable
+	@Override
+	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
+		if (entityLiving instanceof EntityPlayer && !((EntityPlayer) entityLiving).capabilities.isCreativeMode) {
+			--stack.stackSize;
+		}
 
-        return stack.stackSize <= 0 ? new ItemStack(Items.GLASS_BOTTLE) : stack;
-    }
+		if (!worldIn.isRemote) {
+			entityLiving.curePotionEffects(new ItemStack(Items.MILK_BUCKET));
+		}
+
+		if (entityLiving instanceof EntityPlayer) {
+			((EntityPlayer) entityLiving).addStat(StatList.getObjectUseStats(this));
+		}
+
+		return stack.stackSize <= 0 ? new ItemStack(Items.GLASS_BOTTLE) : stack;
+	}
 }

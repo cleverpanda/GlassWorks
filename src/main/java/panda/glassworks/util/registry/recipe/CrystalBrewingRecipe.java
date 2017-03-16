@@ -8,44 +8,41 @@ import panda.glassworks.util.registry.ItemList;
 
 public class CrystalBrewingRecipe implements IBrewingRecipe {
 
-
-	    /**
-	     * Code adapted from TileEntityBrewingStand.isItemValidForSlot(int index, ItemStack stack)
-	     */
-	    @Override
-	    public boolean isInput(ItemStack stack)
-	    {
-	        Item item = stack.getItem();
-	        return item == ItemList.POTION_FLASK || item == ItemList.CRYSTAL_FLASK;
-	    }
-
-	    /**
-	     * Code adapted from TileEntityBrewingStand.isItemValidForSlot(int index, ItemStack stack)
-	     */
-	    @Override
-	    public boolean isIngredient(ItemStack stack)
-	    {
-	        return PotionHelper.isReagent(stack);
-	    }
-
-	    /**
-	     * Code copied from TileEntityBrewingStand.brewPotions()
-	     * It brews the potion by doing the bit-shifting magic and then checking if the new PotionEffect list is different to the old one,
-	     * or if the new potion is a splash potion when the old one wasn't.
-	     */
-	    @Override
-	    public ItemStack getOutput(ItemStack input, ItemStack ingredient)
-	    {
-	        if (ingredient != null && input != null && isIngredient(ingredient))
-	        {
-	            ItemStack result = PotionHelper.doReaction(ingredient, input);
-	            if (result != input)
-	            {
-	                return result;
-	            }
-	            return null;
-	        }
-
-	        return null;
-	    }
+	/**
+	 * Code adapted from TileEntityBrewingStand.isItemValidForSlot(int index,
+	 * ItemStack stack)
+	 */
+	@Override
+	public boolean isInput(ItemStack stack) {
+		Item item = stack.getItem();
+		return item == ItemList.POTION_FLASK || item == ItemList.CRYSTAL_FLASK;
 	}
+
+	/**
+	 * Code adapted from TileEntityBrewingStand.isItemValidForSlot(int index,
+	 * ItemStack stack)
+	 */
+	@Override
+	public boolean isIngredient(ItemStack stack) {
+		return PotionHelper.isReagent(stack);
+	}
+
+	/**
+	 * Code copied from TileEntityBrewingStand.brewPotions() It brews the potion
+	 * by doing the bit-shifting magic and then checking if the new PotionEffect
+	 * list is different to the old one, or if the new potion is a splash potion
+	 * when the old one wasn't.
+	 */
+	@Override
+	public ItemStack getOutput(ItemStack input, ItemStack ingredient) {
+		if (ingredient != null && input != null && isIngredient(ingredient)) {
+			ItemStack result = PotionHelper.doReaction(ingredient, input);
+			if (result != input) {
+				return result;
+			}
+			return null;
+		}
+
+		return null;
+	}
+}

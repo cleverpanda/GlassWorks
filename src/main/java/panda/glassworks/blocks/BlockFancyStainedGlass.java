@@ -27,11 +27,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import panda.glassworks.GlassWorks;
 import panda.glassworks.items.itemblocks.ItemBlockFancyGlass;
 
-public class BlockFancyStainedGlass extends BlockGlass{
-    public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.<EnumDyeColor>create("color", EnumDyeColor.class);
+public class BlockFancyStainedGlass extends BlockGlass {
+	public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.<EnumDyeColor>create("color",
+			EnumDyeColor.class);
 
 	public BlockFancyStainedGlass() {
-		super(Material.GLASS,false);
+		super(Material.GLASS, false);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
 		this.setCreativeTab(GlassWorks.GlassTab);
 		this.setHardness(0.3F);
@@ -39,103 +40,89 @@ public class BlockFancyStainedGlass extends BlockGlass{
 		setRegistryName("fancy_stained_glass");
 		GameRegistry.register(new ItemBlockFancyGlass(this));
 	}
-	
-	@Override
-	public boolean isOpaqueCube(IBlockState state)
-    {
-        return false;
-    }
-	
-	@Override
-	public float[] getBeaconColorMultiplier(IBlockState state, World world,BlockPos pos, BlockPos beaconPos) {
 
-		return EntitySheep.getDyeRgb(((EnumDyeColor)state.getValue(COLOR)));
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
 	}
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side){
-        return !(world.getBlockState(pos.offset(side)).getBlock() == this);
-    }
-    
-    @Override
+	@Override
+	public float[] getBeaconColorMultiplier(IBlockState state, World world, BlockPos pos, BlockPos beaconPos) {
+
+		return EntitySheep.getDyeRgb(((EnumDyeColor) state.getValue(COLOR)));
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+		return !(world.getBlockState(pos.offset(side)).getBlock() == this);
+	}
+
+	@Override
 	public int damageDropped(IBlockState state) {
 		return getMetaFromState(state);
 	}
 
-    @Override
-    public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
-    {
-    	for (EnumDyeColor enumdyecolor : EnumDyeColor.values())
-        {
-            list.add(new ItemStack(itemIn, 1, enumdyecolor.getMetadata()));
-        }
+	@Override
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+		for (EnumDyeColor enumdyecolor : EnumDyeColor.values()) {
+			list.add(new ItemStack(itemIn, 1, enumdyecolor.getMetadata()));
+		}
 
-    }
-    
-    @Override
-    public MapColor getMapColor(IBlockState state)
-    {
-        return ((EnumDyeColor)state.getValue(COLOR)).getMapColor();
-    }
-
-    @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
-    {
-        return BlockRenderLayer.TRANSLUCENT;
-    }
-
-    @Override
-    public int quantityDropped(Random random)
-    {
-        return 0;
-    }
+	}
 
 	@Override
-    protected boolean canSilkHarvest()
-    {
-        return true;
-    }
+	public MapColor getMapColor(IBlockState state) {
+		return ((EnumDyeColor) state.getValue(COLOR)).getMapColor();
+	}
 
-    @Override
-    public boolean isFullCube(IBlockState state)
-    {
-        return false;
-    }
+	@SideOnly(Side.CLIENT)
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.TRANSLUCENT;
+	}
 
-    @Override
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return this.getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
-    }
-    
-    @Override
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
-    {
-        if (!worldIn.isRemote)
-        {
-            BlockBeacon.updateColorAsync(worldIn, pos);
-        }
-    }
-    
-    @Override
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
-    {
-        if (!worldIn.isRemote)
-        {
-            BlockBeacon.updateColorAsync(worldIn, pos);
-        }
-    }
-    
-    @Override
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, COLOR);
-    }
+	@Override
+	public int quantityDropped(Random random) {
+		return 0;
+	}
+
+	@Override
+	protected boolean canSilkHarvest() {
+		return true;
+	}
+
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return this.getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
+	}
+
+	@Override
+	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
+		if (!worldIn.isRemote) {
+			BlockBeacon.updateColorAsync(worldIn, pos);
+		}
+	}
+
+	@Override
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+		if (!worldIn.isRemote) {
+			BlockBeacon.updateColorAsync(worldIn, pos);
+		}
+	}
+
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, COLOR);
+	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		return state.getValue(COLOR).getMetadata();
 	}
-	
+
 }

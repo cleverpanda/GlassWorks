@@ -18,92 +18,104 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import panda.glassworks.blocks.BlockGlassSlabBase;
 import panda.glassworks.blocks.BlockGlassSlabBase.SlabVariant;
 
-public class ItemGlassSlabBlock extends ItemBlock{
+public class ItemGlassSlabBlock extends ItemBlock {
 
 	private BlockGlassSlabBase realBlock = (BlockGlassSlabBase) this.block;
 	private PropertyEnum<SlabVariant> VARIANT = BlockGlassSlabBase.VARIANT;
-	
+
 	public ItemGlassSlabBlock(BlockGlassSlabBase block) {
 		super(block);
 		this.setMaxDamage(0);
 		setRegistryName(block.getRegistryName());
 	}
-	
+
 	@Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
-		if(!world.isRemote) System.out.println("Calling onItemUse with facing " + facing.getName() + " and hitY " + hitY);
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand,
+			EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (!world.isRemote)
+			System.out.println("Calling onItemUse with facing " + facing.getName() + " and hitY " + hitY);
 		IBlockState state = world.getBlockState(pos);
-        Block block = state.getBlock();
-        if(!block.isReplaceable(world, pos) && !(block == this.block && checkOppositeByFacing(state, facing))) pos = pos.offset(facing);
-        state = world.getBlockState(pos);
-        IBlockState placeState = getByHitY(hitY);
-        if(player.canPlayerEdit(pos, facing, stack) && facing.getAxis().isVertical() && state.getBlock() == this.block) {
-        	placeState = this.realBlock.getDouble();
-        	if(doubleSlab(world, pos)) return shrinkAndSucceed(world, pos, player, stack);
-        }
-        else if(validEditable(state, world, pos, facing, stack, player) && facing.getAxis().isHorizontal()) {
-        	if(world.setBlockState(pos, placeState)) return shrinkAndSucceed(world, pos, player, stack);
-        }
-        else if(validEditable(state, world, pos, facing, stack, player) && facing.getAxis().isVertical()){
-        	placeState = realBlock.getOpposite(placeState);
-        	if(world.setBlockState(pos, placeState)) return shrinkAndSucceed(world, pos, player, stack);
-        }
-        else if(player.canPlayerEdit(pos, facing, stack) && facing.getAxis().isHorizontal() && state.getBlock() == this.block && canBeMerged(state, placeState)){
-        	if(doubleSlab(world, pos)) return shrinkAndSucceed(world, pos, player, stack);
-        }
-        return EnumActionResult.FAIL;
-    }
-	
-	private boolean validEditable(IBlockState state, World world, BlockPos pos, EnumFacing facing, ItemStack stack, EntityPlayer player){
+		Block block = state.getBlock();
+		if (!block.isReplaceable(world, pos) && !(block == this.block && checkOppositeByFacing(state, facing)))
+			pos = pos.offset(facing);
+		state = world.getBlockState(pos);
+		IBlockState placeState = getByHitY(hitY);
+		if (player.canPlayerEdit(pos, facing, stack) && facing.getAxis().isVertical()
+				&& state.getBlock() == this.block) {
+			placeState = this.realBlock.getDouble();
+			if (doubleSlab(world, pos))
+				return shrinkAndSucceed(world, pos, player, stack);
+		} else if (validEditable(state, world, pos, facing, stack, player) && facing.getAxis().isHorizontal()) {
+			if (world.setBlockState(pos, placeState))
+				return shrinkAndSucceed(world, pos, player, stack);
+		} else if (validEditable(state, world, pos, facing, stack, player) && facing.getAxis().isVertical()) {
+			placeState = realBlock.getOpposite(placeState);
+			if (world.setBlockState(pos, placeState))
+				return shrinkAndSucceed(world, pos, player, stack);
+		} else if (player.canPlayerEdit(pos, facing, stack) && facing.getAxis().isHorizontal()
+				&& state.getBlock() == this.block && canBeMerged(state, placeState)) {
+			if (doubleSlab(world, pos))
+				return shrinkAndSucceed(world, pos, player, stack);
+		}
+		return EnumActionResult.FAIL;
+	}
+
+	private boolean validEditable(IBlockState state, World world, BlockPos pos, EnumFacing facing, ItemStack stack,
+			EntityPlayer player) {
 		return state.getBlock().isReplaceable(world, pos) && player.canPlayerEdit(pos, facing, stack);
 	}
-	
-	private boolean canBeMerged(IBlockState state, IBlockState state2){
-		if(state != realBlock.getDouble() && state2 != realBlock.getDouble()) return !(state == state2);
-		else return false;
+
+	private boolean canBeMerged(IBlockState state, IBlockState state2) {
+		if (state != realBlock.getDouble() && state2 != realBlock.getDouble())
+			return !(state == state2);
+		else
+			return false;
 	}
-	
-	private boolean checkOppositeByFacing(IBlockState state, EnumFacing facing){
-		
-		if(facing == EnumFacing.DOWN) return state.getValue(VARIANT) == SlabVariant.UPPER;
-		else if(facing == EnumFacing.UP) return state.getValue(VARIANT) == SlabVariant.LOWER;
-		else return false;
+
+	private boolean checkOppositeByFacing(IBlockState state, EnumFacing facing) {
+
+		if (facing == EnumFacing.DOWN)
+			return state.getValue(VARIANT) == SlabVariant.UPPER;
+		else if (facing == EnumFacing.UP)
+			return state.getValue(VARIANT) == SlabVariant.LOWER;
+		else
+			return false;
 	}
-	
+
 	@Override
-    @SideOnly(Side.CLIENT)
-    public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack){
+	@SideOnly(Side.CLIENT)
+	public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side, EntityPlayer player,
+			ItemStack stack) {
 		return world.checkNoEntityCollision(Block.FULL_BLOCK_AABB.offset(pos.offset(side)), null);
-        }
-	
-	private EnumActionResult shrinkAndSucceed(World world, BlockPos pos, EntityPlayer player, ItemStack stack){
-        SoundType soundtype = world.getBlockState(pos).getBlock().getSoundType(world.getBlockState(pos), world, pos, player);
-        world.playSound(player, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
-        --stack.stackSize;
-        return EnumActionResult.SUCCESS;
 	}
-	
-	private IBlockState getByHitY(float hitY){
-		if(hitY >= 0.5) return this.block.getDefaultState().withProperty(VARIANT, SlabVariant.UPPER);
+
+	private EnumActionResult shrinkAndSucceed(World world, BlockPos pos, EntityPlayer player, ItemStack stack) {
+		SoundType soundtype = world.getBlockState(pos).getBlock().getSoundType(world.getBlockState(pos), world, pos,
+				player);
+		world.playSound(player, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS,
+				(soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
+		--stack.stackSize;
+		return EnumActionResult.SUCCESS;
+	}
+
+	private IBlockState getByHitY(float hitY) {
+		if (hitY >= 0.5)
+			return this.block.getDefaultState().withProperty(VARIANT, SlabVariant.UPPER);
 		return this.block.getDefaultState();
 	}
-	
-	private boolean doubleSlab(World world, BlockPos pos){
+
+	private boolean doubleSlab(World world, BlockPos pos) {
 		return world.setBlockState(pos, realBlock.getDouble());
 	}
-	
+
 	@Override
-    public String getUnlocalizedName(ItemStack stack)
-    {
-        return this.block.getUnlocalizedName() + "." + stack.getMetadata();
-    }
-	
+	public String getUnlocalizedName(ItemStack stack) {
+		return this.block.getUnlocalizedName() + "." + stack.getMetadata();
+	}
+
 	@Override
-    public int getMetadata(int damage)
-    {
-        return damage;
-    }
-	
+	public int getMetadata(int damage) {
+		return damage;
+	}
 
 }

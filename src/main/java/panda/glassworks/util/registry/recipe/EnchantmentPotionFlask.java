@@ -7,19 +7,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import panda.glassworks.util.registry.ItemList;
 
-public class EnchantmentPotionFlask extends Enchantment{
+public class EnchantmentPotionFlask extends Enchantment {
 
 	public EnchantmentPotionFlask() {
-		super(Enchantment.Rarity.COMMON, EnumEnchantmentType.ALL, new EntityEquipmentSlot[] {EntityEquipmentSlot.MAINHAND});
+		super(Enchantment.Rarity.COMMON, EnumEnchantmentType.ALL,
+				new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
 		this.setRegistryName("enchantment_potion_flask");
 		GameRegistry.register(this);
-		
+
 	}
-	
+
 	@Override
-	public String getName(){
+	public String getName() {
 		return "dummy_crafting_enchant";
-		
+
 	}
 
 	@Override

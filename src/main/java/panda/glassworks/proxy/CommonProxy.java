@@ -12,20 +12,18 @@ import panda.glassworks.util.network.MessageHandler;
 import panda.glassworks.util.network.Network;
 import panda.glassworks.util.registry.MasterRegistrar;
 
-
 public class CommonProxy {
 
-	
-    public void preInit(FMLPreInitializationEvent e) {
-    	MasterRegistrar.callRegistry(e);
-    }
+	public void preInit(FMLPreInitializationEvent e) {
+		MasterRegistrar.callRegistry(e);
+	}
 
-    public void init(FMLInitializationEvent e) {
-    	Network.INSTANCE.registerMessage(MessageHandler.class, Message.class, 0, Side.SERVER);
-    	NetworkRegistry.INSTANCE.registerGuiHandler(GlassWorks.INSTANCE, new BlowpipeGuiHandler());
-    }
+	public void init(FMLInitializationEvent e) {
+		Network.INSTANCE.registerMessage(MessageHandler.class, Message.class, 0, Side.SERVER);
+		NetworkRegistry.INSTANCE.registerGuiHandler(GlassWorks.INSTANCE, new BlowpipeGuiHandler());
+	}
 
-    public void postInit(FMLPostInitializationEvent e) {
-    	
-    }
+	public void postInit(FMLPostInitializationEvent e) {
+
+	}
 }

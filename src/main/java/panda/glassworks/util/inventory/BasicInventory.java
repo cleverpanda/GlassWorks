@@ -10,18 +10,17 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import panda.glassworks.gui.ContainerBlowpipe;
 
-public class BasicInventory implements IInventory{
+public class BasicInventory implements IInventory {
 
 	private final String name;
 	private ItemStack stack;
 	private ContainerBlowpipe blowpipe;
-	
-    public BasicInventory(ContainerBlowpipe blowpipeIn, String nameIn)
-    {
-        name = nameIn;
-        blowpipe = blowpipeIn;
-    }
-	
+
+	public BasicInventory(ContainerBlowpipe blowpipeIn, String nameIn) {
+		name = nameIn;
+		blowpipe = blowpipeIn;
+	}
+
 	@Override
 	public String getName() {
 		return name;
@@ -47,23 +46,23 @@ public class BasicInventory implements IInventory{
 		return stack;
 	}
 
-    @Nullable
-    public ItemStack decrStackSize(int index, int count)
-    {
-        ItemStack itemstack = stack.splitStack(count);
+	@Nullable
+	public ItemStack decrStackSize(int index, int count) {
+		ItemStack itemstack = stack.splitStack(count);
 
-        if (itemstack != null)
-        {
-        	blowpipe.onCraftMatrixChanged(this);
-        }
+		if (itemstack != null) {
+			blowpipe.onCraftMatrixChanged(this);
+		}
 
-        return itemstack;
-    }
+		return itemstack;
+	}
 
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
 		ItemStack taken = null;
-		if(stack != null){ taken = stack.copy();}
+		if (stack != null) {
+			taken = stack.copy();
+		}
 		stack = null;
 		return taken;
 	}
@@ -73,7 +72,7 @@ public class BasicInventory implements IInventory{
 		stack = stackIn;
 		blowpipe.onCraftMatrixChanged(this);
 	}
-	
+
 	public void setInventorySlotContentsNoUpdate(int index, ItemStack stackIn) {
 		stack = stackIn;
 	}
@@ -111,7 +110,7 @@ public class BasicInventory implements IInventory{
 	}
 
 	@Override
-	public void setField(int id, int value) {	
+	public void setField(int id, int value) {
 	}
 
 	@Override
@@ -121,7 +120,7 @@ public class BasicInventory implements IInventory{
 
 	@Override
 	public void clear() {
-		stack = null;	
+		stack = null;
 	}
 
 }
