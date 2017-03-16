@@ -101,7 +101,7 @@ public class WorldGenerator implements IWorldGenerator{
 			for(int s = 0; s < numShoots; s++)
 			{
 				BlockPos pos = world.getHeight(new BlockPos(randX,0,randZ));
-				makeSeaweed(world,random,scatter(pos,random,1,6),3,6);
+				makeSeaweed(world,random,scatter(pos,random,1,6),4,12);
 			}
 		}	
 	}

@@ -28,7 +28,7 @@ public class ItemSeaweed extends ItemBlock{
     {
         Block block = world.getBlockState(pos).getBlock();
 
-        if (block == theblock || block == Blocks.SAND)
+        if (block == theblock || block == Blocks.SAND || block == Blocks.GRAVEL)
         {
             side = EnumFacing.UP;
         }
@@ -43,7 +43,7 @@ public class ItemSeaweed extends ItemBlock{
         }
         else
         {
-        	if((block == theblock || block == Blocks.SAND) && world.getBlockState(pos.up()).getBlock() == Blocks.WATER && world.getBlockState(pos.up(2)).getBlock() != Blocks.AIR){
+        	if((block == theblock || block == Blocks.SAND || block == Blocks.GRAVEL) && world.getBlockState(pos.up()).getBlock() == Blocks.WATER && world.getBlockState(pos.up(2)).getBlock() != Blocks.AIR){
                 if (world.setBlockState(pos.up(), this.theblock.getDefaultState(), 2))
                 {
                     if (world.getBlockState(pos.up()).getBlock() == this.theblock)

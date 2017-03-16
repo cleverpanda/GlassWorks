@@ -26,6 +26,7 @@ public class GlassBlowingRecipes {
     	addBlowingRecipe(ItemList.MOLTEN_GLASS, ItemList.BOTTLE_UNFINISHED);
     	addBlowingRecipe(ItemList.MOLTEN_GLASS, ItemList.GLASS_LAMP);
     	addBlowingRecipe(ItemList.MOLTEN_GLASS, ItemList.GLASS_BULB);
+    	addBlowingRecipe(ItemList.MOLTEN_GLASS, ItemList.GLASS_JAR_UNF);
     	
     	addBlowingRecipe(Items.NETHER_STAR, new ItemStack(Blocks.BEACON));
         

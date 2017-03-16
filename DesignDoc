@@ -1,5 +1,5 @@
 
------TO-DO-----
+-----TO-DO- MAIN-----
 Soul Glass
 	dark and collision when unpowered, clear and can walk through when powered
 	colored soul glass allows for multiplayer scoreboard team interaction
@@ -32,7 +32,6 @@ Glass Door
 
 glasscutter world interaction needs to be redone
 	
-
 Extinguishing mechanic
 	Falling into water with lantern,lamp,torch extinguishes it
 		torch extinguish -> return sticks //need to be aware that some mods add this too
@@ -44,10 +43,6 @@ molten glass burns you without protection?
 	//maybe wait for IW then tie in
 dropping glass items from too high will shatter them
 	//too much hastle?
-	
-fish bowl block? :)
-
-blowpipe easter egg
 
 using blowpipe makes player hold it up to mouth
 
@@ -59,17 +54,8 @@ retrieveing soul glass should require enchanted glasscutter?
 
 sounds for soul glass
 
-soul glass connected textures
-
 how should coloring glass be handled?
 	currently externally by vanilla
-
-glass cutter in hand needs to be rotated
-
-spyglass 
-	X2,X3 magnification
-	with 2 lenses and gold nuggets
-	use gold plate if availible
 
 config system
 	also importing blowpipe recipe entries from config for modpack makers
@@ -78,47 +64,63 @@ soul glass should have config to allow arrows,snowballs,tnt entity, etc. to pass
 
 need a more involved mid-end game recipe for soul glass?
 
-is blast glass texture too unoriginal or does it stay faithful?
-
 lamps,lanterns need to actually process fuel
 	make it an optional config
 
 mixing flask
-	(mix two potions to get 2 (or 3?) doses of the combined effects in one bottle
+	(mix two potions to get 4 doses of the combined effects in one bottle
 	texture //call Alvoria again?
 	rendering // how to do 2 potion overlays in one file?
 	needs end game crafting recipe to justify
 			dragon?
 	
+soul glass opacity and redstone functions
+
+add blast glass pane
+	little less blast resistance
+	
+	
+-----TO-DO-SMALL-STUFF-----
+
+bucket of tar acts as fuel
+
 use glass lens to start fires?
 	//def would be a config option if implemented
 	//too easy for fire?
 	//only during day
-seaweed generation is lame.
+	
+fix recipe for glasscutter, looks weird with stick angle
 
-more creative way to create lamp oil than smelting tar?
+crystal glass should require lead powder when availible 
+
+blow pipe should be crafted with iron nuggets or iron plates if availible
+
+go back and make sure all reasonable things support ore dict
 
 might be a good idea to make lamp oil an actual fluid
 
-go back and make sure all reasonable things support ore dict
+more creative way to create lamp oil than smelting tar?
 
 allow shift clicking into blowpipe slot
 
 tar needs it's own particle. 
 	a slow bubbling that pops on the surface
-	
-crystal glass should require lead powder when availible 
 
-soul glass opacity and redstone functions
+make seaweed gen less lame
 
-blow pipe should be crafted with iron nuggets or iron plates if availible
+is blast glass texture too unoriginal or does it stay faithful?
 
-bucket of tar acts as fuel
+spyglass 
+	fix 3rd person rotation
+	use gold plate if availible
 
-fix recipe for glasscutter, looks weird with stick angle
+glass cutter in hand needs to be rotated
 
-add blast glass pane
-	little less blast resistance
+soul glass connected textures
+
+fish bowl block? :)
+
+blowpipe easter egg
 
 
 
@@ -140,8 +142,8 @@ lantern block should rotate based on player position when placed on ground
 seaweed adjacent to a solid block pops off on update
 	how to determine if its actually underwater or if someone is just making a pillar of water above ground and trying to put seaweed in it?
 
-soul glass placement does not keep the meta (always defaults to off)
-
+spyglass 
+	fix overlay when in use
 
 
 -----Tie Ins-----

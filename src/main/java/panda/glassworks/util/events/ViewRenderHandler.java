@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import panda.glassworks.gui.SpyglassGui;
 import panda.glassworks.items.ItemSpyglass;
@@ -32,14 +33,14 @@ public class ViewRenderHandler {
 			if(((EntityPlayer)event.getEntity()).inventory.armorInventory[3] != null){
 				if((  ((EntityPlayer)event.getEntity()).inventory.armorInventory[3].getItem() == ItemList.GLASS_BOWL)){
 					if(event.getEntity().isInsideOfMaterial(Material.WATER)){
-						event.setDensity(0.005F);
+						event.setDensity(0.000005F);
 						event.setCanceled(true);
 					}
 				}
 			}
 		}
 	}
-/*
+
 	@SubscribeEvent
 	public void onBowFOV(FOVUpdateEvent event)
 	{
@@ -50,11 +51,21 @@ public class ViewRenderHandler {
 		ItemSpyglass spy = null;
 		if (stack != null && stack.getItem() == ItemList.SPYGLASS){
 			spy = (ItemSpyglass)stack.getItem();
-			event.setNewfov(event.getNewfov() * (1.0F - spy.getZoom(stack)));
-		}
+			if(spy.isUsing){
+				event.setNewfov(event.getNewfov() * (1.0F - spy.getZoom(stack)));
+			}
+			
+			
+			//else{
+			//	event.setNewfov(Minecraft.getMinecraft().gameSettings.fovSetting);
+			//}
+			
+		}//else{
+		//	event.setNewfov(Minecraft.getMinecraft().gameSettings.fovSetting);
+		//}
 
 	}
-*/
+
 
 		
 

@@ -22,9 +22,10 @@ public class SpyglassHandler {
 	private SpyglassGui spyglassOverlay;
 
 	
-	/*@SubscribeEvent
+	@SubscribeEvent
 	public void preRenderOverlay(RenderGameOverlayEvent.Pre event) 
 	{
+		
 		if (event.getType() == RenderGameOverlayEvent.ElementType.HELMET)
 		{
 			if(Minecraft.getMinecraft().thePlayer != null)
@@ -33,21 +34,27 @@ public class SpyglassHandler {
 				
 				if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 0)
 				{
-					if(player.getHeldItem(player.getActiveHand()) != null && player.getHeldItem(player.getActiveHand()).getItem() == ItemList.SPYGLASS)
-					{
-
-						
-						float factor = ((ItemSpyglass)player.getHeldItem(player.getActiveHand()).getItem()).getZoom(player.getHeldItem(player.getActiveHand()));
-						
-						if(factor > 0.1F)
+					//System.out.println(Minecraft.getMinecraft().gameSettings.thirdPersonView);
+					if(player.getActiveHand() != null){
+						if(player.getHeldItem(player.getActiveHand()) != null && player.getHeldItem(player.getActiveHand()).getItem() == ItemList.SPYGLASS)
 						{
-							spyglassOverlay.renderOverlay(event.getResolution().getScaledWidth(), event.getResolution().getScaledHeight());
+							if(((ItemSpyglass)player.getHeldItem(player.getActiveHand()).getItem()).isUsing){
+								
+								float factor = ((ItemSpyglass)player.getHeldItem(player.getActiveHand()).getItem()).getZoom(player.getHeldItem(player.getActiveHand()));
+								
+								if(factor > 0.1F)
+								{
+									spyglassOverlay.renderOverlay(event.getResolution().getScaledWidth(), event.getResolution().getScaledHeight());
+								}
+							}
+							
 						}
 					}
+					
 				}
 			}
 		}
-	}*/
+	}
 
 
 

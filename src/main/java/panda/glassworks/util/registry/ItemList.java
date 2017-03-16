@@ -6,7 +6,6 @@ import java.util.List;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import panda.glassworks.items.EnchItemBase;
-import panda.glassworks.items.ItemApron;
 import panda.glassworks.items.ItemBase;
 import panda.glassworks.items.ItemBlowpipe;
 import panda.glassworks.items.ItemBucketTar;
@@ -30,7 +29,6 @@ public final class ItemList {
 	public static final Item CRYSTAL_GLASS_MIX = new ItemBase("crystal_glass_mix");
 	public static final Item GLASSCUTTER = new ItemGlasscutter();
 	public static final Item MOLTEN_GLASS = new ItemMoltenGlass();
-	public static final Item APRON = new ItemApron();
 	public static final Item MILK_BOTTLE = new ItemMilkBottle();
 	public static final Item BLOWPIPE = new ItemBlowpipe();
 	public static final Item TAR_BUCKET = new ItemBucketTar();
@@ -39,6 +37,8 @@ public final class ItemList {
 	public static final Item GLASS_BOWL = new ItemGlassBowl();
 	public static final Item GLASS_LENS = new ItemBase("glass_lens");
 	public static final Item GLASS_LAMP = new ItemBase("glass_lamp");
+	public static final Item GLASS_JAR_UNF = new ItemBase("glass_jar_unf");
+	public static final Item GLASS_JAR = new ItemBase("glass_jar");
 	public static final Item POTION_FLASK = new ItemPotionFlask();
 	public static final Item GLASS_BULB = new ItemBase("glass_bulb");
 	public static final Item CRYSTAL_FLASK = new ItemCrystalFlask();
@@ -48,7 +48,8 @@ public final class ItemList {
 	public static final Item BOTTLE_UNFINISHED = new ItemBase("bottle_unf");
 	public static final Item OBSIDIAN_GLASS_MIX = new ItemBase("obsidian_glass_mix");
 	public static final Item EMPTY_LAMP = new ItemBase("empty_lamp").setMaxStackSize(16);
-	//public static final Item SPYGLASS = new ItemSpyglass();
+	public static final Item SPYGLASS = new ItemSpyglass();
+	
 	
 	
 	
@@ -62,7 +63,6 @@ public final class ItemList {
 		list.add(CRYSTAL_GLASS_MIX);
 		list.add(GLASSCUTTER);
 		list.add(MOLTEN_GLASS);
-		list.add(APRON);
 		list.add(MILK_BOTTLE);
 		list.add(BLOWPIPE);
 		list.add(TAR_BUCKET);
@@ -80,7 +80,9 @@ public final class ItemList {
 		list.add(BOTTLE_UNFINISHED);
 		list.add(OBSIDIAN_GLASS_MIX);
 		list.add(EMPTY_LAMP);
-		//list.add(SPYGLASS);
+		list.add(SPYGLASS);
+		list.add(GLASS_JAR);
+		list.add(GLASS_JAR_UNF);
 		return list;
 	}
 }

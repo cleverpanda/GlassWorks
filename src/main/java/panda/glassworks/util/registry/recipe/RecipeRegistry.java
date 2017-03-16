@@ -28,7 +28,6 @@ public class RecipeRegistry {
 	public static void register() {
 		initGlassRecipes();
 		GlassBlowingRecipes.initGlassBlowingRecipes();
-		//GlassRecipes = GlassBlowingRecipes.instance();
 		PotionHelper.registerPotionItem(new PotionHelper.ItemPredicateInstance(ItemList.POTION_FLASK));
 		BrewingRecipeRegistry.addRecipe(new CrystalBrewingRecipe());
 	}
@@ -74,6 +73,7 @@ public class RecipeRegistry {
 				GameRegistry.addRecipe(new ItemStack(BlockList.BLAST_GLASS,4), new Object[] {"##", "##", '#', new ItemStack(ItemList.MOLTEN_GLASS,1,2)});
 				GameRegistry.addRecipe(new ItemStack(Blocks.GLASS,4), new Object[] {"##", "##", '#', new ItemStack(ItemList.MOLTEN_GLASS,1,1)});
 				GameRegistry.addRecipe(new ItemStack(Items.GLASS_BOTTLE), new Object[] {"B", "O", 'B', new ItemStack(Blocks.WOODEN_BUTTON), 'O', new ItemStack(ItemList.BOTTLE_UNFINISHED)});
+				GameRegistry.addRecipe(new ItemStack(ItemList.GLASS_JAR), new Object[] {"B", "O", 'B', new ItemStack(Blocks.WOODEN_BUTTON), 'O', new ItemStack(ItemList.GLASS_JAR_UNF)});
 				GameRegistry.addRecipe(new ItemStack(ItemList.BLOWPIPE), new Object[] {"#  ", " # ", "  #",'#', new ItemStack(Items.IRON_INGOT)});
 				
 				GameRegistry.addSmelting(ItemList.BROKEN_GLASS, new ItemStack(ItemList.MOLTEN_GLASS,1, 0), 0.2f);
@@ -85,11 +85,11 @@ public class RecipeRegistry {
 				GameRegistry.addShapelessRecipe(new ItemStack(BlockList.BLAST_GLASS),new ItemStack(ItemList.MOLTEN_GLASS,1,2));
 				
 				GameRegistry.addRecipe(new ItemStack(ItemList.GLASSCUTTER), new Object[] {"# ", " D",'#', new ItemStack(Items.STICK),'D', new ItemStack(Items.DIAMOND)});
-				GameRegistry.addRecipe(new ItemStack(ItemList.APRON), new Object[] {" S ","SLS", " L ",'L', new ItemStack(Items.LEATHER),'S', new ItemStack(Items.STRING)});
+			
 				
 				//GameRegistry.addRecipe(new ItemStack(door,3), new Object[] {"##", "##", "##", '#', new ItemStack(planks)});
 				
-				removeFurnaceRecipe(new ItemStack(Blocks.GLASS));
+				//removeFurnaceRecipe(new ItemStack(Blocks.GLASS));
 				GameRegistry.addRecipe(new ItemStack(ItemList.CRYSTAL_FLASK_UNFINISHED2), new Object[] {"n","F",'n', new ItemStack(Items.GOLD_NUGGET),'F', new ItemStack(ItemList.CRYSTAL_FLASK_UNFINISHED)});
 				//GLASS CUTTER RECIPES
 				for(int meta =0;meta<16;meta++){
@@ -111,6 +111,8 @@ public class RecipeRegistry {
 				GameRegistry.addRecipe(new ItemStack(ItemList.EMPTY_LAMP,2), new Object[] {"L ","In",'L', new ItemStack(ItemList.GLASS_LAMP),'n', new ItemStack(Items.GOLD_NUGGET),'I', new ItemStack(Items.GOLD_INGOT)});
 				GameRegistry.addRecipe(new ItemStack(ItemList.EMPTY_LANTERN,2), new Object[] {"III"," L "," I ",'L', new ItemStack(ItemList.GLASS_LAMP),'I', new ItemStack(Items.IRON_INGOT)});
 				//GameRegistry.addRecipe(new ItemStack(ItemList.LARGE_LANTERN), new Object[] {" I ","ILI"," I ",'L', new ItemStack(ItemList.GLASS_LAMP),'I', new ItemStack(Items.IRON_INGOT)});
+				
+				GameRegistry.addRecipe(new ItemStack(ItemList.SPYGLASS), new Object[] {"nln","n n","nln",'l', new ItemStack(ItemList.GLASS_LENS),'n', new ItemStack(Items.GOLD_NUGGET)});
 	}
 	
 	public static void removeFurnaceRecipe (ItemStack resultItem)

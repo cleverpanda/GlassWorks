@@ -1,6 +1,14 @@
 package panda.glassworks.items;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import panda.glassworks.GlassWorks;
+import panda.glassworks.util.registry.IMeta;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -13,19 +21,47 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemSpyglass extends Item{
+public class ItemSpyglass extends Item implements IMeta{
 
-	
+	public static boolean isUsing = false;
 	public ItemSpyglass()
     {
     	super();
     	this.setCreativeTab(GlassWorks.GlassTab);
     	setRegistryName("spyglass");
-    	this.setMaxDamage(1);
+    	this.setHasSubtypes(true);
+    	this.setMaxDamage(0);
     	this.setMaxStackSize(1);
     }
+	
+	@Override
+	  public int getMetadata(int damage) {
+	    return damage;
+	  }
+	
+	@SideOnly(Side.CLIENT)
+	  public void getSubItems(Item itemIn, CreativeTabs tab, List list)
+	  {
+		list.add(new ItemStack(itemIn, 1, 0));
+        list.add(new ItemStack(itemIn, 1, 1));
+	  }
+	
+	@Override
+	  // Make a unique name for each contents type (lime, orange, etc) so we can name them individually
+	  //  The fullness information is added separately in getItemStackDisplayName()
+	  public String getUnlocalizedName(ItemStack stack)
+	  {
+	    int metadata = stack.getMetadata();
+	    
+	    return super.getUnlocalizedName() + "." + (metadata == 0? "short":"long");
+	  }
+	
 	
 	@Override
     public EnumAction getItemUseAction(ItemStack item)
@@ -45,21 +81,39 @@ public class ItemSpyglass extends Item{
         return Integer.MAX_VALUE;
     }
 
+
     @Override
+	public void onPlayerStoppedUsing(ItemStack stack, World worldIn,
+			EntityLivingBase entityLiving, int timeLeft) {
+    	isUsing = false;
+		super.onPlayerStoppedUsing(stack, worldIn, entityLiving, timeLeft);
+	}
+
+	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack item,World world, EntityPlayer user, EnumHand hand) {
 
-    if(user.isSneaking())
-	{
+		if(user.isSneaking())
+	{isUsing = false;
 		world.playSound(user,user.posX, user.posY + 1.5D, user.posZ, SoundEvents.BLOCK_COMPARATOR_CLICK ,SoundCategory.BLOCKS, 1.0F, 1.5F);
 		toggleMode(item);
-		user.swingArm(user.getActiveHand());
+		if(user.getActiveHand() != null){
+			user.swingArm(user.getActiveHand());
+		}
+		
 	}
 	else
 	{
-		ItemStack heldItem = user.getHeldItemMainhand();
-		ReflectionHelper.setPrivateValue(EntityLivingBase.class, user, heldItem, "activeItemStack", "field_184627_bm");
-		ReflectionHelper.setPrivateValue(EntityLivingBase.class, user, heldItem.getMaxItemUseDuration(), "activeItemStackUseCount", "field_184628_bn");
-		user.getDataManager().set(ReflectionHelper.getPrivateValue(EntityLivingBase.class, user, "HAND_STATES", "field_184621_as"), (byte) 1);
+		isUsing = true;
+		ItemStack heldItem = null;
+		if(user.getActiveHand() != null){
+			 heldItem = user.getHeldItem(user.getActiveHand());
+		}
+		if(heldItem != null){
+			ReflectionHelper.setPrivateValue(EntityLivingBase.class, user, heldItem, "activeItemStack", "field_184627_bm");
+			ReflectionHelper.setPrivateValue(EntityLivingBase.class, user, heldItem.getMaxItemUseDuration(), "activeItemStackUseCount", "field_184628_bn");
+			user.getDataManager().set(ReflectionHelper.getPrivateValue(EntityLivingBase.class, user, "HAND_STATES", "field_184621_as"), (byte) 1);
+		}
+		
 		
 		//return ActionResult.newResult(EnumActionResult.SUCCESS, heldItem);		
 		//user.setActiveHand(hand);//..get.setItemStackToSlot(slotIn, stack);.setItemInUse(item, getMaxItemUseDuration(item));
@@ -70,6 +124,19 @@ public class ItemSpyglass extends Item{
 	public float getZoom(ItemStack item)
     {
     	int id = item.getItemDamage();
-    	return 0.5F +  (0.25F* id);
+    	return .75F +  (2F* id);
     }
+
+	@Override
+	public int getMaxMeta() {
+		return 1;
+	}
+
+	@Override
+	public List<ModelResourceLocation> getMetaModelLocations() {
+		List<ModelResourceLocation> map = new ArrayList<ModelResourceLocation>();
+		map.add(new ModelResourceLocation(getRegistryName(), "use=0"));
+		map.add(new ModelResourceLocation(getRegistryName(), "use=1"));
+		return map;
+	}
 }

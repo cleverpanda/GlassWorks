@@ -1,0 +1,91 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "cube_all",
+		"transform": "forge:default-block"
+	},
+	"variants": {
+		"color": {
+			"black": {
+				"textures": {
+					"all": "glassworks:blocks/fancy_glass_black"
+				}
+			},
+			"blue": {
+				"textures": {
+					"all": "glassworks:blocks/fancy_glass_blue"
+				}
+			},
+			"brown": {
+				"textures": {
+					"all": "glassworks:blocks/fancy_glass_brown"
+				}
+			},
+			"cyan": {
+				"textures": {
+					"all": "glassworks:blocks/fancy_glass_cyan"
+				}
+			},
+			"gray": {
+				"textures": {
+					"all": "glassworks:blocks/fancy_glass_gray"
+				}
+			},
+			"green": {
+				"textures": {
+					"all": "glassworks:blocks/fancy_glass_green"
+				}
+			},
+			"light_blue": {
+				"textures": {
+					"all": "glassworks:blocks/fancy_glass_light_blue"
+				}
+			},
+			"lime": {
+				"textures": {
+					"all": "glassworks:blocks/fancy_glass_lime"
+				}
+			},
+			"magenta": {
+				"textures": {
+					"all": "glassworks:blocks/fancy_glass_magenta"
+				}
+			},
+			"orange": {
+				"textures": {
+					"all": "glassworks:blocks/fancy_glass_orange"
+				}
+			},
+			"pink": {
+				"textures": {
+					"all": "glassworks:blocks/fancy_glass_pink"
+				}
+			},
+			"purple": {
+				"textures": {
+					"all": "glassworks:blocks/fancy_glass_purple"
+				}
+			},
+			"red": {
+				"textures": {
+					"all": "glassworks:blocks/fancy_glass_red"
+				}
+			},
+			"silver": {
+				"textures": {
+					"all": "glassworks:blocks/fancy_glass_silver"
+				}
+			},
+			"white": {
+				"textures": {
+					"all": "glassworks:blocks/fancy_glass_white"
+				}
+			},
+			"yellow": {
+				"textures": {
+					"all": "glassworks:blocks/fancy_glass_yellow"
+				}
+			}
+		}
+	}
+}

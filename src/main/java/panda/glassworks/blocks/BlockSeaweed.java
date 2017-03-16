@@ -33,13 +33,22 @@ public class BlockSeaweed extends Block{
 	public static final PropertyInteger LEVEL = PropertyInteger.create("level", 0, 15);//So the game doesnt crash
 
 
+	/*
+	META 0 > Stalk
+	META 1 > connected stalk
+	META 2 > midsection
+	Meta 3 > Top
+	Meta 4 > Terminating cap, does not generate higher
+	*/
+	
 	public BlockSeaweed() {
 		super(Material.WATER);
 		this.setHardness(0.05F);
         this.setSoundType(SoundType.PLANT);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, Integer.valueOf(0)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, Integer.valueOf(2)));
         //float f = 0.375f;
 		//this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 1.0F, 0.5F + f);
+        this.setLightLevel(3);
 		setTickRandomly(true);
 		setCreativeTab(GlassWorks.GlassTab);
 		setRegistryName("seaweed");
@@ -212,7 +221,7 @@ public class BlockSeaweed extends Block{
 	
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        if (worldIn.getBlockState(pos.down()).getBlock() == this || this.checkForDrop(worldIn, pos, state))
+        if (worldIn.getBlockState(pos.down()).getBlock() == this || this.checkForDrop(worldIn, pos, state) && worldIn.getBlockState(pos.down()) != this.getStateFromMeta(4))
         {
             if (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER)
             {

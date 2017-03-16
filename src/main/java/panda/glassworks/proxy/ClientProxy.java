@@ -25,7 +25,7 @@ public class ClientProxy extends CommonProxy{
     public void postInit(FMLPostInitializationEvent e) {
         super.postInit(e);
         
-        MinecraftForge.EVENT_BUS.register(new SpyglassHandler(new SpyglassGui(Minecraft.getMinecraft())));
+        
     }
     
 

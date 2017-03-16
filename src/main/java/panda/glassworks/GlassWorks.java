@@ -1,7 +1,10 @@
 package panda.glassworks;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -14,10 +17,12 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import panda.glassworks.gui.SpyglassGui;
 import panda.glassworks.proxy.CommonProxy;
 import panda.glassworks.util.events.BlockBreakHandler;
 import panda.glassworks.util.events.BucketHandler;
 import panda.glassworks.util.events.ItemModelHandler;
+import panda.glassworks.util.events.SpyglassHandler;
 import panda.glassworks.util.events.ViewRenderHandler;
 import panda.glassworks.util.registry.ItemList;
 import panda.glassworks.worldgen.WorldGenerator;
@@ -49,7 +54,7 @@ public class GlassWorks
 		MinecraftForge.EVENT_BUS.register(new BucketHandler());
 		MinecraftForge.EVENT_BUS.register(new ViewRenderHandler());
 		MinecraftForge.EVENT_BUS.register(new ItemModelHandler());
-
+		
 	}
 
 	@EventHandler
@@ -57,6 +62,7 @@ public class GlassWorks
 	{ 
 		proxy.init(event);
 		GameRegistry.registerWorldGenerator(new WorldGenerator(), 0);
+		MinecraftForge.EVENT_BUS.register(new SpyglassHandler(new SpyglassGui(Minecraft.getMinecraft())));
 	}  
 	
 	public static final CreativeTabs GlassTab = new CreativeTabs(GlassWorks.MODID) {
