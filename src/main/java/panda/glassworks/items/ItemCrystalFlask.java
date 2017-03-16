@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.google.common.base.Predicate;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.boss.EntityDragon;
@@ -24,82 +26,68 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import panda.glassworks.GlassWorks;
 import panda.glassworks.util.registry.ItemList;
 
-import com.google.common.base.Predicate;
+public class ItemCrystalFlask extends Item {
 
-public class ItemCrystalFlask extends Item
-{
-	
-	    public ItemCrystalFlask()
-	    {
-	    	super();
-	    	this.setCreativeTab(GlassWorks.GlassTab);
-	    	setRegistryName("crystal_flask");
-	    }
-	    
-	    
-	    @SideOnly(Side.CLIENT)
-	    public boolean hasEffect(ItemStack stack)
-	    {
-	        return true;
-	    }
-	    
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
-    {
-        List<EntityAreaEffectCloud> list = worldIn.<EntityAreaEffectCloud>getEntitiesWithinAABB(EntityAreaEffectCloud.class, playerIn.getEntityBoundingBox().expandXyz(2.0D), new Predicate<EntityAreaEffectCloud>()
-        {
-            public boolean apply(@Nullable EntityAreaEffectCloud p_apply_1_)
-            {
-                return p_apply_1_ != null && p_apply_1_.isEntityAlive() && p_apply_1_.getOwner() instanceof EntityDragon;
-            }
-        });
+	public ItemCrystalFlask() {
+		super();
+		this.setCreativeTab(GlassWorks.GlassTab);
+		setRegistryName("crystal_flask");
+	}
 
-        
-            RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, true);
+	@SideOnly(Side.CLIENT)
+	public boolean hasEffect(ItemStack stack) {
+		return true;
+	}
 
-            if (raytraceresult == null)
-            {
-                return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
-            }
-            else
-            {
-                if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK)
-                {
-                    BlockPos blockpos = raytraceresult.getBlockPos();
+	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn,
+			EnumHand hand) {
+		List<EntityAreaEffectCloud> list = worldIn.<EntityAreaEffectCloud>getEntitiesWithinAABB(
+				EntityAreaEffectCloud.class, playerIn.getEntityBoundingBox().expandXyz(2.0D),
+				new Predicate<EntityAreaEffectCloud>() {
+					public boolean apply(@Nullable EntityAreaEffectCloud p_apply_1_) {
+						return p_apply_1_ != null && p_apply_1_.isEntityAlive()
+								&& p_apply_1_.getOwner() instanceof EntityDragon;
+					}
+				});
 
-                    if (!worldIn.isBlockModifiable(playerIn, blockpos) || !playerIn.canPlayerEdit(blockpos.offset(raytraceresult.sideHit), raytraceresult.sideHit, itemStackIn))
-                    {
-                        return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
-                    }
+		RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, true);
 
-                    if (worldIn.getBlockState(blockpos).getMaterial() == Material.WATER)
-                    {
-                        worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-                        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, this.turnBottleIntoItem(itemStackIn, playerIn, new ItemStack(ItemList.POTION_FLASK)));
-                    }
-                }
+		if (raytraceresult == null) {
+			return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
+		} else {
+			if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK) {
+				BlockPos blockpos = raytraceresult.getBlockPos();
 
-                return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
-            }
-        
-    }
+				if (!worldIn.isBlockModifiable(playerIn, blockpos) || !playerIn
+						.canPlayerEdit(blockpos.offset(raytraceresult.sideHit), raytraceresult.sideHit, itemStackIn)) {
+					return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
+				}
 
-    protected ItemStack turnBottleIntoItem(ItemStack p_185061_1_, EntityPlayer player, ItemStack stack)
-    {
-        --p_185061_1_.stackSize;
-        player.addStat(StatList.getObjectUseStats(this));
+				if (worldIn.getBlockState(blockpos).getMaterial() == Material.WATER) {
+					worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ,
+							SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+					return new ActionResult<ItemStack>(EnumActionResult.SUCCESS,
+							this.turnBottleIntoItem(itemStackIn, playerIn, new ItemStack(ItemList.POTION_FLASK)));
+				}
+			}
 
-        if (p_185061_1_.stackSize <= 0)
-        {
-            return stack;
-        }
-        else
-        {
-            if (!player.inventory.addItemStackToInventory(stack))
-            {
-                player.dropItem(stack, false);
-            }
+			return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
+		}
 
-            return p_185061_1_;
-        }
-    }
+	}
+
+	protected ItemStack turnBottleIntoItem(ItemStack p_185061_1_, EntityPlayer player, ItemStack stack) {
+		--p_185061_1_.stackSize;
+		player.addStat(StatList.getObjectUseStats(this));
+
+		if (p_185061_1_.stackSize <= 0) {
+			return stack;
+		} else {
+			if (!player.inventory.addItemStackToInventory(stack)) {
+				player.dropItem(stack, false);
+			}
+
+			return p_185061_1_;
+		}
+	}
 }

@@ -22,92 +22,75 @@ import net.minecraft.world.World;
 import panda.glassworks.GlassWorks;
 import panda.glassworks.util.registry.BlockList;
 
-public class ItemBucketTar extends ItemBucket{
+public class ItemBucketTar extends ItemBucket {
 
 	public ItemBucketTar() {
 		super(BlockList.TAR);
 		this.setCreativeTab(GlassWorks.GlassTab);
 		setRegistryName("tar_bucket");
-		
+
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
-    {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn,
+			EnumHand hand) {
 
-        RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, false);
-        
-        if (raytraceresult == null)
-        {
-            return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
-        }
-        else if (raytraceresult.typeOfHit != RayTraceResult.Type.BLOCK)
-        {
-            return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
-        }
-        else
-        {
-            BlockPos blockpos = raytraceresult.getBlockPos();
+		RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, false);
 
-            if (!worldIn.isBlockModifiable(playerIn, blockpos))
-            {
-                return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
-            }
-            
-            else
-            {
-                boolean flag1 = worldIn.getBlockState(blockpos).getBlock().isReplaceable(worldIn, blockpos);
-                BlockPos blockpos1 = flag1 && raytraceresult.sideHit == EnumFacing.UP ? blockpos : blockpos.offset(raytraceresult.sideHit);
+		if (raytraceresult == null) {
+			return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
+		} else if (raytraceresult.typeOfHit != RayTraceResult.Type.BLOCK) {
+			return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
+		} else {
+			BlockPos blockpos = raytraceresult.getBlockPos();
 
-                if (!playerIn.canPlayerEdit(blockpos1, raytraceresult.sideHit, itemStackIn))
-                {
-                    return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
-                }
-                else if (this.tryPlaceContainedLiquid(playerIn, worldIn, blockpos1))
-                {
-                    playerIn.addStat(StatList.getObjectUseStats(this));
-                    return !playerIn.capabilities.isCreativeMode ? new ActionResult<ItemStack>(EnumActionResult.SUCCESS, new ItemStack(Items.BUCKET)) : new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
-                }
-                else
-                {
-                    return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
-                }
-            }
-        }
-    }
-	
+			if (!worldIn.isBlockModifiable(playerIn, blockpos)) {
+				return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
+			}
+
+			else {
+				boolean flag1 = worldIn.getBlockState(blockpos).getBlock().isReplaceable(worldIn, blockpos);
+				BlockPos blockpos1 = flag1 && raytraceresult.sideHit == EnumFacing.UP ? blockpos
+						: blockpos.offset(raytraceresult.sideHit);
+
+				if (!playerIn.canPlayerEdit(blockpos1, raytraceresult.sideHit, itemStackIn)) {
+					return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
+				} else if (this.tryPlaceContainedLiquid(playerIn, worldIn, blockpos1)) {
+					playerIn.addStat(StatList.getObjectUseStats(this));
+					return !playerIn.capabilities.isCreativeMode
+							? new ActionResult<ItemStack>(EnumActionResult.SUCCESS, new ItemStack(Items.BUCKET))
+							: new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+				} else {
+					return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
+				}
+			}
+		}
+	}
+
 	@Override
-	 public boolean tryPlaceContainedLiquid(@Nullable EntityPlayer worldIn, World pos, BlockPos posIn)
-	    {
+	public boolean tryPlaceContainedLiquid(@Nullable EntityPlayer worldIn, World pos, BlockPos posIn) {
 
-	        
-	            IBlockState iblockstate = pos.getBlockState(posIn);
-	            Material material = iblockstate.getMaterial();
-	            boolean flag = !material.isSolid();
-	            boolean flag1 = iblockstate.getBlock().isReplaceable(pos, posIn);
+		IBlockState iblockstate = pos.getBlockState(posIn);
+		Material material = iblockstate.getMaterial();
+		boolean flag = !material.isSolid();
+		boolean flag1 = iblockstate.getBlock().isReplaceable(pos, posIn);
 
-	            if (!pos.isAirBlock(posIn) && !flag && !flag1)
-	            {
-	                return false;
-	            }
-	            else
-	            {
+		if (!pos.isAirBlock(posIn) && !flag && !flag1) {
+			return false;
+		} else {
 
-	                
-	                    if (!pos.isRemote && (flag || flag1) && !material.isLiquid())
-	                    {
-	                        pos.destroyBlock(posIn, true);
-	                    }
+			if (!pos.isRemote && (flag || flag1) && !material.isLiquid()) {
+				pos.destroyBlock(posIn, true);
+			}
 
-	                    SoundEvent soundevent = SoundEvents.ITEM_BUCKET_EMPTY_LAVA; //SoundEvents.ITEM_BUCKET_EMPTY;
-	                    pos.playSound(worldIn, posIn, soundevent, SoundCategory.BLOCKS, 1.0F, 1.0F);
-	                    pos.setBlockState(posIn, BlockList.TAR.getDefaultState(), 11);
-	                
+			SoundEvent soundevent = SoundEvents.ITEM_BUCKET_EMPTY_LAVA; // SoundEvents.ITEM_BUCKET_EMPTY;
+			pos.playSound(worldIn, posIn, soundevent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+			pos.setBlockState(posIn, BlockList.TAR.getDefaultState(), 11);
 
-	                return true;
-	            }
-	        
-	    }
+			return true;
+		}
+
+	}
 
 }

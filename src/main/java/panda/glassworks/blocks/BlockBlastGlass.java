@@ -9,7 +9,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import panda.glassworks.GlassWorks;
 
-public class BlockBlastGlass extends BlockGlass{
+public class BlockBlastGlass extends BlockGlass {
 
 	public BlockBlastGlass() {
 		super(Material.GLASS, false);
@@ -21,25 +21,20 @@ public class BlockBlastGlass extends BlockGlass{
 		this.useNeighborBrightness = true;
 		setRegistryName("blast_glass");
 	}
-	
+
 	@Override
-	public boolean isOpaqueCube(IBlockState state)
-    {
-        return false;
-    }
-	
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
+
 	@Override
-    protected boolean canSilkHarvest()
-    {
-        return true;
-    }
-	
+	protected boolean canSilkHarvest() {
+		return true;
+	}
+
 	@SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
-    {
-        return BlockRenderLayer.TRANSLUCENT;
-    }
-	
-	
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.TRANSLUCENT;
+	}
 
 }

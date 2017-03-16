@@ -7,6 +7,5 @@ import panda.glassworks.GlassWorks;
 public class Network {
 
 	public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(GlassWorks.MODID);
-	
-}
 
+}

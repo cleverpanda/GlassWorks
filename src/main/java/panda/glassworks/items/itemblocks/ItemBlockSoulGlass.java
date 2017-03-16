@@ -6,10 +6,13 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+<<<<<<< HEAD
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
+=======
+>>>>>>> origin/master
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
@@ -23,7 +26,7 @@ import panda.glassworks.blocks.BlockSoulGlass;
 import panda.glassworks.util.registry.BlockList;
 import panda.glassworks.util.registry.IMeta;
 
-public class ItemBlockSoulGlass extends ItemBlock implements IMeta{
+public class ItemBlockSoulGlass extends ItemBlock implements IMeta {
 
 	public ItemBlockSoulGlass(Block block) {
 		super(block);
@@ -33,6 +36,7 @@ public class ItemBlockSoulGlass extends ItemBlock implements IMeta{
 	}
 
 	@Override
+<<<<<<< HEAD
 	  public int getMetadata(int metadata)
 	  {
 	    return metadata;
@@ -51,6 +55,18 @@ public class ItemBlockSoulGlass extends ItemBlock implements IMeta{
 		 return stack.getMetadata() == 0? BlockList.SOUL_GLASS.getUnlocalizedName(): BlockList.SOUL_GLASS.getUnlocalizedName()+"_on";
     }
 	
+=======
+	public int getMetadata(int metadata) {
+		return metadata;
+	}
+
+	public String getUnlocalizedName(ItemStack stack) {
+		;
+		return stack.getMetadata() == 0 ? BlockList.SOUL_GLASS.getUnlocalizedName()
+				: BlockList.SOUL_GLASS.getUnlocalizedName() + "_on";
+	}
+
+>>>>>>> origin/master
 	@Override
 	public int getMaxMeta() {
 		return 1;
@@ -61,9 +77,9 @@ public class ItemBlockSoulGlass extends ItemBlock implements IMeta{
 		List<ModelResourceLocation> list = new ArrayList<ModelResourceLocation>();
 		Block block = this.getBlock();
 
-			list.add(new ModelResourceLocation(block.getRegistryName(), "ison=false"));
-			list.add(new ModelResourceLocation(block.getRegistryName(), "ison=true"));
-		
+		list.add(new ModelResourceLocation(block.getRegistryName(), "ison=false"));
+		list.add(new ModelResourceLocation(block.getRegistryName(), "ison=true"));
+
 		return list;
 	}
 	

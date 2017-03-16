@@ -14,8 +14,11 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+<<<<<<< HEAD
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
+=======
+>>>>>>> origin/master
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
@@ -30,14 +33,12 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import panda.glassworks.GlassWorks;
-import panda.glassworks.items.itemblocks.ItemBlockFancyGlass;
 import panda.glassworks.items.itemblocks.ItemBlockSoulGlass;
 
-public class BlockSoulGlass extends BlockGlass{
-
+public class BlockSoulGlass extends BlockGlass {
 
 	public static final PropertyBool isOn = PropertyBool.create("ison");
-	
+
 	public BlockSoulGlass() {
 		super(Material.GLASS, false);
 		this.setHardness(0.4F);
@@ -48,22 +49,39 @@ public class BlockSoulGlass extends BlockGlass{
 		setRegistryName("soul_glass");
 		GameRegistry.register(new ItemBlockSoulGlass(this));
 	}
-	
+
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return meta == 0? this.blockState.getBaseState().withProperty(isOn, false):this.blockState.getBaseState().withProperty(isOn, true);
+		return meta == 0 ? this.blockState.getBaseState().withProperty(isOn, false)
+				: this.blockState.getBaseState().withProperty(isOn, true);
 	}
+<<<<<<< HEAD
 	
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(isOn)? 1:0;
-	}
-	
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] {isOn});
+=======
+
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+		if (!worldIn.isRemote && worldIn.getBlockState(pos).getBlock() == this) {
+			if (worldIn.getBlockState(pos).getValue(isOn)) {
+				worldIn.setBlockState(pos, this.setLightOpacity(3).getDefaultState().withProperty(isOn, true), 2);
+			} else {
+				worldIn.setBlockState(pos, this.setLightOpacity(255).getDefaultState().withProperty(isOn, false), 2);
+			}
+
+		}
 	}
 
+>>>>>>> origin/master
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(isOn) ? 1 : 0;
+	}
+
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] { isOn });
+	}
+
+<<<<<<< HEAD
 	@Override //int value is light level blocked out of 15
 	public int getLightOpacity(IBlockState state, IBlockAccess world,BlockPos pos) {
 		return state == this.getStateFromMeta(0)? 13:2;
@@ -205,12 +223,43 @@ public class BlockSoulGlass extends BlockGlass{
 
 	//entityIn.isOnSameTeam(entityIn)
 	//entityIn.isOnScoreboardTeam(teamIn)
+=======
+	@Override
+	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox,
+			List<AxisAlignedBB> collidingBoxes, Entity entityIn) {
+		AxisAlignedBB blockBox = state.getCollisionBoundingBox(worldIn, pos);
+		AxisAlignedBB axisalignedbb = blockBox.offset(pos);
+
+		if (axisalignedbb != null && entityBox.intersectsWith(axisalignedbb) && entityIn != null
+				&& !((entityIn instanceof EntityPlayer) || entityIn.getControllingPassenger() instanceof EntityPlayer
+						|| entityIn.hasCustomName())) {
+			collidingBoxes.add(axisalignedbb);
+		}
+
+	}
+
+	@Override
+	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
+		if (!worldIn.isRemote) {
+			if (worldIn.isBlockPowered(pos)) {
+				worldIn.setBlockState(pos, getDefaultState().withProperty(isOn, true), 2);
+				this.setLightOpacity(3);
+			} else {
+				worldIn.setBlockState(pos, getDefaultState(), 2);
+			}
+		}
+	}
+
+	// entityIn.isOnSameTeam(entityIn)
+	// entityIn.isOnScoreboardTeam(teamIn)
+>>>>>>> origin/master
 
 	@Override
 	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
 		// TODO Auto-generated method stub
 		return super.isPassable(worldIn, pos);
 	}
+<<<<<<< HEAD
 	
 	//@Override
 	//public void onNeighborChange(IBlockAccess worldIn, BlockPos pos,BlockPos neighbor) {
@@ -227,9 +276,27 @@ public class BlockSoulGlass extends BlockGlass{
 		//notifySameNeighborsOfStateChange((World)worldIn,pos);*/
 		//super.onNeighborChange(worldIn, pos, neighbor);
 	//}
+=======
 
+	@SideOnly(Side.CLIENT)
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.TRANSLUCENT;
+	}
 
 	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+			EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+		if (worldIn.isBlockPowered(pos)) {
+			worldIn.setBlockState(pos, getDefaultState().withProperty(isOn, true), 2);
+			notifySameNeighborsOfStateChange(worldIn, pos);
+			return true;
+		}
+		return false;
+	}
+>>>>>>> origin/master
+
+	@Override
+<<<<<<< HEAD
 	public boolean onBlockActivated(World worldIn, BlockPos pos,IBlockState state, EntityPlayer playerIn, EnumHand hand,ItemStack heldItem, EnumFacing side, float hitX, float hitY,float hitZ) {
 		//if(worldIn.isBlockPowered(pos)){
 			//worldIn.setBlockState(pos, getDefaultState().withProperty(isOn, true), 2);
@@ -237,45 +304,82 @@ public class BlockSoulGlass extends BlockGlass{
 			return false;
 		//}
 		//return false;
+=======
+	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+		// TODO Auto-generated method stub
+		super.onEntityCollidedWithBlock(worldIn, pos, state, entityIn);
+>>>>>>> origin/master
 	}
-	
-	private void notifySameNeighborsOfStateChange(World worldIn, BlockPos pos)
-    {
-        if (worldIn.getBlockState(pos).getBlock() == this)
-        {
-            worldIn.notifyNeighborsOfStateChange(pos, this);
 
-            for (EnumFacing enumfacing : EnumFacing.values())
-            {
-                worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this);
-            }
-        }
-    }
+	private void notifySameNeighborsOfStateChange(World worldIn, BlockPos pos) {
+		if (worldIn.getBlockState(pos).getBlock() == this) {
+			worldIn.notifyNeighborsOfStateChange(pos, this);
+
+			for (EnumFacing enumfacing : EnumFacing.values()) {
+				worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this);
+			}
+		}
+	}
 
 	@Override
-	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess,
-			BlockPos pos, EnumFacing side) {
+	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
 		// TODO Auto-generated method stub
 		return super.getStrongPower(blockState, blockAccess, pos, side);
 	}
 
+<<<<<<< HEAD
 
 	
+=======
+	@Override
+	public void onNeighborChange(IBlockAccess worldIn, BlockPos pos, BlockPos neighbor) {
+		if (worldIn.getBlockState(pos).getBlock() == this) {
+
+			for (EnumFacing enumfacing : EnumFacing.values()) {
+				if (worldIn.getBlockState(pos.offset(enumfacing)).getValue(isOn) == true) {
+					((World) worldIn).setBlockState(pos, getDefaultState().withProperty(isOn, true), 2);
+				}
+			}
+		}
+		notifySameNeighborsOfStateChange((World) worldIn, pos);
+		super.onNeighborChange(worldIn, pos, neighbor);
+	}
+>>>>>>> origin/master
 
 	@Override
 	public boolean getWeakChanges(IBlockAccess world, BlockPos pos) {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
+=======
+		return true;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+		IBlockState iblockstate = worldIn.getBlockState(pos.offset(side));
+		Block block = iblockstate.getBlock();
+
+		if (block == this || iblockstate.getBlock() == this) {
+			return false;
+		}
+
+		if (state != iblockstate) {
+			return true;
+		}
+
+>>>>>>> origin/master
 		return false;
 	}
 
 	@Override
-	public void randomDisplayTick(IBlockState stateIn, World worldIn,
-			BlockPos pos, Random rand) {
+	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
 		// TODO Auto-generated method stub
 		super.randomDisplayTick(stateIn, worldIn, pos, rand);
 	}
 	
 	@Override
+<<<<<<< HEAD
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
 	{
 		//Double c = 40D;
@@ -286,8 +390,18 @@ public class BlockSoulGlass extends BlockGlass{
 		
 		//entityIn.addVelocity(-c*vx*vx*Math.signum(vx), -c*vy*vy*Math.signum(vy), -c*vz*vz*Math.signum(vz));
 		entityIn.addVelocity(-vx*.3,-vy*.3,-vz*.3 );
-	}
+=======
+	public Vec3d modifyAcceleration(World worldIn, BlockPos pos, Entity entityIn, Vec3d motion) {
 
+		/// this method used only for water, need to do something else
+		Double vx = motion.xCoord;
+		Double vy = motion.yCoord;
+		Double vz = motion.zCoord;
+		Double c = 1D;
+		return motion.subtract(c * vx * vx * Math.signum(vx), c * vy * vy * Math.signum(vy),
+				c * vz * vz * Math.signum(vz));
+>>>>>>> origin/master
+	}
 
 	@Override
 	public SoundType getSoundType() {
@@ -295,9 +409,27 @@ public class BlockSoulGlass extends BlockGlass{
 		return super.getSoundType();
 	}
 
+<<<<<<< HEAD
 	
 	
 
+=======
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
 
+	@Override
+	public int damageDropped(IBlockState state) {
+		return 0;
+	}
+
+	@Override
+	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+		list.add(new ItemStack(itemIn, 1, 0));
+		list.add(new ItemStack(itemIn, 1, 1));
+>>>>>>> origin/master
+
+	}
 
 }
