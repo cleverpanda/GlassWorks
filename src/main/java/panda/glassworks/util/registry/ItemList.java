@@ -18,11 +18,12 @@ import panda.glassworks.items.ItemPotionFlask;
 import panda.glassworks.items.ItemSpyglass;
 
 public final class ItemList {
-	
+
 	/*
-	 * Declare items here and then subsequently add them to getList(); They will be automatically moved to registration and model loading.
+	 * Declare items here and then subsequently add them to getList(); They will
+	 * be automatically moved to registration and model loading.
 	 */
-	
+
 	public static final Item BROKEN_GLASS = new ItemBase("broken_glass");
 	public static final Item SODA_ASH = new ItemBase("soda_ash");
 	public static final Item GLASS_MIX = new ItemBase("glass_mix");
@@ -32,8 +33,10 @@ public final class ItemList {
 	public static final Item MILK_BOTTLE = new ItemMilkBottle();
 	public static final Item BLOWPIPE = new ItemBlowpipe();
 	public static final Item TAR_BUCKET = new ItemBucketTar();
-	public static final Item LAMP_OIL_BUCKET = new ItemBase("lamp_oil_bucket").setContainerItem(Items.BUCKET).setMaxStackSize(1);
-	public static final Item LAMP_OIL_BOTTLE = new ItemBase("lamp_oil_bottle").setContainerItem(Items.GLASS_BOTTLE).setMaxStackSize(3);
+	public static final Item LAMP_OIL_BUCKET = new ItemBase("lamp_oil_bucket").setContainerItem(Items.BUCKET)
+			.setMaxStackSize(1);
+	public static final Item LAMP_OIL_BOTTLE = new ItemBase("lamp_oil_bottle").setContainerItem(Items.GLASS_BOTTLE)
+			.setMaxStackSize(3);
 	public static final Item GLASS_BOWL = new ItemGlassBowl();
 	public static final Item GLASS_LENS = new ItemBase("glass_lens");
 	public static final Item GLASS_LAMP = new ItemBase("glass_lamp");
@@ -49,12 +52,7 @@ public final class ItemList {
 	public static final Item OBSIDIAN_GLASS_MIX = new ItemBase("obsidian_glass_mix");
 	public static final Item EMPTY_LAMP = new ItemBase("empty_lamp").setMaxStackSize(16);
 	public static final Item SPYGLASS = new ItemSpyglass();
-	
-	
-	
-	
-	
-	
+
 	public static List<Item> getList() {
 		List<Item> list = new ArrayList<Item>();
 		list.add(BROKEN_GLASS);

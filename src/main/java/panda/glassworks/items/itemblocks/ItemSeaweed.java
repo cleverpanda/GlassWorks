@@ -12,51 +12,43 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import panda.glassworks.GlassWorks;
 
-public class ItemSeaweed extends ItemBlock{
+public class ItemSeaweed extends ItemBlock {
 	private Block theblock;
 
-    public ItemSeaweed(Block b)
-    {
-    	super(b);
-        this.theblock = b;
-        this.setCreativeTab(GlassWorks.GlassTab);
-        setRegistryName("seaweed");
-    }
+	public ItemSeaweed(Block b) {
+		super(b);
+		this.theblock = b;
+		this.setCreativeTab(GlassWorks.GlassTab);
+		setRegistryName("seaweed");
+	}
 
-    @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player,World world, BlockPos pos, EnumHand hand, EnumFacing side,float hitX, float hitY, float hitZ)
-    {
-        Block block = world.getBlockState(pos).getBlock();
+	@Override
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand,
+			EnumFacing side, float hitX, float hitY, float hitZ) {
+		Block block = world.getBlockState(pos).getBlock();
 
-        if (block == theblock || block == Blocks.SAND || block == Blocks.GRAVEL)
-        {
-            side = EnumFacing.UP;
-        }
+		if (block == theblock || block == Blocks.SAND || block == Blocks.GRAVEL) {
+			side = EnumFacing.UP;
+		}
 
-        if (!player.canPlayerEdit(pos.up(), side, stack))
-        {
-            return EnumActionResult.FAIL;
-        }
-        else if (stack.stackSize == 0)
-        {
-            return EnumActionResult.FAIL;
-        }
-        else
-        {
-        	if((block == theblock || block == Blocks.SAND || block == Blocks.GRAVEL) && world.getBlockState(pos.up()).getBlock() == Blocks.WATER && world.getBlockState(pos.up(2)).getBlock() != Blocks.AIR){
-                if (world.setBlockState(pos.up(), this.theblock.getDefaultState(), 2))
-                {
-                    if (world.getBlockState(pos.up()).getBlock() == this.theblock)
-                    {
-                        this.theblock.onBlockPlacedBy(world, pos, this.theblock.getDefaultState(), player, stack);
-                    }
+		if (!player.canPlayerEdit(pos.up(), side, stack)) {
+			return EnumActionResult.FAIL;
+		} else if (stack.stackSize == 0) {
+			return EnumActionResult.FAIL;
+		} else {
+			if ((block == theblock || block == Blocks.SAND || block == Blocks.GRAVEL)
+					&& world.getBlockState(pos.up()).getBlock() == Blocks.WATER
+					&& world.getBlockState(pos.up(2)).getBlock() != Blocks.AIR) {
+				if (world.setBlockState(pos.up(), this.theblock.getDefaultState(), 2)) {
+					if (world.getBlockState(pos.up()).getBlock() == this.theblock) {
+						this.theblock.onBlockPlacedBy(world, pos, this.theblock.getDefaultState(), player, stack);
+					}
 
-                    
-                    --stack.stackSize;
-                }
-            }
-        }
+					--stack.stackSize;
+				}
+			}
+		}
 
-            return EnumActionResult.SUCCESS;
-        }
+		return EnumActionResult.SUCCESS;
+	}
 }

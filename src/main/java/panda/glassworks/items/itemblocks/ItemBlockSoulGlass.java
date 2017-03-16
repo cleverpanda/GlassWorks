@@ -6,13 +6,9 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-<<<<<<< HEAD
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
-=======
->>>>>>> origin/master
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
@@ -36,37 +32,22 @@ public class ItemBlockSoulGlass extends ItemBlock implements IMeta {
 	}
 
 	@Override
-<<<<<<< HEAD
-	  public int getMetadata(int metadata)
-	  {
-	    return metadata;
-	  }
-	
-	@SideOnly(Side.CLIENT)
-    @Override
-    public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> list)
-    {
-        list.add(new ItemStack(itemIn, 1, 0));
-        list.add(new ItemStack(itemIn, 1, 1));
-    }
-	
-	public String getUnlocalizedName(ItemStack stack)
-    {
-		 return stack.getMetadata() == 0? BlockList.SOUL_GLASS.getUnlocalizedName(): BlockList.SOUL_GLASS.getUnlocalizedName()+"_on";
-    }
-	
-=======
 	public int getMetadata(int metadata) {
 		return metadata;
 	}
 
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+		list.add(new ItemStack(itemIn, 1, 0));
+		list.add(new ItemStack(itemIn, 1, 1));
+	}
+
 	public String getUnlocalizedName(ItemStack stack) {
-		;
 		return stack.getMetadata() == 0 ? BlockList.SOUL_GLASS.getUnlocalizedName()
 				: BlockList.SOUL_GLASS.getUnlocalizedName() + "_on";
 	}
 
->>>>>>> origin/master
 	@Override
 	public int getMaxMeta() {
 		return 1;
@@ -82,34 +63,32 @@ public class ItemBlockSoulGlass extends ItemBlock implements IMeta {
 
 		return list;
 	}
-	
+
 	@Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
-        IBlockState state = world.getBlockState(pos);
-        Block block = state.getBlock();
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand,
+			EnumFacing facing, float hitX, float hitY, float hitZ) {
+		IBlockState state = world.getBlockState(pos);
+		Block block = state.getBlock();
 
-        if (!block.isReplaceable(world, pos))
-        {
-            pos = pos.offset(facing);
-        }
+		if (!block.isReplaceable(world, pos)) {
+			pos = pos.offset(facing);
+		}
 
-        if (stack.stackSize != 0 && player.canPlayerEdit(pos, facing, stack) && world.canBlockBePlaced(this.block, pos, false, facing, null, stack))
-        {
-            BlockSoulGlass block2 = (BlockSoulGlass) Block.getBlockFromItem(stack.getItem());
-            IBlockState state2 = block2.getStateFromMeta(stack.getMetadata());
-            if (placeBlockAt(stack, player, world, pos, facing, hitX, hitY, hitZ, state2))
-            {
-            	//SoundType soundtype = SoundType.WOOD;
-                //world.playSound(player, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
-                --stack.stackSize;
-            }
+		if (stack.stackSize != 0 && player.canPlayerEdit(pos, facing, stack)
+				&& world.canBlockBePlaced(this.block, pos, false, facing, null, stack)) {
+			BlockSoulGlass block2 = (BlockSoulGlass) Block.getBlockFromItem(stack.getItem());
+			IBlockState state2 = block2.getStateFromMeta(stack.getMetadata());
+			if (placeBlockAt(stack, player, world, pos, facing, hitX, hitY, hitZ, state2)) {
+				// SoundType soundtype = SoundType.WOOD;
+				// world.playSound(player, pos, soundtype.getPlaceSound(),
+				// SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F,
+				// soundtype.getPitch() * 0.8F);
+				--stack.stackSize;
+			}
 
-            return EnumActionResult.SUCCESS;
-        }
-        else
-        {
-            return EnumActionResult.FAIL;
-        }
-    }
+			return EnumActionResult.SUCCESS;
+		} else {
+			return EnumActionResult.FAIL;
+		}
+	}
 }

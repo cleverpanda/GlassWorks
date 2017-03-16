@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPane;
-import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.fluids.Fluid;
 import panda.glassworks.blocks.BlockBlastGlass;
@@ -20,12 +18,13 @@ import panda.glassworks.blocks.BlockStainedGlassSlab;
 import panda.glassworks.blocks.BlockTarFluid;
 import panda.glassworks.blocks.TarFluid;
 
-public final class BlockList{
+public final class BlockList {
 
 	/*
-	 * Declare blocks here and then subsequently add them to getList(); They will be automatically moved to registration and model loading.
+	 * Declare blocks here and then subsequently add them to getList(); They
+	 * will be automatically moved to registration and model loading.
 	 */
-	
+
 	public static final Block SEAWEED = new BlockSeaweed();
 	public static final Fluid TAR_FLUID = new TarFluid();
 	public static final Block TAR = new BlockTarFluid(TAR_FLUID);
@@ -34,15 +33,14 @@ public final class BlockList{
 	public static final Block LANTERN = new BlockLantern(false);
 	public static final Block LAMP = new BlockLamp(false);
 	public static final Block BLAST_GLASS = new BlockBlastGlass();
-	public static final Block BLAST_GLASS_SLAB = new BlockGlassSlabBase("blast_glass_slab",BLAST_GLASS).setLightOpacity(40);
-	public static final Block GLASS_SLAB = new BlockGlassSlabBase("glass_slab",Blocks.GLASS);
+	public static final Block BLAST_GLASS_SLAB = new BlockGlassSlabBase("blast_glass_slab", BLAST_GLASS)
+			.setLightOpacity(40);
+	public static final Block GLASS_SLAB = new BlockGlassSlabBase("glass_slab", Blocks.GLASS);
 	public static final Block SOUL_GLASS = new BlockSoulGlass();
 	public static final Block FANCY_WHITE_SLAB = new BlockStainedGlassSlab("fancy_white_slab");
-	//public static final Block BLAST_GLASS_PANE = new BlockPane(Material.GLASS, false);
-	
-	
-	
-	
+	// public static final Block BLAST_GLASS_PANE = new
+	// BlockPane(Material.GLASS, false);
+
 	public static List<Block> getList() {
 		List<Block> list = new ArrayList<Block>();
 		list.add(SEAWEED);
@@ -56,10 +54,8 @@ public final class BlockList{
 		list.add(BLAST_GLASS);
 		list.add(BLAST_GLASS_SLAB);
 		list.add(SOUL_GLASS);
-		
+
 		return list;
 	}
 
-	
-	
 }
