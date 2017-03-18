@@ -3,7 +3,13 @@ package panda.glassworks.worldgen;
 import java.util.Random;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeOcean;
@@ -13,6 +19,7 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import panda.glassworks.GlassWorks;
+import panda.glassworks.blocks.BlockSeaweed;
 import panda.glassworks.util.registry.BlockList;
 
 public class WorldGenerator implements IWorldGenerator {
@@ -74,47 +81,45 @@ public class WorldGenerator implements IWorldGenerator {
 
 	}
 
-	private void makeSeaweedCluster(int chunkX, int chunkZ, Random random, World world, int min, int max) {
+	private void makeSeaweedCluster(int chunkX, int chunkZ, Random rand, World world, int min, int max) {
 
-		int randX, randZ, numShoots;
+		int randX, randZ;
 		int num;
 		if (min == max) {
 			num = min;
 		} else {
-			num = min + random.nextInt(max - min);
+			num = MathHelper.getRandomIntegerInRange(rand, min, max);
 		}
 
-		randX = chunkX * 16 + random.nextInt(16);
-		randZ = chunkZ * 16 + random.nextInt(16);
-		numShoots = 5 + random.nextInt(7);
+		randX = chunkX * 16 + rand.nextInt(16);
+		randZ = chunkZ * 16 + rand.nextInt(16);
 
 		for (int i = 0; i < num; i++) {
-			for (int s = 0; s < numShoots; s++) {
-				BlockPos pos = world.getHeight(new BlockPos(randX, 0, randZ));
-				makeSeaweed(world, random, scatter(pos, random, 1, 6), 4, 12);
-			}
+				BlockPos pos = new BlockPos(randX, 0, randZ);
+				makeSeaweed(world, rand, scatter(pos, rand, 1, 6));
 		}
 	}
 
-	private void makeSeaweed(World world, Random random, BlockPos position, int minheight, int maxheight) {
-		BlockPos seaBedPos;
-		int height = 0;
-		for (seaBedPos = position.down(); world.getBlockState(seaBedPos)
-				.getMaterial() == Material.WATER; seaBedPos = seaBedPos.down()) {
-			;
+	private void makeSeaweed(World world, Random rand, BlockPos pos){
+		BlockPos seaBedPos = new BlockPos(pos.getX(), 47, pos.getZ());
+		while(world.getBlockState(seaBedPos).getMaterial().isLiquid()){
+			seaBedPos = seaBedPos.down();
 		}
-		// GlassWorks.log.info("Seabed @"+seaBedPos);
+		int height = MathHelper.clamp_int(world.getSeaLevel() - seaBedPos.getY() - rand.nextInt(40), 1, 10);
+		if(height == 1) height = rand.nextInt(6) + 1;
 
-		if (minheight == maxheight) {
-			height = minheight;
-		} else {
-			height = minheight + random.nextInt(maxheight - minheight);
-		}
-
-		for (int i = 1; i < height; i++) {
-			// if(((BlockSeaweed)GlassBlocks.SEAWEED).canPlaceBlockAt(world,position)){
-			world.setBlockState(seaBedPos.up(i), BlockList.SEAWEED.getDefaultState());
-			// }
+		if(BlockList.SEAWEED.canPlaceBlockAt(world, seaBedPos.up())){
+		//System.out.println("Trying seaweed gen at pos " + seaBedPos.toString() + " which is a block known as " + world.getBlockState(seaBedPos).getBlock().getRegistryName() + " with height " + height);
+			if(height == 1) world.setBlockState(seaBedPos.up(1), BlockList.SEAWEED.getDefaultState());
+			else if (height > 1){
+				world.setBlockState(seaBedPos.up(1), BlockList.SEAWEED.getDefaultState().withProperty(BlockSeaweed.STAGE, 1));
+				int k = 2;
+				while(k < height && k > 1){
+					world.setBlockState(seaBedPos.up(k), BlockList.SEAWEED.getDefaultState().withProperty(BlockSeaweed.STAGE, 3));
+					++k;
+				}
+				world.setBlockState(seaBedPos.up(height), BlockList.SEAWEED.getDefaultState().withProperty(BlockSeaweed.STAGE, 2));
+			}
 		}
 	}
 
