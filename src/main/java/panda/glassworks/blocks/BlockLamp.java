@@ -80,9 +80,11 @@ public class BlockLamp extends Block {
 
 	private boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing) {
 		BlockPos blockpos = pos.offset(facing.getOpposite());
+		if(facing != EnumFacing.UP)
+			return false;
 		return worldIn.isSideSolid(blockpos, facing, true)
 				|| (((worldIn.getBlockState(blockpos).getBlock() instanceof BlockFence)
-						|| (worldIn.getBlockState(pos).getBlock() instanceof BlockWall)) && (facing == EnumFacing.UP));
+						|| (worldIn.getBlockState(pos).getBlock() instanceof BlockWall)) && (facing == EnumFacing.UP)) ;
 	}
 
 	// TODO
@@ -137,11 +139,15 @@ public class BlockLamp extends Block {
 			return true;
 		} else {
 			EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
+			EnumFacing enumfacing1 = enumfacing.getOpposite();
 			boolean flag = false;
 
-			if (!worldIn.isSideSolid(pos, enumfacing, true)
-					&& !(worldIn.getBlockState(pos).getBlock() instanceof BlockFence)
-					&& !(worldIn.getBlockState(pos).getBlock() instanceof BlockWall)) {
+			if(enumfacing == EnumFacing.DOWN){
+				flag = true;
+			}
+			if (!worldIn.isSideSolid(pos.offset(enumfacing1), enumfacing, true)
+					&& !(worldIn.getBlockState(pos.offset(enumfacing1)).getBlock() instanceof BlockFence)
+					&& !(worldIn.getBlockState(pos.offset(enumfacing1)).getBlock() instanceof BlockWall)) {
 				flag = true;
 			}
 

@@ -35,7 +35,7 @@ public class BlockSeaweed extends Block {
 		this.setHardness(0.05F);
 		this.setSoundType(SoundType.PLANT);
 		this.setDefaultState(blockState.getBaseState().withProperty(STAGE, 0).withProperty(LEVEL, 15));
-		this.setLightLevel(3);
+		this.setLightLevel(1);
 		setTickRandomly(true);
 		setCreativeTab(GlassWorks.GlassTab);
 		setRegistryName("seaweed");
@@ -59,7 +59,8 @@ public class BlockSeaweed extends Block {
 		Iterable<MutableBlockPos> list = BlockPos.getAllInBoxMutable(pos.add(-1, 0, -1), pos.add(1, 0, 1));
 
 		for (MutableBlockPos blockpos : list) {
-			if (world.getBlockState(blockpos).getMaterial() != Material.WATER)
+			if (world.getBlockState(blockpos).getMaterial() != Material.WATER && (world.getBlockState(blockpos).getBlock() != Blocks.PRISMARINE)
+					&& (world.getBlockState(blockpos).getBlock() != Blocks.SEA_LANTERN)&& (world.getBlockState(blockpos).getBlock() != Blocks.SPONGE))
 				return false;
 		}
 		return true;
@@ -77,7 +78,7 @@ public class BlockSeaweed extends Block {
 
 	boolean hasOkBelow(World world, BlockPos pos) {
 		IBlockState state = world.getBlockState(pos.down());
-		return state.getMaterial().isSolid() || state.getBlock() == this;
+		return state.getBlock() == this || state.getBlock() == Blocks.GRAVEL || state.getBlock() == Blocks.SAND || state.getBlock() == Blocks.SPONGE;
 	}
 
 	@Override

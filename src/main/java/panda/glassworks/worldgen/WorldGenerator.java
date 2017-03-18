@@ -60,7 +60,7 @@ public class WorldGenerator implements IWorldGenerator {
 			}
 
 			if (biome instanceof BiomeOcean) {
-				makeSeaweedCluster(chunkX, chunkZ, random, world, 0, 2);
+				makeSeaweedCluster(chunkX, chunkZ, random, world, 0, 6);
 			}
 		}
 

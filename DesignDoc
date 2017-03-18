@@ -11,8 +11,7 @@ lanterns
 	take redstone signals to relight when in block form
 Oil Lamp
 	extinguishes faster than Lantern
-	cannot place on cielings 
-	//what about walls?
+
 lantern carts and boats
 	renders lantern in minecart
  	moving light source
@@ -81,9 +80,6 @@ add blast glass pane
 	
 	
 -----TO-DO-SMALL-STUFF-----
-
-bucket of tar acts as fuel
-
 use glass lens to start fires?
 	//def would be a config option if implemented
 	//too easy for fire?
@@ -123,8 +119,6 @@ fish bowl block? :)
 blowpipe easter egg
 
 
-
-
 -----BUGS-----
 being incased in tar renders water overlay
 
@@ -132,19 +126,14 @@ being inside soul glass doesnt render the glass at all
 
 oil lamp model has no texture
 
-placing oil lamp adjacent to another oil lamp borks
-	placing ANYTHING next to it borks
-	
-placing lantern on top of lantern pops off when it should really just deny the placement
-
 lantern block should rotate based on player position when placed on ground
 
-seaweed adjacent to a solid block pops off on update
-	how to determine if its actually underwater or if someone is just making a pillar of water above ground and trying to put seaweed in it?
-
 spyglass 
-	fix overlay when in use
+	overlay does not center properly
+	
+lanterns and lamps need to stack to 16
 
+tar bucket is consumed when using as fuel
 
 -----Tie Ins-----
 Flour+Swamp Tar == Swamp Paste //counts as glue for MTS

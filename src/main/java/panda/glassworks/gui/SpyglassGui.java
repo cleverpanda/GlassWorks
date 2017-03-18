@@ -39,31 +39,36 @@ public class SpyglassGui extends Gui {
 		// yPos /= scalefact;
 		// System.out.println(scalefact*OVERLAY_HEIGHT+", "+screenHeight);
 		// System.out.println(scalefact*OVERLAY_WIDTH+", "+screenWidth);
-
+		
+		GlStateManager.pushAttrib();
 		GL11.glPushMatrix();
+
 		mc.renderEngine.bindTexture(overlay);
 		GL11.glScalef(scalefact, scalefact, 1);
+		
+		//GlStateManager.colorMask(true, true, true, false);
+
+		GlStateManager.disableDepth();
+		
 		if (scalefact1 > scalefact2) {
+			System.out.println("allign left");
 			this.drawTexturedModalRect(0, yPos, 0, 0, 256, 256);
-
-			// System.out.println("allign left");
+			this.drawRect(0, 0,screenWidth , yPos);
+			this.drawRect(0, yPos+OVERLAY_HEIGHT, screenWidth, screenHeight);
+			
 		} else {
+			System.out.println("allign top");
 			this.drawTexturedModalRect(xPos, 0, 0, 0, 256, 256);
-			// System.out.println("allign top");
-			// this.drawRect(0, 0, xPos, screenHeight);
-			// this.drawRect(xPos+OVERLAY_WIDTH, 0, screenWidth, screenHeight);
+			this.drawRect(0, 0, xPos, screenHeight);
+			this.drawRect(xPos+OVERLAY_WIDTH, 0, screenWidth, screenHeight);
 		}
-
+		
 		// System.out.println(mc.displayWidth +"X"+mc.displayHeight+" , "+width
 		// +"X"+height);
 
-		// this.drawTexturedModalRect(0, 0, 4096-screenWidth/2,
-		// 4096-screenHeight/2, screenWidth, screenHeight);
-
-		// this.drawRect(0, 0, xPos, height);
-		// this.drawRect((int) (xPos+scalefact*256), 0, screenWidth,
-		// screenHeight, 255);
+		GlStateManager.enableDepth();
 		GL11.glPopMatrix();
+		GlStateManager.popAttrib();
 	}
 
 	public static void drawRect(int left, int top, int right, int bottom) {
@@ -87,7 +92,7 @@ public class SpyglassGui extends Gui {
 		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA,
 				GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE,
 				GlStateManager.DestFactor.ZERO);
-		GlStateManager.color(0, 0, 0, 1);
+		GlStateManager.color(0, 0, 0, 1f);
 		vertexbuffer.begin(7, DefaultVertexFormats.POSITION);
 		vertexbuffer.pos((double) left, (double) bottom, 0.0D).endVertex();
 		vertexbuffer.pos((double) right, (double) bottom, 0.0D).endVertex();

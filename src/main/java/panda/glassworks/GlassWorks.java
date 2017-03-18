@@ -22,13 +22,14 @@ import panda.glassworks.util.events.ItemModelHandler;
 import panda.glassworks.util.events.SpyglassHandler;
 import panda.glassworks.util.events.ViewRenderHandler;
 import panda.glassworks.util.registry.ItemList;
+import panda.glassworks.util.registry.recipe.FuelHandler;
 import panda.glassworks.worldgen.WorldGenerator;
 
 @Mod(modid = GlassWorks.MODID, name = GlassWorks.NAME, version = GlassWorks.VERSION, dependencies = "after:biomesoplenty")
 
 public class GlassWorks {
 	public static final String MODID = "glassworks";
-	public static final String VERSION = "0.20.2";
+	public static final String VERSION = "0.24.0";
 	public static final String NAME = "Glass Works";
 
 	@SidedProxy(serverSide = "panda.glassworks.proxy.ServerProxy", clientSide = "panda.glassworks.proxy.ClientProxy")
@@ -48,7 +49,7 @@ public class GlassWorks {
 		MinecraftForge.EVENT_BUS.register(new BucketHandler());
 		MinecraftForge.EVENT_BUS.register(new ViewRenderHandler());
 		MinecraftForge.EVENT_BUS.register(new ItemModelHandler());
-
+		GameRegistry.registerFuelHandler(new FuelHandler());
 	}
 
 	@EventHandler
