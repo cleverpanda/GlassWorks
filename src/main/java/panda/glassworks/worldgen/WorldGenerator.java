@@ -2,14 +2,8 @@ package panda.glassworks.worldgen;
 
 import java.util.Random;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeOcean;
@@ -95,30 +89,38 @@ public class WorldGenerator implements IWorldGenerator {
 		randZ = chunkZ * 16 + rand.nextInt(16);
 
 		for (int i = 0; i < num; i++) {
-				BlockPos pos = new BlockPos(randX, 0, randZ);
-				makeSeaweed(world, rand, scatter(pos, rand, 1, 6));
+			BlockPos pos = new BlockPos(randX, 0, randZ);
+			makeSeaweed(world, rand, scatter(pos, rand, 1, 6));
 		}
 	}
 
-	private void makeSeaweed(World world, Random rand, BlockPos pos){
+	private void makeSeaweed(World world, Random rand, BlockPos pos) {
 		BlockPos seaBedPos = new BlockPos(pos.getX(), 47, pos.getZ());
-		while(world.getBlockState(seaBedPos).getMaterial().isLiquid()){
+		while (world.getBlockState(seaBedPos).getMaterial().isLiquid()) {
 			seaBedPos = seaBedPos.down();
 		}
 		int height = MathHelper.clamp_int(world.getSeaLevel() - seaBedPos.getY() - rand.nextInt(40), 1, 10);
-		if(height == 1) height = rand.nextInt(6) + 1;
+		if (height == 1)
+			height = rand.nextInt(6) + 1;
 
-		if(BlockList.SEAWEED.canPlaceBlockAt(world, seaBedPos.up())){
-		//System.out.println("Trying seaweed gen at pos " + seaBedPos.toString() + " which is a block known as " + world.getBlockState(seaBedPos).getBlock().getRegistryName() + " with height " + height);
-			if(height == 1) world.setBlockState(seaBedPos.up(1), BlockList.SEAWEED.getDefaultState());
-			else if (height > 1){
-				world.setBlockState(seaBedPos.up(1), BlockList.SEAWEED.getDefaultState().withProperty(BlockSeaweed.STAGE, 1));
+		if (BlockList.SEAWEED.canPlaceBlockAt(world, seaBedPos.up())) {
+			// System.out.println("Trying seaweed gen at pos " +
+			// seaBedPos.toString() + " which is a block known as " +
+			// world.getBlockState(seaBedPos).getBlock().getRegistryName() + "
+			// with height " + height);
+			if (height == 1)
+				world.setBlockState(seaBedPos.up(1), BlockList.SEAWEED.getDefaultState());
+			else if (height > 1) {
+				world.setBlockState(seaBedPos.up(1),
+						BlockList.SEAWEED.getDefaultState().withProperty(BlockSeaweed.STAGE, 1));
 				int k = 2;
-				while(k < height && k > 1){
-					world.setBlockState(seaBedPos.up(k), BlockList.SEAWEED.getDefaultState().withProperty(BlockSeaweed.STAGE, 3));
+				while (k < height && k > 1) {
+					world.setBlockState(seaBedPos.up(k),
+							BlockList.SEAWEED.getDefaultState().withProperty(BlockSeaweed.STAGE, 3));
 					++k;
 				}
-				world.setBlockState(seaBedPos.up(height), BlockList.SEAWEED.getDefaultState().withProperty(BlockSeaweed.STAGE, 2));
+				world.setBlockState(seaBedPos.up(height),
+						BlockList.SEAWEED.getDefaultState().withProperty(BlockSeaweed.STAGE, 2));
 			}
 		}
 	}
